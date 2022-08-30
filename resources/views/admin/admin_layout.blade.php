@@ -101,7 +101,7 @@
                     <div class="logo-background-admin" id="logo-background-admin">
                         <a href="" class="logo">
                             <img class="logo-img" id="logo-img" src="{{URL::to('public/uploads/slider/logo2.png')}}">
-                            <b class="logo-b1">TEDDY</b><b class="logo-b2">SHOP</b>
+                            <b class="logo-b1">TEDDY</b><b class="logo-b2">SHOPP</b>
                         </a>
                     </div>
                     <hr>
