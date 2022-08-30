@@ -1,0 +1,83 @@
+/* .paginate-product-main{
+    width: 100%;
+    text-align: right;
+} */
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #A0522D;
+    border-color: #A0522D;
+}
+.page-link  {
+    padding: 0.375rem 0.75rem;
+    color: #A0522D;
+    background-color: antiquewhite;
+    border-color: #A0522D;
+    /* border-top:0.5px solid #A0522D;
+    border-left: 0.5px solid #A0522D;
+    border-right: 0.5px solid #A0522D;
+    border-bottom: 0.5px solid #A0522D; */
+}
+.page-link:hover {
+    color: #fff;
+    background-color: #A0522D;
+    border-color: #A0522D;
+}
+.page-link:active {
+    color: #fff;
+    background-color:antiquewhite;
+    border-color: #A0522D;
+}
+.text-muted {
+    color: #A0522D!important;
+    font-weight: bold;
+}
+.text-muted {
+    color: #A0522D!important;
+    font-weight: bold;
+}
+h2{
+    color: #A0522D;
+}
+/* Button */
+.confirm.btn.btn-lg.btn-primary{
+    color: antiquewhite;
+    background-color: #A0522D;
+    border: #A0522D;
+    font-weight: bold;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.confirm.btn.btn-lg.btn-primary:hover{
+    color: #A0522D;
+    background-color: antiquewhite;
+    border: antiquewhite;
+    font-weight: bold;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.confirm.btn.btn-lg.btn-primary:active{
+    color: antiquewhite;
+    background-color: #A0522D;
+    border: #A0522D;
+    font-weight: bold;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.confirm.btn.btn-lg.btn-primary:focus{
+    color: antiquewhite;
+    background-color: #A0522D;
+    border: #A0522D;
+    font-weight: bold;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.confirm.btn.btn-lg.btn-primary:visited{
+    color: antiquewhite;
+    background-color: #A0522D;
+    border: #A0522D;
+    font-weight: bold;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+/* btn upload ảnh */
+/* input #file-upload-button{
+    background-color: #A0522D;
+    color: antiquewhite;
+} */

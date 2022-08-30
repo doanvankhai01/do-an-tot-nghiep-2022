@@ -12,7 +12,7 @@ class BrandModel extends Model
         'brand_name','brand_slug','brand_desc','brand_status','created_at','updated_at'
     ];
     protected $primaryKey = 'brand_id';
-    protected $table = 'tbl_brand_product';
+    protected $table = 'tbl_brand';
 
     public function product_model(){
         return $this->hasMany('App\Models\Product','brand_id');

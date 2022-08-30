@@ -1,0 +1,913 @@
+/* Show sản phẩm ------------------------------------------------------------------------------------------------------------------------------------------ */
+/* chuyển nội dung quá dài thành dấu 3 chấm */  
+.body-homepage{
+    background-color: 	#FFF0F5;
+    /* background-image: url("{{URL::to('public/uploads/slider/131170.jpg')}}");
+    background-size: 100% 200%; */
+}
+.rename-to-dot{
+    -webkit-line-clamp: 1;/* số dòng hiển thị */
+    -webkit-box-orient: horizontal;/* Hiển thị theo chiều ngang */
+    white-space: nowrap; /* Khoảng trắng */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* clip là cắt 
+        ellipsis là 3 chấm    
+    */
+}
+div.col-col-333{
+    text-align: center;
+}
+.cart-product-home:link, .cart-product-home:visited {
+    background-color:white;
+    color: #FF3366;
+    text-align: center;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+}
+/* khi rê chỏ chuột vào 
+    hover:di chuột
+    active:hoạt động
+*/
+.cart-product-home:hover, .cart-product-home:active {
+    background-color:pink;
+    color: white;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    display: inline-block;
+    width: 100.5%;
+    height: auto;
+    transition: 0.1;
+    margin-left: -1px;
+}
+img.card-img-top{
+    width: 100%;
+    height: 300px;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+    border-bottom-left-radius:none;
+    border-bottom-right-radius:none;
+
+}
+
+div.product-home-cart{
+    width: 99%;
+    height: 94.8%;
+    /* border: 2px solid #FF9999; */
+    border-top:2px solid #FF9999;
+    border-left: 2px solid #FF9999;
+    border-right: 2px solid #FF9999;
+    border-bottom: 2px solid #FF9999;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    border-bottom-left-radius:11px;
+    border-bottom-right-radius:11px;
+    text-align: center;
+    display: inline-block;
+}
+div.product-home-cart:hover{
+    width: 100%;
+    height: 94.8%;
+    /* border: 2px solid #FF9999; */
+    border-top:2px solid #FF9999;
+    border-left: 2px solid #FF9999;
+    border-right: 2px solid #FF9999;
+    border-bottom: 2px solid #FF9999;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    border-bottom-left-radius:11px;
+    border-bottom-right-radius:11px;
+    text-align: center;
+    display: inline-block;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+div.button-cart-product-home{
+    text-align:center;
+    background-color: pink;
+    border-bottom-left-radius:11px;
+    border-bottom-right-radius:11px;
+}
+button.button-cart-product-home{
+    width: 100%;
+    height: 100%;
+    border:none;
+    background-color: #FF9999;
+    color:#FF3366;
+    box-align: center;
+    padding: 10px 24px;
+    border-radius:none; 
+    font-weight: bold;
+    border-bottom-left-radius:7px;
+    border-bottom-right-radius:7px;
+}   
+/* khi rê chỏ chuột vào 
+    hover:di chuột
+    active:hoạt động
+*/
+button.button-cart-product-home:hover{
+    width: 100%;
+    height: auto;
+    transition: 0.1;
+    margin-left: -1px;
+    background-color: pink;
+    border: none;
+    color: white; 
+    border-bottom-left-radius:7px;
+    border-bottom-right-radius:7px;
+    transition: 0.1;
+    margin-left: 0.5px;
+}
+button.button-cart-product-home:active{
+    width: 100%;
+    height: 100%;
+    border:none;
+    background-color: #FF9999;
+    color:#FF3366;
+    box-align: center;
+    padding: 10px 24px;
+    border-radius:none; 
+    font-weight: bold;
+    border-bottom-left-radius:7px;
+    border-bottom-right-radius:7px;
+}   
+div.button-cart-product-full-home{
+    text-align: center;
+}
+a.button-cart-product-full-home{
+    text-decoration: none;
+    width: auto;
+    height: auto;
+    border:none;
+    background-color: #FF9999;
+    color:#FF3366;
+    box-align: center;
+    padding: 10px 24px;
+    border-radius:none; 
+    font-weight: bold;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius:7px;
+    border-bottom-right-radius:7px;
+    /* chuyển đổi thành dấu 3 chấm */
+}
+a.button-cart-product-full-home:hover{
+    text-decoration: none;
+    width: 30%;
+    height: 140%;
+    background-color: pink;
+    border: none;
+    color: white;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius:7px;
+    border-bottom-right-radius:7px;
+}
+
+h2.title-product-home{
+    font-family: "Trirong", serif;  
+    text-align:center;
+    color:#FF3366;
+    font-weight: bold;
+}
+/* Menu trang chủ=================================================================================================================================================== */
+div.class-menu-menu{
+    background-color: pink;
+    width: 100.65%;
+    height: auto;
+}
+/* Cuộn trang cố định menu*/
+.sticky {
+    position: fixed;
+    z-index: 999;
+    /* Một phần tử với position: fixed;được định vị so với chế độ xem, có nghĩa là nó luôn ở cùng một vị trí ngay cả khi trang được cuộn. 
+    Các thuộc tính trên cùng, bên phải, bên dưới và bên trái được sử dụng để định vị phần tử. */
+    top: 0;
+  }
+
+  /*  */
+a.a-class-menu{
+    border-top:2px solid pink;
+    border-left: 2px solid pink;
+    border-right: 2px solid pink;
+    border-bottom: 2px solid pink;
+    text-decoration: none;
+    background-color: pink;
+    font-size: large;
+    color:#FF3366;
+    font-weight: bold;
+    font-size: 22px;
+    border:1px solid rgb(231, 9, 9);
+    width:100%;
+    height: auto;
+    padding: 2px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius:7px;
+    border-bottom-right-radius:7px;
+}
+a.a-class-menu:hover{
+    width: 100%;
+    height: 55px;
+    text-decoration: none;
+    background-color: #FF3366;
+    color:whitesmoke;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius:7px;
+    border-bottom-right-radius:7px;
+    border-top:2px solid pink;
+    border-left: 2px solid pink;
+    border-right: 2px solid pink;
+    border-bottom: 2px solid pink;
+}
+a.a-class-menu:active{
+    width: 100%;
+    height: 55px;
+    text-decoration: none;
+    background-color:pink;
+    color:whitesmoke;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius:7px;
+    border-bottom-right-radius:7px;
+    border-top:2px solid pink;
+    border-left: 2px solid pink;
+    border-right: 2px solid pink;
+    border-bottom: 2px solid pink;
+}
+/* Menu */
+ul.ul-dropdown{
+    list-style: none;/* bỏ dấu chấm */
+}
+li.li-dropdown{
+    float: left;/* dồn về bên trái */
+    width: auto ;
+    height:auto;
+    margin-left: 10px;
+    text-decoration: none;
+    background-color: pink;
+    color:whitesmoke;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius:7px;
+    border-bottom-right-radius:7px;
+    border-top:2px solid pink;
+    border-left: 2px solid pink;
+    border-right: 2px solid pink;
+    border-bottom: 2px solid pink;
+}
+/* dropdown */
+
+/* Vùng chứa <div> - cần thiết để định vị nội dung thả xuống*/
+.dropdown {
+  position: absolute;
+  display: inline-block;
+}
+
+/* Nội dung thả xuống (Ẩn theo Mặc định)*/
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 250px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;/* Nổi lên trên so với các đổi tượng khác */
+}
+
+/* Các liên kết bên trong trình đơn thả xuống */
+.dropdown-content .dropdown-menu-menu-item {
+  color: #FF3366;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Thay đổi màu của các liên kết thả xuống khi di chuột*/
+.dropdown-content a:hover {background-color: pink; color:white;}
+
+/* Hiển thị menu thả xuống khi di chuột */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+/* Slider Banner=============================================================================================================================================== */
+
+.banner-slider-img{
+    width: 100%;
+    height:600px;
+}
+/* Tìm kiếm menu================================================================================================================================================== */
+.search-all-product{
+    margin-top: 1%;
+    width: 80%;
+    size: 100%;
+    color:#FF3366;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius:7px;
+    border-bottom-right-radius:7px;
+    border-top:2px solid pink;
+    border-left: 2px solid pink;
+    border-right: 2px solid pink;
+    border-bottom: 2px solid pink;
+}
+.button-search-home{
+    margin-top: 1%;
+    size: 100px;
+    width: 19%;
+    height: auto;
+    font-weight: bold;
+    color: white;
+    background-color: #FF3366;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius:7px;
+    border-bottom-right-radius:7px;
+    border-top:2px solid pink;
+    border-left: 2px solid pink;
+    border-right: 2px solid pink;
+    border-bottom: 2px solid pink;
+}
+.button-search-home:hover{
+    margin-top: 1%;
+    width: 19%;
+    height: auto;
+    font-weight: bold;
+    color:#FF3366;
+    background-color:white;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius:7px;
+    border-bottom-right-radius:7px;
+    border-top:2px solid pink;
+    border-left: 2px solid pink;
+    border-right: 2px solid pink;
+    border-bottom: 2px solid pink;
+}
+/* Chi tiết sản phẩm ================================================================================================================================================= */
+.container-detail{
+    background-color: white;
+    padding: 2% ;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-top-left-radius:25px;
+    border-top-right-radius:25px;
+    border-bottom-left-radius:25px;
+    border-bottom-right-radius:25px;
+    box-shadow: 0 4px 8px 0 rgb(175, 174, 174),0 10px 10px 0 rgb(175, 174, 174);
+}
+.container-detail:hover{
+    box-shadow: 0 4px 8px 0 #FF3366,0 20px 40px 0 pink;
+}
+.text-font-title-detail{
+    color: #FF3366;
+    font-size: 18px;
+    background-color: white;
+    width: auto;
+    height: auto;
+    border-top-left-radius: 2%;
+    border-top-right-radius: 2%;
+    border-bottom-left-radius:2%;
+    border-bottom-right-radius:2%;
+}
+.detail-qty-pagehome{
+    width: 8%;
+    height: 40px;
+    color: #FF3366;
+    border-color: #FF3366;
+    border-top-left-radius: 2%;
+    border-top-right-radius: 2%;
+    border-bottom-left-radius:2%;
+    border-bottom-right-radius:2%;
+}
+.button-detail-product{
+    width: 25%;
+    height: 40px;
+    background-color: #FF3366;
+    color: white;
+    border-top:1px solid #FF3366;
+    border-left: 1px solid #FF3366;
+    border-right: 1px solid #FF3366;
+    border-bottom: 1px solid #FF3366;
+    
+}
+.button-detail-product:hover{
+    width: 25%;
+    height: 40px;
+    background-color: pink;
+    color: white;
+    border-top:1px solid pink;
+    border-left: 1px solid pink;
+    border-right: 1px solid pink;
+    border-bottom: 1px solid pink;
+    
+}
+.button-detail-product:active{
+    width: 25%;
+    height: 40px;
+    background-color: #FF3366;
+    color: white;
+    border-top:1px solid #FF3366;
+    border-left: 1px solid #FF3366;
+    border-right: 1px solid #FF3366;
+    border-bottom: 1px solid #FF3366;
+    
+}
+.img-product-detail{
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 2%;
+    border-top-right-radius: 2%;
+    border-bottom-left-radius:2%;
+    border-bottom-right-radius:2%;
+}
+.detail-content-pagehome{
+    background-color: pink;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    
+}
+.li-detail{
+    padding-right: 10px;
+}
+.detail-content-item-pagehome{
+    background-color: pink;
+    color:#FF3366;
+    text-decoration: none;
+    margin-top: 100px;
+    font-weight: bold;
+    border-top:1px solid pink;
+    border-left: 1px solid pink;
+    border-right: 1px solid pink;
+    border-bottom: 1px solid pink;
+    font-size: 27px;
+    
+}
+.detail-content-item-pagehome:hover{
+    background-color: #FF3366;
+    color:white;
+    border-top:1px solid #FF3366;
+    border-left: 1px solid #FF3366;
+    border-right: 1px solid #FF3366;
+    border-bottom: 1px solid #FF3366;
+    text-decoration: none;
+}
+.detail-content-item-pagehome:active{
+    color: white;
+    background-color: pink;
+    border-top:1px solid pink;
+    border-left: 1px solid pink;
+    border-right: 1px solid pink;
+    border-bottom: 1px solid pink;
+}
+.title-desc-detail-pagehome{
+    color: #FF3366;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* show cart ================================================================================================================================ */
+.th-show-cart{
+    background-color: #FF3366;
+    color: white;
+    vertical-align:center;
+}
+.td-show-cart{
+    background-color:rgb(255, 217, 223);
+    color: #828282;
+    line-height:center;
+    font-weight: bold;
+    vertical-align:middle;
+}
+.delete-show-cart{
+    background-color: #FF3366;
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    border-top:1px solid #FF3366;
+    border-left: 1px solid #FF3366;
+    border-right: 1px solid #FF3366;
+    border-bottom: 1px solid #FF3366;
+    border-top-left-radius: 15%;
+    border-top-right-radius: 15%;
+    border-bottom-left-radius:15%;
+    border-bottom-right-radius:15%;
+}
+.delete-show-cart:hover{
+    background-color: pink;
+    color: #FF3366;
+    text-decoration: none;
+    padding: 5px;
+    border-top:1px solid pink;
+    border-left: 1px solid pink;
+    border-right: 1px solid pink;
+    border-bottom: 1px solid pink;
+    border-top-left-radius: 15%;
+    border-top-right-radius: 15%;
+    border-bottom-left-radius:15%;
+    border-bottom-right-radius:15%;
+}
+.delete-show-cart:active{
+    background-color: #FF3366;
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    border-top:1px solid #FF3366;
+    border-left: 1px solid #FF3366;
+    border-right: 1px solid #FF3366;
+    border-bottom: 1px solid #FF3366;
+    border-top-left-radius: 15%;
+    border-top-right-radius: 15%;
+    border-bottom-left-radius:15%;
+    border-bottom-right-radius:15%;
+}
+.ul-cart-pagehome{
+    color:#FF3366;
+    list-style: none;
+    font-weight: bold;
+
+}
+.tr-cart-function-pagehome{
+    vertical-align:bottom;
+}
+.td-cart-function-homepage{
+    width: 40%;
+}
+.center{
+    text-align: center;
+    color: #FF3366;
+}
+.a-cart-checkout-pagehome{
+    padding: 5px;
+    text-decoration: none;
+    background-color: #FF3366;
+    color: white;
+    font-weight: bold;
+    border-top:3px solid #FF3366;
+    border-left: 3px solid #FF3366;
+    border-right: 3px solid #FF3366;
+    border-bottom: 3px solid #FF3366;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+.a-cart-checkout-pagehome:hover{
+    padding: 5px;
+    text-decoration: none;
+    background-color: pink;
+    color: #FF3366;
+    font-weight: bold;
+    border-top:1px solid pink;
+    border-left: 1px solid pink;
+    border-right: 1px solid pink;
+    border-bottom: 1px solid pink;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+.a-cart-checkout-pagehome:active{
+    padding: 5px;
+    text-decoration: none;
+    background-color: #FF3366;
+    color: white;
+    font-weight: bold;
+    border-top:3px solid #FF3366;
+    border-left: 3px solid #FF3366;
+    border-right: 3px solid #FF3366;
+    border-bottom: 3px solid #FF3366;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+.btn-cart-update-checkout{
+    padding: 5px;
+    text-decoration: none;
+    background-color: #FF3366;
+    color: white;
+    font-weight: bold;
+    border-top:1px solid #FF3366;
+    border-left: 1px solid #FF3366;
+    border-right: 1px solid #FF3366;
+    border-bottom: 1px solid #FF3366;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+.btn-cart-update-checkout:hover{
+    padding: 5px;
+    background-color: pink;
+    color: #FF3366;
+    font-weight: bold;
+    border-top:1px solid pink;
+    border-left: 1px solid pink;
+    border-right: 1px solid pink;
+    border-bottom: 1px solid pink;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+.btn-cart-update-checkout:active{
+    padding: 5px;
+    background-color: #FF3366;
+    color: white;
+    font-weight: bold;
+    border-top:1px solid #FF3366;
+    border-left: 1px solid #FF3366;
+    border-right: 1px solid #FF3366;
+    border-bottom: 1px solid #FF3366;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+.coupon-cart-checkout-pagehome{
+    padding: 5px;
+    text-decoration: none;
+    background-color: pink;
+    color: #828282;
+    font-weight: bold;
+    border-top:2px solid silver;
+    border-left: 2px solid silver;
+    border-right: 2px solid silver;
+    border-bottom: 2px solid silver;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+.btn-coupon-cart-checkout-pagehome{
+    padding: 5px;
+    text-decoration: none;
+    background-color: #FF3366;
+    color: white;
+    font-weight: bold;
+    border-top:1px solid #FF3366;
+    border-left: 1px solid #FF3366;
+    border-right: 1px solid #FF3366;
+    border-bottom: 1px solid #FF3366;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+.btn-coupon-cart-checkout-pagehome:hover{
+    padding: 5px;
+    text-decoration: none;
+    background-color: pink;
+    color: #FF3366;
+    font-weight: bold;
+    border-top:1px solid pink;
+    border-left: 1px solid pink;
+    border-right: 1px solid pink;
+    border-bottom: 1px solid pink;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+.btn-coupon-cart-checkout-pagehome:active{
+    padding: 5px;
+    text-decoration: none;
+    background-color: #FF3366;
+    color: white;
+    font-weight: bold;
+    border-top:1px solid #FF3366;
+    border-left: 1px solid #FF3366;
+    border-right: 1px solid #FF3366;
+    border-bottom: 1px solid #FF3366;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+/* bố cục các nút giỏ hàng */
+/* Xuống dòng khi nội dung quá dài  */
+.down-the-line-name{
+    width: 400px;
+    word-wrap: break-word;
+}
+.all-function-pagehome{
+    vertical-align:middle;
+}
+
+/* TRANG ĐẶT HÀNG */
+.input-information-checkout{
+    margin-bottom: 5px;
+    width: 49.6%;
+    padding: 5px;
+    text-decoration: none;
+    background-color: pink;
+    color: #828282;
+    font-weight: bold;
+    border-top:2px solid silver;
+    border-left: 2px solid silver;
+    border-right: 2px solid silver;
+    border-bottom: 2px solid silver;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+.textarea-information-checkout{
+    resize: none;/*Không cho thay đổi kích thước thẻ  */
+    width: 100%;
+    height: 250px;
+    padding: 5px;
+    text-decoration: none;
+    background-color: pink;
+    color: #828282;
+    font-weight: bold;
+    border-top:2px solid silver;
+    border-left: 2px solid silver;
+    border-right: 2px solid silver;
+    border-bottom: 2px solid silver;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+.title-shipping-checkout-homepage{
+    color: #FF3366;
+    font-weight: bold;
+    width: 100%;
+}
+select.select-shipping-pagehome{
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 5px;
+    text-decoration: none;
+    background-color: pink;
+    color: #828282;
+    font-weight: bold;
+    border-top:2px solid silver;
+    border-left: 2px solid silver;
+    border-right: 2px solid silver;
+    border-bottom: 2px solid silver;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+select.select-shipping-pagehome:hover{
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 5px;
+    text-decoration: none;
+    background-color: white;
+    color: #FF3366;
+    font-weight: bold;
+    border-top:2px solid silver;
+    border-left: 2px solid silver;
+    border-right: 2px solid silver;
+    border-bottom: 2px solid silver;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+select.select-shipping-pagehome:active{
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 5px;
+    text-decoration: none;
+    background-color: pink;
+    color: #828282;
+    font-weight: bold;
+    border-top:2px solid silver;
+    border-left: 2px solid silver;
+    border-right: 2px solid silver;
+    border-bottom: 2px solid silver;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+.input-shipping-coupon{
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 5px;
+    text-decoration: none;
+    background-color: pink;
+    color: #828282;
+    font-weight: bold;
+    border-top:2px solid silver;
+    border-left: 2px solid silver;
+    border-right: 2px solid silver;
+    border-bottom: 2px solid silver;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+
+/* LOGIN PAGEHOME */
+.or{
+    background-color: #FF3366;
+    width: 100%;
+    height: auto;
+    color: white;
+    border-top:2px solid #FF3366;
+    border-left: 2px solid #FF3366;
+    border-right: 2px solid #FF3366;
+    border-bottom: 2px solid #FF3366;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+.input-login-regiter-customer{
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 5px;
+    text-decoration: none;
+    background-color: pink;
+    color: #828282;
+    font-weight: bold;
+    border-top:2px solid silver;
+    border-left: 2px solid silver;
+    border-right: 2px solid silver;
+    border-bottom: 2px solid silver;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+.btn-login-regiter-customer{
+    padding: 5px;
+    background-color: #FF3366;
+    color: white;
+    font-weight: bold;
+    border-top:1px solid #FF3366;
+    border-left: 1px solid #FF3366;
+    border-right: 1px solid #FF3366;
+    border-bottom: 1px solid #FF3366;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+
+    /* box-shadow: 0 0 5px #03e9f4,
+              0 0 25px #03e9f4,
+              0 0 50px #03e9f4,
+              0 0 100px #03e9f4; */
+}
+.btn-login-regiter-customer:hover{
+    padding: 5px;
+    background-color:pink;
+    color: #FF3366;
+    font-weight: bold;
+    border-top:1px solid pink;
+    border-left: 1px solid pink;
+    border-right: 1px solid pink;
+    border-bottom: 1px solid pink;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+.btn-login-regiter-customer:active{
+    padding: 5px;
+    background-color: #FF3366;
+    color: white;
+    font-weight: bold;
+    border-top:1px solid #FF3366;
+    border-left: 1px solid #FF3366;
+    border-right: 1px solid #FF3366;
+    border-bottom: 1px solid #FF3366;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+    
+}
+/* Scroll screen======================================================================================================================================== */
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 1%;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px silver; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #FF3366; 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #FF3366; 
+  }

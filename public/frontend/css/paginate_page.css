@@ -1,0 +1,116 @@
+/* .paginate-product-main{
+    width: 100%;
+    text-align: right;
+} */
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #A0522D;
+    border-color: #A0522D;
+}
+.page-link  {
+    padding: 0.375rem 0.75rem;
+    color: #A0522D;
+    background-color: antiquewhite;
+    border-color: #A0522D;
+    /* border-top:0.5px solid #A0522D;
+    border-left: 0.5px solid #A0522D;
+    border-right: 0.5px solid #A0522D;
+    border-bottom: 0.5px solid #A0522D; */
+}
+.page-link:hover {
+    color: #fff;
+    background-color: #A0522D;
+    border-color: #A0522D;
+}
+.page-link:active {
+    color: #fff;
+    background-color:antiquewhite;
+    border-color: #A0522D;
+}
+.text-muted {
+    color: #A0522D!important;
+    font-weight: bold;
+}
+.text-muted {
+    color: #A0522D!important;
+    font-weight: bold;
+}
+h2{
+    color: #A0522D;
+}
+
+/* btn Xem tiếp */
+.cancel.btn.btn-lg.btn-default{
+    background-color: antiquewhite;
+    color: #A0522D;
+    font-weight: bold;
+    border: #A0522D;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.cancel.btn.btn-lg.btn-default:hover{
+    background-color: #A0522D;
+    color: antiquewhite;
+    font-weight: bold;
+    border: antiquewhite;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.cancel.btn.btn-lg.btn-default:active{
+    background-color: antiquewhite;
+    color: #A0522D;
+    font-weight: bold;
+    border: #A0522D;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.cancel.btn.btn-lg.btn-default:visited{
+    background-color: antiquewhite;
+    color: #A0522D;
+    font-weight: bold;
+    border: #A0522D;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.cancel.btn.btn-lg.btn-default:focus{
+    background-color: antiquewhite;
+    color: #A0522D;
+    font-weight: bold;
+    border: #A0522D;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* btn Đi đến giỏ hàng */
+.confirm.btn.btn-lg.btn-success{
+    background-color: #A0522D;
+    font-weight: bold;
+    color: antiquewhite;
+    border: #A0522D;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.confirm.btn.btn-lg.btn-success:hover{
+    background-color: antiquewhite;
+    font-weight: bold;
+    color: #A0522D;
+    border: antiquewhite;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.confirm.btn.btn-lg.btn-success:active{
+    background-color: #A0522D;
+    font-weight: bold;
+    color: antiquewhite;
+    border: #A0522D;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.confirm.btn.btn-lg.btn-success:visited{
+    background-color: #A0522D;
+    font-weight: bold;
+    color: antiquewhite;
+    border: #A0522D;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.confirm.btn.btn-lg.btn-success:focus{
+    background-color: #A0522D;
+    font-weight: bold;
+    color: antiquewhite;
+    border: #A0522D;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

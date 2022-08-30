@@ -39,8 +39,8 @@ class ProductController extends Controller
         $this->AuthLogin();
         // cách 1---------------------------------
     	// $all_product = ProductModel::orderby('tbl_product.product_id','desc')
-        // ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
-        // ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
+        // ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
+        // ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
         // ->where('waste_basket_product',0)
         // ->paginate(10);
         // Cách 2-------------------------------khộng chạy huhu
@@ -57,32 +57,32 @@ class ProductController extends Controller
             if($sort_by=='tang_dan'){
 
                 $all_product = ProductModel::orderby('product_price','asc')
-                ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
-                ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
+                ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
+                ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
                 ->where('waste_basket_product',0)
                 ->paginate(10)
                 ->appends(request()->query());//khi chuyển trang vẫn giữ nguyên đường dẫn
             }elseif($sort_by=='giam_dan'){
 
                 $all_product = ProductModel::orderby('product_price','desc')
-                ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
-                ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
+                ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
+                ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
                 ->where('waste_basket_product',0)
                 ->paginate(10)
                 ->appends(request()->query());//khi chuyển trang vẫn giữ nguyên đường dẫn
             }elseif($sort_by=='a_den_z'){
         
                 $all_product = ProductModel::orderby('product_name','asc')
-                ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
-                ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
+                ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
+                ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
                 ->where('waste_basket_product',0)
                 ->paginate(10)
                 ->appends(request()->query());//khi chuyển trang vẫn giữ nguyên đường dẫn
             }elseif($sort_by=='z_den_a'){
 
                 $all_product = ProductModel::orderby('product_name','desc')
-                ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
-                ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
+                ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
+                ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
                 ->where('waste_basket_product',0)
                 ->paginate(10)
                 ->appends(request()->query());//khi chuyển trang vẫn giữ nguyên đường dẫn
@@ -90,8 +90,8 @@ class ProductController extends Controller
         }else{
  
             $all_product = ProductModel::orderby('product_id','desc')
-            ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
-            ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
+            ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
+            ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
             ->where('waste_basket_product',0)
             ->paginate(10);
         }
@@ -152,7 +152,7 @@ class ProductController extends Controller
             // DB::table('tbl_product')->insert($data);
             $product->save();
 
-            $product_id = $product->id();
+            // $product_id = $product->id();
             
             Session::put('message','swal("Thêm sản phẩm thành công!", "Thêm sản phẩm thành công!","success")');
             return Redirect::to('all-product');
@@ -283,8 +283,8 @@ class ProductController extends Controller
         // echo $keywords;
         // echo '</pre>';
         $all_product = ProductModel::orderby('tbl_product.product_id','desc')
-        ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
-        ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
+        ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
+        ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
         ->where('product_name','like','%'.$keywords.'%')
         ->where('waste_basket_product','0')
         // ->paginate(10);
@@ -330,8 +330,8 @@ class ProductController extends Controller
     public function waste_basket_product(){
         $this->AuthLogin();
     	$all_product = ProductModel::orderby('tbl_product.product_id','desc')
-        ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
-        ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
+        ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
+        ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
         ->where('waste_basket_product',1)
         ->paginate(10);
     	$manager_product  = view('product.waste_basket_product')

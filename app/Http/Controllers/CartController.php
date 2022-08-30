@@ -15,11 +15,11 @@ class CartController extends Controller
 {
     //Hiển thị sản phẩm ra giỏ hàng và tính tiền
     public function save_cart(Request $request){
-        $cate_product = DB::table('tbl_category_product')
+        $cate_product = DB::table('tbl_category')
         ->where('category_status','0')
         ->orderby('category_id','desc')
         ->get(); 
-        $brand_product = DB::table('tbl_brand_product')
+        $brand_product = DB::table('tbl_brand')
         ->where('brand_status','0')
         ->orderby('brand_id','desc')
         ->get(); 
@@ -56,11 +56,11 @@ class CartController extends Controller
          $meta_title = "TeddyShop";
          $url_canonical = $request->url();
          //------------------------SEO--------------------------
-        $cate_product = DB::table('tbl_category_product')
+        $cate_product = DB::table('tbl_category')
         ->where('category_status','0')
         ->orderby('category_id','desc')
         ->get(); 
-        $brand_product = DB::table('tbl_brand_product')
+        $brand_product = DB::table('tbl_brand')
         ->where('brand_status','0')
         ->orderby('brand_id','desc')
         ->get();
@@ -138,11 +138,11 @@ class CartController extends Controller
          $meta_title = "TeddyShop";
          $url_canonical = $request->url();
          //------------------------SEO--------------------------
-        $cate_product = DB::table('tbl_category_product')
+        $cate_product = DB::table('tbl_category')
         ->where('category_status','0')
         ->orderby('category_id','desc')
         ->get(); 
-        $brand_product = DB::table('tbl_brand_product')
+        $brand_product = DB::table('tbl_brand')
         ->where('brand_status','0')
         ->orderby('brand_id','desc')
         ->get();

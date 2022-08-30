@@ -32,12 +32,12 @@ class CheckoutController extends Controller
          $meta_title = "TeddyShop";
          $url_canonical = $request->url();
          //------------------------SEO--------------------------
-         $cate_product = DB::table('tbl_category_product')
+         $cate_product = DB::table('tbl_category')
          ->where('category_status','0')
          ->where('waste_basket_category','0')
          ->orderby('category_id','desc')
          ->get(); 
-        $brand_product = DB::table('tbl_brand_product')
+        $brand_product = DB::table('tbl_brand')
         ->where('brand_status','0')
         ->orderby('brand_id','desc')
         ->get();
@@ -96,12 +96,12 @@ class CheckoutController extends Controller
          $meta_title = "TeddyShop";
          $url_canonical = $request->url();
          //------------------------SEO--------------------------
-         $cate_product = DB::table('tbl_category_product')
+         $cate_product = DB::table('tbl_category')
          ->where('category_status','0')
          ->where('waste_basket_category','0')
          ->orderby('category_id','desc')
          ->get(); 
-        $brand_product = DB::table('tbl_brand_product')
+        $brand_product = DB::table('tbl_brand')
         ->where('brand_status','0')
         ->orderby('brand_id','desc')
         ->get();
@@ -147,12 +147,12 @@ class CheckoutController extends Controller
          $meta_title = "TeddyShop";
          $url_canonical = $request->url();
          //------------------------SEO--------------------------
-         $cate_product = DB::table('tbl_category_product')
+         $cate_product = DB::table('tbl_category')
          ->where('category_status','0')
          ->where('waste_basket_category','0')
          ->orderby('category_id','desc')
          ->get(); 
-        $brand_product = DB::table('tbl_brand_product')
+        $brand_product = DB::table('tbl_brand')
         ->where('brand_status','0')
         ->orderby('brand_id','desc')
         ->get();
@@ -213,8 +213,8 @@ class CheckoutController extends Controller
         }elseif($data['payment_method']==2){
             Cart::destroy();//sau thi mua xong thì hủy  giỏ hàng
 
-            $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
-            $brand_product = DB::table('tbl_brand_product')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+            $cate_product = DB::table('tbl_category')->where('category_status','0')->orderby('category_id','desc')->get();
+            $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
             return view('pages.checkout.handcash')
             ->with('category',$cate_product)
             ->with('brand',$brand_product)

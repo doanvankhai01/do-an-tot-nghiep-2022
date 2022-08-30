@@ -23,18 +23,18 @@ class HomeController extends Controller
         $url_canonical = $request->url();
         //------------------------SEO--------------------------
         
-    	$cate_product = DB::table('tbl_category_product')
+    	$cate_product = DB::table('tbl_category')
         ->where('category_status','0')
         ->where('waste_basket_category','0')
         ->orderby('category_id','desc')
         ->get(); 
-        $brand_product = DB::table('tbl_brand_product')
+        $brand_product = DB::table('tbl_brand')
         ->where('brand_status','0')
         ->orderby('brand_id','desc')
         ->get(); 
         // $all_product = DB::table('tbl_product')
-        // ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
-        // ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')
+        // ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')
+        // ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')
         // ->orderby('tbl_product.product_id','desc')->get();
         $all_product = DB::table('tbl_product')
         ->where('product_status','0')
@@ -69,18 +69,18 @@ class HomeController extends Controller
         $url_canonical = $request->url();
         //------------------------SEO--------------------------
         
-    	$cate_product = DB::table('tbl_category_product')
+    	$cate_product = DB::table('tbl_category')
         ->where('category_status','0')
         ->where('waste_basket_category','0')
         ->orderby('category_id','desc')
         ->get(); 
-        $brand_product = DB::table('tbl_brand_product')
+        $brand_product = DB::table('tbl_brand')
         ->where('brand_status','0')
         ->orderby('brand_id','desc')
         ->get(); 
         // $all_product = DB::table('tbl_product')
-        // ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
-        // ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')
+        // ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')
+        // ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')
         // ->orderby('tbl_product.product_id','desc')->get();
         // Lọc sản phẩm
         if(isset($_GET['sort_by'])){
@@ -156,12 +156,12 @@ class HomeController extends Controller
         $meta_title = "TeddyShop";
         $url_canonical = $request->url();
         //------------------------SEO--------------------------
-        $cate_product = DB::table('tbl_category_product')
+        $cate_product = DB::table('tbl_category')
         ->where('category_status','0')
         ->where('waste_basket_category','0')
         ->orderby('category_id','desc')
         ->get(); 
-        $brand_product = DB::table('tbl_brand_product')
+        $brand_product = DB::table('tbl_brand')
         ->where('brand_status','0')
         ->orderby('brand_id','desc')
         ->get(); 
@@ -183,7 +183,7 @@ class HomeController extends Controller
 
                 //cách 2: sử dụng DB
                 // $category_by_id = DB::table('tbl_product')
-                // ->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')
+                // ->join('tbl_category','tbl_product.category_id','=','tbl_category.category_id')
                 // ->where('tbl_product.category_id',$category_id)
                 // ->where('product_status','0')
                 // ->orderBy('product_price','ASC')//Sắp giá tiền tăng dần, nhỏ đứng trước to đứng sau
@@ -203,7 +203,7 @@ class HomeController extends Controller
 
                 //Cách 2: sử dụng DB
                 // $category_by_id = DB::table('tbl_product')
-                // ->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')
+                // ->join('tbl_category','tbl_product.category_id','=','tbl_category.category_id')
                 // ->where('tbl_product.category_id',$category_id)
                 // ->where('product_status','0')
                 // ->orderBy('product_price','DESC')//Sắp giá tiền giảm dần, to đứng trước nhỏ đứng sau
@@ -224,7 +224,7 @@ class HomeController extends Controller
 
                 //cách 2 : sử dụng DB
                 // $category_by_id = DB::table('tbl_product')
-                // ->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')
+                // ->join('tbl_category','tbl_product.category_id','=','tbl_category.category_id')
                 // ->where('tbl_product.category_id',$category_id)
                 // ->where('product_status','0')
                 // ->orderBy('product_name','ASC')
@@ -245,7 +245,7 @@ class HomeController extends Controller
 
                 //cách 2: sử dụng DB
                 // $category_by_id = DB::table('tbl_product')
-                // ->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')
+                // ->join('tbl_category','tbl_product.category_id','=','tbl_category.category_id')
                 // ->where('tbl_product.category_id',$category_id)
                 // ->where('product_status','0')
                 // ->orderBy('product_name','DESC')
@@ -265,7 +265,7 @@ class HomeController extends Controller
             
             //cách 2: sử dụng DB
             // $category_by_id = DB::table('tbl_product')
-            // ->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')
+            // ->join('tbl_category','tbl_product.category_id','=','tbl_category.category_id')
             // ->where('tbl_product.category_id',$category_id)
             // ->where('product_status','0')
             // ->limit(6)//lấy ra 6 giá trị tương ứng
@@ -273,8 +273,8 @@ class HomeController extends Controller
         }
         // end lọc sản phẩm
         //Lấy tên danh mục
-        $category_name = DB::table('tbl_category_product')
-        ->where('tbl_category_product.category_id',$category_id)
+        $category_name = DB::table('tbl_category')
+        ->where('tbl_category.category_id',$category_id)
         ->limit(1)//lấy 1 giá trị thôi, vì nằm trong vòng lặp nên nó lặp nhiều lần 1 giá trị giống nhau
         ->get();
         //Hiển thị slider
@@ -302,23 +302,23 @@ class HomeController extends Controller
         $meta_title = "TeddyShop";
         $url_canonical = $request->url();
         //------------------------SEO--------------------------
-        $cate_product = DB::table('tbl_category_product')
+        $cate_product = DB::table('tbl_category')
         ->where('category_status','0')
         ->where('waste_basket_category','0')
         ->orderby('category_id','desc')
         ->get(); 
-        $brand_product = DB::table('tbl_brand_product')
+        $brand_product = DB::table('tbl_brand')
         ->where('brand_status','0')
         ->orderby('brand_id','desc')
         ->get(); 
         $brand_by_id = DB::table('tbl_product')
-        ->join('tbl_brand_product','tbl_product.brand_id','=','tbl_brand_product.brand_id')
-        ->where('tbl_brand_product.brand_id',$brand_id)
+        ->join('tbl_brand','tbl_product.brand_id','=','tbl_brand.brand_id')
+        ->where('tbl_brand.brand_id',$brand_id)
         ->where('product_status','0')
         ->limit(6)
         ->get();
-        $brand_name = DB::table('tbl_brand_product')
-        ->where('tbl_brand_product.brand_id',$brand_id)
+        $brand_name = DB::table('tbl_brand')
+        ->where('tbl_brand.brand_id',$brand_id)
         ->limit(1)->get();
         $all_slider = SliderBannerModel::orderBy('slider_id','DESC')
         ->where('slider_status',0)
@@ -343,18 +343,18 @@ class HomeController extends Controller
         $meta_title = "TeddyShop";
         $url_canonical = $request->url();
         //------------------------SEO--------------------------
-        $cate_product = DB::table('tbl_category_product')
+        $cate_product = DB::table('tbl_category')
         ->where('category_status','0')
         ->where('waste_basket_category','0')
         ->orderby('category_id','desc')
         ->get(); 
-        $brand_product = DB::table('tbl_brand_product')
+        $brand_product = DB::table('tbl_brand')
         ->where('brand_status','0')
         ->orderby('brand_id','desc')
         ->get();
         $product_details = DB::table('tbl_product')
-        ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
-        ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')
+        ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')
+        ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')
         ->where('tbl_product.product_id',$product_id)
         ->get();
 
@@ -371,9 +371,9 @@ class HomeController extends Controller
         ->get();
        //Sản phẩm liên quan
         $related_product = DB::table('tbl_product')
-        ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
-        ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')
-        ->where('tbl_category_product.category_id',$category_id)
+        ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')
+        ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')
+        ->where('tbl_category.category_id',$category_id)
         ->where('product_status','0')
         ->whereNotIn('tbl_product.product_id',[$product_id])//lấy các sản phẩm trừ sản phẩm đã được chọn
         ->limit(3)->get();
@@ -405,12 +405,12 @@ class HomeController extends Controller
         $url_canonical = $request->url();
         //------------------------SEO--------------------------
         $keywords = $request->keywords_submit;
-        $cate_product = DB::table('tbl_category_product')
+        $cate_product = DB::table('tbl_category')
         ->where('category_status','0')
         ->where('waste_basket_category','0')
         ->orderby('category_id','desc')
         ->get(); 
-        $brand_product = DB::table('tbl_brand_product')
+        $brand_product = DB::table('tbl_brand')
         ->where('brand_status','0')
         ->orderby('brand_id','desc')
         ->get(); 

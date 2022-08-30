@@ -1,0 +1,43 @@
+h2{
+    color: #A0522D;
+}
+p.lead.text-muted {
+    color: #A0522D!important;
+    font-weight: bold;
+}
+/* button */
+.confirm.btn.btn-lg.btn-primary{
+    background-color: #A0522D;
+    color: antiquewhite;
+    font-weight: bold;
+    border: #A0522D;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.confirm.btn.btn-lg.btn-primary:hover{
+    background-color: antiquewhite;
+    color: #A0522D;
+    font-weight: bold;
+    border: antiquewhite;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.confirm.btn.btn-lg.btn-primary:active{
+    background-color: #A0522D;
+    color: antiquewhite;
+    font-weight: bold;
+    border: #A0522D;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.confirm.btn.btn-lg.btn-primary:focus{
+    background-color: #A0522D;
+    color: antiquewhite;
+    font-weight: bold;
+    border: #A0522D;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.confirm.btn.btn-lg.btn-primary:visited{
+    background-color: #A0522D;
+    color: antiquewhite;
+    font-weight: bold;
+    border: #A0522D;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
