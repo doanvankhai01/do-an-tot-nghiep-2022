@@ -101,7 +101,7 @@
                     <div class="logo-background-admin" id="logo-background-admin">
                         <a href="" class="logo">
                             <img class="logo-img" id="logo-img" src="{{URL::to('public/uploads/slider/logo2.png')}}">
-                            <b class="logo-b1">TEDDY</b><b class="logo-b2">SHOPP</b>
+                            <b class="logo-b1">TEDDY</b><b class="logo-b2">SHOP</b>
                         </a>
                     </div>
                     <hr>
@@ -200,13 +200,18 @@
             </div>
         </div>
     </div>
+    {{-- <script src="{{asset('public/frontend/js/jquery/jquery3.6.0.js')}}"></script>
+    <script src="{{asset('public/frontend/js/jquery/jquery-3.6.0.min.js')}}"></script> --}}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <link href="{{asset('public/frontend/css/paginate.css')}}" rel="stylesheet">
     <script src="{{asset('public/backend/ckeditor/ckeditor.js')}}"></script>
     <script src="{{asset('public/backend/js/jquery.form-validator.min.js')}}"></script>
-    <script src="{{asset('public/frontend/js/jquery.js')}}"></script>
+    {{-- <script src="{{asset('public/frontend/js/jquery.js')}}"></script> --}}
     <script src="{{asset('public/frontend/js/sweetalert.min.js')}}"></script>
     {{-- <script src="{{asset('public/backend/js/jquery.form-validator.min.js')}}"></script> --}}
     <script type="text/javascript" src="{{asset('public/backend/js/shopgau-validator.js')}}"></script>
+    
+
     
     {{-- Chức năng ajax --}}
     <section class="section-infomation" id="section-infomation">

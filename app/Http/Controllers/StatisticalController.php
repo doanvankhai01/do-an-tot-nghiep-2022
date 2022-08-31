@@ -24,7 +24,8 @@ class StatisticalController extends Controller
 
             foreach($get as $key => $val){
                 $chart_data[] = array(
-                    'period' => $val->order_date,
+                    // 'period' => $val->order_date,
+                    'date' => $val->order_date,
                     'order' => $val->total_order,
                     'sales' => $val->sales,
                     'profit' => $val->profit,
@@ -40,6 +41,16 @@ class StatisticalController extends Controller
         // }else{
         //     Session::put('message','swal("Đăng nhập thành công!", "Chuyển tới trang quản lý","error")');
         // }
+        
+    }
+    //Load dữ liệu
+    public function load_thirty_day_statistical(Request $request){
+        // $thirty_days = 
+    }
+    //lọc doanh số
+    public function filter_statistical(Request $request){
+        $data = $request->all();
+
         
     }
 }

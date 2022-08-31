@@ -14,7 +14,7 @@ $('.update_quantity_order').click(function(){
         swal("Thất bại!", "Số lượng trong kho không đủ!", "error");
         window.setTimeout(function(){
             location.reload();
-        },800);
+        },3000);
     }else{
         $.ajax({
             url : url +'/update-order-quantity',
@@ -33,7 +33,7 @@ $('.update_quantity_order').click(function(){
         });
         window.setTimeout(function(){
             location.reload();
-        },800);
+        },3000);
     }
 });
 // //Hàm xử lí tình trạng đơn hàng

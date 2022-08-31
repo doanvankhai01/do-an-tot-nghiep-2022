@@ -30,24 +30,25 @@ if($message){
                     </div>
                     <div class="col-sm-2">
                         <p class="lable-title">Tìm kiếm:</p>
-                        <input type="submit" id="btn-filter-statistical" value="Lọc kết quả"class="btn-function-infomation">
+                        <input type="button" id="btn-search-statistical" value="Lọc kết quả"class="btn-function-infomation btn-search-statistical">
                     </div>
-                    {{-- <div class="col-sm-2">
-                        <p>Lọc theo:</p>
-                        <select name="sort" id="sort" class="btn-function-infomation">
+                    <div class="col-sm-2">
+                        <p class="lable-title">Lọc:</p>
+                        <select name="sort" id="sort" class="btn-function-infomation filter-thirty-statistical">
                             <option value="{{Request::url()}}?sort_by=none">--- Lọc theo ---</option>
                             <option value="{{Request::url()}}?sort_by=7_ngay">Doanh thu 7 ngày gần đây</option>
                             <option value="{{Request::url()}}?sort_by=thang_nay">Doanh thu tháng này</option>
                             <option value="{{Request::url()}}?sort_by=thang_truoc">Doanh thu tháng trước</option>
-                            <option value="{{Request::url()}}?sort_by=365_ngay">Doanh thu 365 ngày</option> --}}
+                            <option value="{{Request::url()}}?sort_by=365_ngay">Doanh thu 365 ngày</option>
                             {{-- {{Request::url()}} là yêu cầu lấy đường dẫn hiện tại --}}
-                        {{-- </select>
-                    </div> --}}
+                        </select>
+                    </div>
                 </div>
+                
             </form>
             <div class="row">
                 <div class="col-sm-12">
-                    <div id="myfirstchart" style="height: 250px;"></div>
+                    <div id="mychart" style="height: 500px;"></div>
                 </div>
             </div>
         </div>
@@ -61,8 +62,11 @@ if($message){
 <script src="{{asset('public/ajax/dashboard/statistical.js')}}"></script>
 {{-- Biểu đồ doanh số - morris --}}
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+{{-- <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script> --}}
+<script src="{{asset('public/ajax/dashboard/morris/raphael.js')}}"></script>
+<script src="{{asset('public/ajax/dashboard/morris/morris.0.5.1.js')}}"></script>
+{{-- <script src="{{asset('public/ajax/dashboard/morris/morris.min.js')}}"></script> --}}
 {{-- Hiển thị ngày --}}
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>

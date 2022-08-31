@@ -172,7 +172,7 @@
                   {{-- Lấy URL --}}
                   <input type="hidden" value="{{URL::to('')}}" name="url" class="form-control url" placeholder="url">
                   @if($get_status_show_btn_update_qty !=2)
-                    <button class="btn-function-infomation update_quantity_order" data-product_id="{{$ode_detail->product_id}}" name="update_quantity">Cập nhật</button>
+                    <input type="submit" class="btn-function-infomation update_quantity_order" data-product_id="{{$ode_detail->product_id}}" name="update_quantity" value="Cập nhật">
                   @endif
                     <p id="color_qty_text_{{$ode_detail->product_id}}"></p>
                 </td>
