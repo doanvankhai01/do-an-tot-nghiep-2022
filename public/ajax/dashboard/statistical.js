@@ -1,6 +1,6 @@
 $(document).ready(function(){
     //load dữ liệu 30 ngày gần nhất
-    // chart30daysorder();
+    chart30daysorder();
     //load toàn bộ dữ liệu tìm kiếm và truyền vào biểu đồ
     var chart = new Morris.Bar({
         element: 'mychart',
@@ -40,7 +40,7 @@ $(document).ready(function(){
             },
             success:function(data){
             //    location.reload(chart.setData(data)).parseTime(false);
-               chart.setData(data)
+               chart.setData(data);
                 //lưu ý: data ko phải là 1 biến, mà là cả 1 function bên controller
                //location.reload().parseTime(false);
             }
@@ -79,9 +79,9 @@ $(document).ready(function(){
         
     });
     //Thống kê doanh thu bằng cách lọc
-    $('.filter-thirty-statistical').change(function(){
+    $('.filter-statistical').change(function(){
         var url = $('.url').val();
-        var filter_thirty = $(this).val();//lấy chính dữ liệu thay đổi
+        var filter_statistical = $(this).val();//lấy chính dữ liệu thay đổi
         var _token = $('input[name="_token"]').val();
         // alert(filter_thirty);
         // alert(_token);
@@ -91,7 +91,7 @@ $(document).ready(function(){
             method: 'POST',
             dataType: 'JSON',//trả về kiểu
             data:{
-               filter_thirty:filter_thirty,
+                filter_statistical:filter_statistical,
                 _token:_token
             },
             success:function(data){

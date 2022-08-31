@@ -34,12 +34,15 @@ if($message){
                     </div>
                     <div class="col-sm-2">
                         <p class="lable-title">Lọc:</p>
-                        <select name="sort" id="sort" class="btn-function-infomation filter-thirty-statistical">
-                            <option value="{{Request::url()}}?sort_by=none">--- Lọc theo ---</option>
-                            <option value="{{Request::url()}}?sort_by=7_ngay">Doanh thu 7 ngày gần đây</option>
-                            <option value="{{Request::url()}}?sort_by=thang_nay">Doanh thu tháng này</option>
-                            <option value="{{Request::url()}}?sort_by=thang_truoc">Doanh thu tháng trước</option>
-                            <option value="{{Request::url()}}?sort_by=365_ngay">Doanh thu 365 ngày</option>
+                        <select name="sort" id="sort" class="btn-function-infomation filter-statistical">
+                            <option value="none">--- Lọc theo ---</option>
+                            <option value="bay_ngay">Doanh thu 7 ngày gần đây</option>
+                            <option value="thang_nay">Doanh thu tháng này</option>
+                            <option value="thang_truoc">Doanh thu tháng trước</option>
+                            <option value="hai_thang_truoc">Doanh thu 2 tháng trước</option>
+                            <option value="ba_thang_truoc">Doanh thu 3 tháng trước</option>
+                            <option value="sau_thang_truoc">Doanh thu 6 tháng trước</option>
+                            <option value="ba_sau_nam_ngay">Doanh thu 365 ngày</option>
                             {{-- {{Request::url()}} là yêu cầu lấy đường dẫn hiện tại --}}
                         </select>
                     </div>
