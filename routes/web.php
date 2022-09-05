@@ -51,7 +51,7 @@ Route::post('/autocomplete-search-ajax', [HomeController::class,'autocomplete_se
 
 //StatisticalController----------------------------------------------------------------------------
 Route::post('/filter-statistical-by-day', [StatisticalController::class,'filter_statistical_by_day']);
-Route::post('/load-thirty-day-statistical', [StatisticalController::class,'load_thirty_day_statistical']);
+Route::post('/load-sixty-day-statistical', [StatisticalController::class,'load_sixty_day_statistical']);
 Route::post('/filter-statistical', [StatisticalController::class,'filter_statistical']);
 //AdminController--------------------------------------------------------------------------------------------------
 Route::get('/admin', [AdminController::class,'index']);

@@ -45,10 +45,10 @@ class StatisticalController extends Controller
         
     }
     //Load dữ liệu
-    public function load_thirty_day_statistical(Request $request){
-        $sub_thirty_day = Carbon::now('Asia/Ho_Chi_Minh')->subDays(30)->toDateString();//Lấy 30 ngày trước
+    public function load_sixty_day_statistical(Request $request){
+        $sub_sixty_day = Carbon::now('Asia/Ho_Chi_Minh')->subDays(60)->toDateString();//Lấy 30 ngày trước
         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();//Lấy ngày hiện tại
-        echo $get = StatisticalModel::whereBetween('order_date',[$sub_thirty_day,$now])
+        $get = StatisticalModel::whereBetween('order_date',[$sub_sixty_day,$now])
         ->orderBy('order_date','ASC')->get();//Lấy tất cả số liệu trong khoản thời gian đã đặt
         // whereBetween là điều kiện giữa cái gì tới cái gì
 

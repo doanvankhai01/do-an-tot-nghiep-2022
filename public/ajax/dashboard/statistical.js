@@ -1,6 +1,6 @@
 $(document).ready(function(){
     //load dữ liệu 30 ngày gần nhất
-    chart30daysorder();
+    chart60daysorder();
     //load toàn bộ dữ liệu tìm kiếm và truyền vào biểu đồ
     var chart = new Morris.Bar({
         element: 'mychart',
@@ -21,7 +21,7 @@ $(document).ready(function(){
         labels: ['Đơn hàng', 'Doanh số', 'Lợi nhuận', 'Số lượng'],
         
       });
-    function chart30daysorder(){
+    function chart60daysorder(){
         // alert("Đc gòi ciu");
         var url = $('.url').val();  
         var _token = $('input[name="_token"]').val();
@@ -32,7 +32,7 @@ $(document).ready(function(){
         // alert(url);
 
         $.ajax({
-            url : url+'/load-thirty-day-statistical',
+            url : url+'/load-sixty-day-statistical',
             method: 'POST',
             dataType: 'JSON',
             data:{
