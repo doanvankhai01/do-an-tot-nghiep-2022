@@ -24,6 +24,10 @@ window.onscroll = function() {scrollFunction()};
             document.getElementById("logo-img").style.width = "15%";
             document.getElementById("img-scroll").style.marginBottom = "0%";
             
+            // Thông tin đăng nhập
+            document.getElementById("image-admin-profile").style.height = "40px";
+            document.getElementById("image-admin-profile").style.width = "40px";
+            document.getElementById("admin-profile").style.marginTop = "3%";
 
         } else {
             document.getElementById("menu-menu-menu").style.height = "115px";
@@ -48,5 +52,10 @@ window.onscroll = function() {scrollFunction()};
             document.getElementById("logo-img").style.width = "25%";
             document.getElementById("img-scroll").style.marginBottom = "15%";
             
+
+            // Thông tin đăng nhập
+            document.getElementById("image-admin-profile").style.height = "70px";
+            document.getElementById("image-admin-profile").style.width = "70px";
+            document.getElementById("admin-profile").style.marginTop = "7%";
         }
         }

@@ -67,8 +67,9 @@
                 <th class="th-infomation-title" style="width:4.8%;">
                   STT
                 </th>
-                <th class="th-infomation-title" style="width:20%;">Tên quản trị viên</th>
-                <th class="th-infomation-title" style="width:32%;">Email</th>
+                <th class="th-infomation-title" style="width:15%;">Tên quản trị viên</th>
+                <th class="th-infomation-title" style="width:8.5%;">Hình ảnh</th>
+                <th class="th-infomation-title" style="width:27%;">Email</th>
                 <th class="th-infomation-title" style="width:20%;">Số điện thoại</th>
                 <th class="th-infomation-title" style="width:10%;">Cấp bậc</th>
                 <th class="th-infomation-title" style="width:13.2%;">Chức năng</th>
@@ -88,6 +89,7 @@
                 --}}
                 </td>
                 <td class="td-infomation-title">{{ $ad->admin_name }}</td>
+                <td class="td-infomation-title"><img src="public/uploads/admin/{{$ad->admin_image}}" height="100" width="100"></td>
                 <td class="td-infomation-title">{{ $ad->admin_email }}</td>
                 <td class="td-infomation-title">{{ $ad->admin_phone }}</td>
                 <td class="td-infomation-title">
@@ -100,7 +102,7 @@
                 @endif
                 </td>
                 <td class="td-infomation-title">
-                  <a href="{{URL::to('/edit-admin-account/'.$ad->admin_id)}}" class="edit-delete-function" ui-toggle-class="">
+                  <a href="{{URL::to('/edit-admin/'.$ad->admin_id)}}" class="edit-delete-function" ui-toggle-class="">
                     <i class="fa fa-pencil-square-o text-success text-active"></i>Chi tiết</a>
                     {{-- <a onclick="return confirm('Bạn có muốn xóa sản phẩm, sản phẩm sẽ được lưu trữ trong thùng rác?')"  href="{{URL::to('/unactive-waste-basket-admin/'.$ad->admin_id)}}" class="edit-delete-function" ui-toggle-class="">
                       <i class="material-icons text-danger">delete_forever</i>

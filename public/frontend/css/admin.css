@@ -1,3 +1,13 @@
+.image-admin-profile{
+    width: 70px;
+    height: 70px;
+    transition: 0.4s;
+}
+.header-admin{
+    margin-top: 7%;
+    transition: 0.4s;
+    margin-right: 5%;
+}
 .dropdown {
     position: relative;
     display: inline-block;
@@ -304,9 +314,6 @@ a{text-decoration: none;
     border-bottom: 2px solid #A0522D;
     box-shadow: 0 1px 3px 0 #A0522D, 0 1px 5px 0 	#A0522D;
     transition: 0.4s;
-}
-.header-admin{
-    margin-top: 1%;
 }
 /* TITLE TOP ============================================================================================================================== */
 #btn-info-title-1{

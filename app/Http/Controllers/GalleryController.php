@@ -125,6 +125,7 @@ class GalleryController extends Controller
             $check = 'public/uploads/gallery/'.$gallery->gallery_image;
             if(File::exists($check)){//kiểm tra xem file có tồn tại không
                 unlink('public/uploads/gallery/'.$gallery->gallery_image);//xóa hình ảnh khỏi thư mục chứa ảnh
+                
                 $get_name_image = $get_image->getClientOriginalName();//lấy cả tên và đuôi file
                 $name_image = current(explode('.',$get_name_image));//lấy phần tên trước dấu ."chấm"
                 $new_image =$name_image.rand(0,999999).'.'.$get_image->getClientOriginalExtension();//Nối thêm đuôi số

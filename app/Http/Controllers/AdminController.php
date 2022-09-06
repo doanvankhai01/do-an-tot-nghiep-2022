@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use App\Htpp\Requests;
 use App\Models\ProductModel;
@@ -42,6 +43,7 @@ class AdminController extends Controller
             // print_r($result);
             // echo'</pre>';
             Session::put('admin_name', $result->admin_name);
+            Session::put('admin_image', $result->admin_image);
             Session::put('admin_id',$result->admin_id);
             Session::put('message','swal("Đăng nhập thành công!", "Chuyển tới trang quản lý","success")');
             return Redirect::to('dashboard');
@@ -70,7 +72,35 @@ class AdminController extends Controller
         return view('admin.add_admin');
     }
     //Lưu và thêm admin
-    public function save_admin(){}
+    public function save_admin(Request $request){
+        $get_image = $request->file('file');
+        $admin_name = $request->admin_name;
+        $amdin_slug = $request->admin_slug;
+        $amdin_phone = $request->admin_phone;
+        $admin_email = $request->admin_email;
+        $admin_password = $request->admin_password;
+        $admin_status = $request->admin_status;
+        if($get_image){
+            $admin = new AdminModel();            
+                $get_name_image = $get_image->getClientOriginalName();//lấy cả tên và đuôi file
+                $name_image = current(explode('.',$get_name_image));//lấy phần tên trước dấu ."chấm"
+                $new_image =$name_image.rand(0,999999).'.'.$get_image->getClientOriginalExtension();//Nối thêm đuôi số
+                $get_image->move('public/uploads/admin',$new_image);//Chuyển ảnh đến thư mục gallery
+                
+                $admin->admin_image = $new_image;
+                $admin->admin_name = $admin_name;
+                $admin->admin_slug = $amdin_slug;
+                $admin->admin_phone = $amdin_phone;
+                $admin->admin_email = $admin_email;
+                $admin->admin_password = $admin_password;
+                $admin->admin_status = $admin_status;
+                $admin->waste_basket_admin =0;
+                $admin->save();
+                Session::put('message','swal("Thêm thành công!", "Thêm tài khoản thành công!","error")');
+        }else{
+            Session::put('message','swal("Thêm thất bại!", "Thêm không thành công!","error")');
+        }
+    }
     //Hiển thị danh sách admin
     public function all_admin(){
         $all_admin = AdminModel::orderby('admin_status','asc')
@@ -87,9 +117,70 @@ class AdminController extends Controller
         //số trang là 2, thì lấy số khởi đầu là (2-1)*10 -> là 0, vậy khởi đầu là 10 
     }
     //Hiển thị chi tiết thông tin tài khoản
-    public function edit_admin(){}
+    public function edit_admin($admin_id){
+        $edit_admin = AdminModel::where('admin_id',$admin_id)->first();
+        return view('admin.edit_admin')->with('edit_admin',$edit_admin);
+    }
     //Cập nhật tài khoản admin
-    public function update_admin(){}
+    public function update_admin(Request $request){
+        $get_image = $request->file('file');
+        $admin_id = $request->admin_id;
+        $admin_name = $request->admin_name;
+        $amdin_slug = $request->admin_slug;
+        $amdin_phone = $request->admin_phone;
+        $admin_email = $request->admin_email;
+        $admin_password = $request->admin_password;
+        $admin_status = $request->admin_status;
+
+        if($get_image){
+            $admin = AdminModel::find($admin_id);   
+            $check = 'public/uploads/admin/'.$admin->admin_image;
+            if(File::exists($check)){//kiểm tra xem file có tồn tại không
+                unlink('public/uploads/admin/'.$admin->admin_image);//xóa hình ảnh khỏi thư mục chứa ảnh
+                $get_name_image = $get_image->getClientOriginalName();//lấy cả tên và đuôi file
+                $name_image = current(explode('.',$get_name_image));//lấy phần tên trước dấu ."chấm"
+                $new_image =$name_image.rand(0,999999).'.'.$get_image->getClientOriginalExtension();//Nối thêm đuôi số
+                $get_image->move('public/uploads/admin',$new_image);//Chuyển ảnh đến thư mục gallery
+                
+                $admin->admin_image = $new_image;
+                $admin->admin_name = $admin_name;
+                $admin->admin_slug = $amdin_slug;
+                $admin->admin_phone = $amdin_phone;
+                $admin->admin_email = $admin_email;
+                $admin->admin_password = $admin_password;
+                $admin->admin_status = $admin_status;
+                $admin->waste_basket_admin =0;
+                $admin->save();
+            }else{
+                $get_name_image = $get_image->getClientOriginalName();//lấy cả tên và đuôi file
+                $name_image = current(explode('.',$get_name_image));//lấy phần tên trước dấu ."chấm"
+                $new_image =$name_image.rand(0,999999).'.'.$get_image->getClientOriginalExtension();//Nối thêm đuôi số
+                $get_image->move('public/uploads/admin',$new_image);//Chuyển ảnh đến thư mục gallery
+                
+                $admin->admin_image = $new_image;
+                $admin->admin_name = $admin_name;
+                $admin->admin_slug = $amdin_slug;
+                $admin->admin_phone = $amdin_phone;
+                $admin->admin_email = $admin_email;
+                $admin->admin_password = $admin_password;
+                $admin->admin_status = $admin_status;
+                $admin->waste_basket_admin =0;
+                $admin->save();
+            }
+           
+        }else{
+            $admin = AdminModel::find($admin_id);   
+            $admin->admin_name = $admin_name;
+            $admin->admin_slug = $amdin_slug;
+            $admin->admin_phone = $amdin_phone;
+            $admin->admin_email = $admin_email;
+            $admin->admin_password = md5($admin_password);
+            $admin->admin_status = $admin_status;
+            $admin->waste_basket_admin =0;
+            $admin->save();
+           
+        }
+    }
     //Xóa tài khoản admin
     public function delete_admin(){}
 

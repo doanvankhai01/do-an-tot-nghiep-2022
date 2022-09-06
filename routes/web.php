@@ -65,6 +65,9 @@ Route::get('/log-out', [AdminController::class,'log_out']);
 
 Route::get('/all-admin', [AdminController::class,'all_admin']);
 Route::get('/add-admin', [AdminController::class,'add_admin']);
+Route::post('/save-admin', [AdminController::class,'save_admin']);
+Route::get('/edit-admin/{admin_id}', [AdminController::class,'edit_admin']);
+Route::post('/update-admin', [AdminController::class,'update_admin']);
 //NotificationController ============================================================
 Route::post('/notification-product', [NotificationController::class,'notification_product']);
 Route::post('/notification-new-order', [NotificationController::class,'notification_new_order']);

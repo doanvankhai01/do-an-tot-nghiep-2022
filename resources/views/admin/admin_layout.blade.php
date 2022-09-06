@@ -69,11 +69,19 @@
                             (<i id="notification_new_order"></i>)
                     </button>   
                 </div>
-                <div class="col-sm-2 center-midel">
-                    <header class="header-admin">   
+                <div class="col-sm-2 colll2">
+                    <header class="header-admin" id="admin-profile">   
                         <ul class="nav pull-right top-menu">
                             <div class="dropdown">
-                                <img alt="" src="{{('public/backend/images/2.png')}}">
+                                <?php
+                                    $image = Session::get('admin_image');
+                                    if($image){
+                                ?>
+                                        {{-- <img alt="" src="{{('public/backend/images/2.png')}}"> --}}
+                                        <img class="image-admin-profile"id="image-admin-profile" alt="" src="{{('public/uploads/admin/'.$image)}}">
+                                <?php
+                                    }
+                                ?>
                                 <span >
                                     <a href="" class="link-href-admin">
                                         <?php
