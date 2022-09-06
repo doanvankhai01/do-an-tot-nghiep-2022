@@ -1,6 +1,8 @@
 $(document).ready(function(){
-    //load dữ liệu 30 ngày gần nhất
+    //load dữ liệu 60 ngày gần nhất
     chart60daysorder();
+    //Lấy dữu liệu lượng truy cập
+    show_visitor();
     //load toàn bộ dữ liệu tìm kiếm và truyền vào biểu đồ
     var chart = new Morris.Bar({
         element: 'mychart',
@@ -21,6 +23,7 @@ $(document).ready(function(){
         labels: ['Đơn hàng', 'Doanh số', 'Lợi nhuận', 'Số lượng'],
         
       });
+    //Lấy dữ liệu doanh số 60 ngày
     function chart60daysorder(){
         // alert("Đc gòi ciu");
         var url = $('.url').val();  
@@ -104,4 +107,31 @@ $(document).ready(function(){
         });
         
     });
+    //Lấy dữ liệu lượng truy cập
+    function show_visitor(){
+        // alert("Đc gòi ciu");
+        var url = $('.url').val();  
+        var _token = $('input[name="_token"]').val();
+
+        // alert(date_start);
+        // alert(date_end);
+        // alert(_token);
+        // alert(url);
+
+        $.ajax({
+            url : url+'/show-visitor',
+            method: 'POST',
+            dataType: 'JSON',
+            data:{
+                _token:_token
+            },
+            success:function(data){
+            //    location.reload(chart.setData(data)).parseTime(false);
+               chart.setData(data);
+                //lưu ý: data ko phải là 1 biến, mà là cả 1 function bên controller
+               //location.reload().parseTime(false);
+            }
+           
+        });
+    }
 });

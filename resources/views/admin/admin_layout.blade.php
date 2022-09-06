@@ -6,6 +6,7 @@
     <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
     Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
     <meta name="csrf-token" content="{{ csrf_token()}}">
+    <meta name="url" content="{{URL::to('')}}">
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -44,24 +45,28 @@
                     <button class="btn-info-title" id="btn-info-title-1">
                         <i class="material-icons"id="a-info-icon-top-1">category</i>
                             Sản phẩm
-                    </button>                        
+                        (<i id="notification_product"></i>)
+                    </button>
+                                          
                 </div>
                 <div class="col-sm-2 colll2">
                     <button class="btn-info-title" id="btn-info-title-2">
                         <i class="material-icons"id="a-info-icon-top-2">list_alt</i>
-                            Bài viết
+                            Bình luận mới
                     </button>  
                 </div>
                 <div class="col-sm-2">
                     <button class="btn-info-title" id="btn-info-title-3">
-                        <i class="material-icons">notifications_none</i>
-                            Thông báo
+                        <i class="material-icons"id="a-info-icon-top-4">content_paste</i>
+                            Đơn hàng chưa xử lí
+                            (<i id="notification_view_order"></i>)
                     </button>  
                 </div>
                 <div class="col-sm-2 colll2 ">
                     <button class="btn-info-title" id="btn-info-title-4">
                         <i class="material-icons"id="a-info-icon-top-4">content_paste</i>
-                            Đơn hàng
+                            Đơn hàng mới
+                            (<i id="notification_new_order"></i>)
                     </button>   
                 </div>
                 <div class="col-sm-2 center-midel">
@@ -131,8 +136,8 @@
                             </form>
 
                             <p class="h5-title-menu"><i class="material-icons">account_tree</i> Quản lý tài khoản</p>
-                            <form action="{{URL::to('/dashboard')}}">
-                                <p class="p-function-menu-admin"><i class="material-icons">admin_panel_settings</i><input class="input-submit-function-menu-admin" type="submit" value="Tài khoản admin"></p>
+                            <form action="{{URL::to('/all-admin')}}">
+                                <p class="p-function-menu-admin"><i class="material-icons">admin_panel_settings</i><input class="input-submit-function-menu-admin" type="submit" value="Tài khoản quản trị viên"></p>
                             </form>
                             <form action="{{URL::to('/all-customer-account')}}">
                                 <p class="p-function-menu-admin"><i class="material-icons">people</i><input class="input-submit-function-menu-admin" type="submit" value="Tài khoản người dùng"></p>
@@ -211,7 +216,10 @@
     {{-- <script src="{{asset('public/backend/js/jquery.form-validator.min.js')}}"></script> --}}
     <script type="text/javascript" src="{{asset('public/backend/js/shopgau-validator.js')}}"></script>
     
-
+    {{-- Giao diện --}}
+    <script src="{{asset('public/ajax/dashboard/giaodien/header.js')}}"></script>
+    <script src="{{asset('public/ajax/dashboard/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset('public/ajax/dashboard/giaodien/notification.js')}}"></script>
     
     {{-- Chức năng ajax --}}
     <section class="section-infomation" id="section-infomation">
@@ -227,9 +235,7 @@
     {{-- <script src="{{asset('public/ajax/dashboard/statistical.js')}}"></script> --}}
     {{-- <script src="{{asset('public/ajax/dashboard/product.js')}}"></script> --}}
 
-    {{-- Giao diện --}}
-    <script src="{{asset('public/ajax/dashboard/giaodien/header.js')}}"></script>
-    <script src="{{asset('public/ajax/dashboard/ckeditor/ckeditor.js')}}"></script>
+    
     {{-- <script src="{{asset('public/ajax/dashboard/datepicker/datepicker.js')}}"></script> --}}
     {{-- Hiển thị ngày --}}
     {{-- <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> --}}

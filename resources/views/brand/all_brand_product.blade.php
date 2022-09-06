@@ -19,6 +19,7 @@
       <div class="col-sm-2">
         
         <form action="{{URL::to('/add-brand-product')}}">
+          
           <button class="btn-function-infomation" id="">
             <i class="fa fa-plus"></i>
             Thêm thương hiệu
@@ -120,8 +121,6 @@
 </div>
 
 @endsection
-
-@extends('admin.admin_layout')
 @section('script')
 <script src="{{asset('public/ajax/dashboard/brand.js')}}"></script>
 @endsection

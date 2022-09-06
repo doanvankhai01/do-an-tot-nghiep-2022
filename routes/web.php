@@ -16,7 +16,8 @@ use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SliderBannerController;
 use App\Http\Controllers\StatisticalController;
-
+use App\Http\Controllers\NotificationController;
+// use App\Http\Controllers\VisitorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,6 +54,7 @@ Route::post('/autocomplete-search-ajax', [HomeController::class,'autocomplete_se
 Route::post('/filter-statistical-by-day', [StatisticalController::class,'filter_statistical_by_day']);
 Route::post('/load-sixty-day-statistical', [StatisticalController::class,'load_sixty_day_statistical']);
 Route::post('/filter-statistical', [StatisticalController::class,'filter_statistical']);
+Route::post('/show-visitor', [StatisticalController::class,'show_visitor']);
 //AdminController--------------------------------------------------------------------------------------------------
 Route::get('/admin', [AdminController::class,'index']);
 Route::get('/dashboard', [AdminController::class,'show_dashboard']);
@@ -60,6 +62,13 @@ Route::get('/dashboard', [AdminController::class,'show_dashboard']);
 Route::post('/admin-dashboard', [AdminController::class,'dashboard']);
 Route::get('/log-out', [AdminController::class,'log_out']);
 
+
+Route::get('/all-admin', [AdminController::class,'all_admin']);
+Route::get('/add-admin', [AdminController::class,'add_admin']);
+//NotificationController ============================================================
+Route::post('/notification-product', [NotificationController::class,'notification_product']);
+Route::post('/notification-new-order', [NotificationController::class,'notification_new_order']);
+Route::post('/notification-view-order', [NotificationController::class,'notification_view_order']);
 
 // AccountController ==============================================================================
 //Trang quản lý admin

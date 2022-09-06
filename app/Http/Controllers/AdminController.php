@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use App\Htpp\Requests;
+use App\Models\ProductModel;
+use App\Models\OrderModel;
+use App\Models\AdminModel;
 use Session ;
 session_start();
 class AdminController extends Controller
@@ -63,11 +66,26 @@ class AdminController extends Controller
 
     //Quản lý ==================================================================================
     //Hiển thị trang thêm admin
-    public function add_admin(){}
+    public function add_admin(){
+        return view('admin.add_admin');
+    }
     //Lưu và thêm admin
     public function save_admin(){}
     //Hiển thị danh sách admin
-    public function all_admin(){}
+    public function all_admin(){
+        $all_admin = AdminModel::orderby('admin_status','asc')
+        ->where('waste_basket_admin',0)
+        ->paginate(10);
+
+        return view('admin.all_admin')
+        ->with('all_admin', $all_admin)
+        ->with('i',(request()->input('page',1)-1)*10);
+         //Cho i là số thứ tự khi phân trang
+        //input('page',1): lấy số trang với giá trị khởi đầu là 1, nếu trống thì mặc định là 0
+        //vì trang có 10 sản phẩm thì nhân cho 10, sau khi chuyển
+        //Ví dụ số trang là 1, thì lấy số khởi đầu là (1-1)*10 -> là 0, vậy khởi đầu là 0 
+        //số trang là 2, thì lấy số khởi đầu là (2-1)*10 -> là 0, vậy khởi đầu là 10 
+    }
     //Hiển thị chi tiết thông tin tài khoản
     public function edit_admin(){}
     //Cập nhật tài khoản admin
@@ -75,5 +93,6 @@ class AdminController extends Controller
     //Xóa tài khoản admin
     public function delete_admin(){}
 
+    
 }
 ?>

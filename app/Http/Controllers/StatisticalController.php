@@ -7,12 +7,24 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use App\Htpp\Requests;
 use App\Models\StatisticalModel;
+use App\Models\VisitorModel;
 use Carbon\Carbon;
 use Session ;
 session_start();
 class StatisticalController extends Controller
 {
+    //Kiểm tra đăng nhập
+    public function AuthLogin(){
+        $admin_id = Session::get('admin_id');
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }else{
+            Session::put('message','Vui lòng đăng nhập quyền Admin!');
+            return Redirect::to('admin')->send();
+        }
+    }
     public function filter_statistical_by_day(Request $request){
+        $this->AuthLogin();
         $data = $request->all();
         $date_start = $data['date_start'];
         $date_end = $data['date_end'];
@@ -46,6 +58,7 @@ class StatisticalController extends Controller
     }
     //Load dữ liệu
     public function load_sixty_day_statistical(Request $request){
+        $this->AuthLogin();
         $sub_sixty_day = Carbon::now('Asia/Ho_Chi_Minh')->subDays(60)->toDateString();//Lấy 30 ngày trước
         $now = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();//Lấy ngày hiện tại
         $get = StatisticalModel::whereBetween('order_date',[$sub_sixty_day,$now])
@@ -68,6 +81,7 @@ class StatisticalController extends Controller
     }
     //lọc doanh số
     public function filter_statistical(Request $request){
+        $this->AuthLogin();
         $data = $request->all();
         // echo $today = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y H:i:s');
         // $day_in_month = Carbon::now('Asia/Ho_Chi_Minh');//Lấy thời gian hiện tại
@@ -150,5 +164,13 @@ class StatisticalController extends Controller
         }
         echo $data = json_encode($chart_data);
         //Trả về một chuỗi có chứa biểu diễn JSON của cung cấp value. Nếu tham số là một mảng hoặc đối tượng , nó sẽ được tuần tự hóa một cách đệ quy.
+    }
+
+    //Thống kê lượt truy cập
+    public function show_visitor(Request $request){
+        $this->AuthLogin();
+        echo $user_ip_address = $request->ip();//lấy địa chỉ ip đã đăng nhập
+
+
     }
 }

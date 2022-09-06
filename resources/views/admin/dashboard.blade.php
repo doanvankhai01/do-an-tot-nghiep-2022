@@ -54,6 +54,32 @@ if($message){
                     <div id="mychart" style="height: 500px;"></div>
                 </div>
             </div>
+            <h2 class="h2-title">Thống kê lượng truy cập</h2>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="tbl-function-infomation">
+                        <thead>
+                          <tr>
+                            <th class="th-infomation-title" style="width:;">Đang hoạt động</th>
+                            <th class="th-infomation-title" >Lượng truy cập tháng trước</th>
+                            <th class="th-infomation-title">Lượng truy cập tháng này</th>
+                            <th class="th-infomation-title" style="width:">Tổng lượng truy cập một năm</th>
+                            
+                            <th class="th-infomation-title" style="width:"> Tổng toàn bộ lượng truy cập</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="td-infomation-title">1</td>
+                            <td class="td-infomation-title">2</td>
+                            <td class="td-infomation-title">3</td>
+                            <td class="td-infomation-title">4</td>
+                            <td class="td-infomation-title">5</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
         </div>
         
     </div>

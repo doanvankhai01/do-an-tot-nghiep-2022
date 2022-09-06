@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use App\Htpp\Requests;
 use App\Models\BrandModel;
+use App\Models\ProductModel;
+use App\Models\OrderModel;
 use Session ;
 session_start();
 class BrandController extends Controller
@@ -29,16 +31,20 @@ class BrandController extends Controller
     //Hiển thị danh sách thương hiệu
     public function all_brand_product(){
         $this->AuthLogin();
-        $all_brand_product = BrandModel::orderBy('brand_id','DESC')->paginate(5);
-        $manager_brand_product = view('brand.all_brand_product')
-        ->with('all_brand_product', $all_brand_product)
-        ->with('i',(request()->input('page',1)-1)*5);
+        $all_brand_product = BrandModel::orderBy('brand_id','DESC')
+        //->where('waste_basket_brand',0)
+        ->paginate(5);
         //Cho i là số thứ tự khi phân trang
         //input('page',1): lấy số trang với giá trị khởi đầu là 1, nếu trống thì mặc định là 0
         //vì trang có 10 sản phẩm thì nhân cho 10, sau khi chuyển
         //Ví dụ số trang là 1, thì lấy số khởi đầu là (1-1)*10 -> là 0, vậy khởi đầu là 0 
         //số trang là 2, thì lấy số khởi đầu là (2-1)*10 -> là 0, vậy khởi đầu là 10 
-        return view('admin.admin_layout')->with('all_brand_product',$manager_brand_product);
+
+        
+
+        return view('brand.all_brand_product')
+        ->with('i',(request()->input('page',1)-1)*5)
+        ->with('all_brand_product',$all_brand_product);
     }
     //Thêm thương hiẹu
     // public function save_brand_product(Request $request){
