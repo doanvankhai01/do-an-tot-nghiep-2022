@@ -68,6 +68,8 @@ Route::get('/add-admin', [AdminController::class,'add_admin']);
 Route::post('/save-admin', [AdminController::class,'save_admin']);
 Route::get('/edit-admin/{admin_id}', [AdminController::class,'edit_admin']);
 Route::post('/update-admin', [AdminController::class,'update_admin']);
+Route::post('/search-admin', [AdminController::class,'search_admin']);
+Route::post('/autocomplete-search-admin-ajax', [AdminController::class,'autocomplete_search_admin_ajax']);
 //NotificationController ============================================================
 Route::post('/notification-product', [NotificationController::class,'notification_product']);
 Route::post('/notification-new-order', [NotificationController::class,'notification_new_order']);

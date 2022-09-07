@@ -36,7 +36,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="lable-title">Đường dẫn URL</label>
-                                    <input type="text" name="admin_slug" class="form-control admin_slug" id="admin_slug" value="{{$edit_admin->admin_slug}}">
+                                    <input type="text" name="admin_slug" class="form-control admin_slug" id="admin_slug" value="{{$edit_admin->admin_slug}}" readonly="false">
+                                </div>
+                                <div class="form-group">
+                                    <label class="lable-title">Ngày sinh</label>
+                                    <input type="text" name="admin_birdthday" class="form-control admin_birdthday" id="datepicker4" placeholder="dd-mm-yyyy" value="{{$edit_admin->admin_birdthday}}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="lable-title">Địa chỉ</label>
+                                    <input type="text" name="admin_address" class="form-control admin_address" id="admin_address" placeholder="VN" value="{{$edit_admin->admin_address}}">
                                 </div>
                                 <div class="form-group">
                                     <label class="lable-title">Số điện thoại</label>
@@ -91,4 +99,8 @@
 @endsection
 @section('script')
 <script src="{{asset('public/ajax/dashboard/admin.js')}}"></script>
+<script src="{{asset('public/ajax/dashboard/datepicker/datepicker.js')}}"></script>
+{{-- Hiển thị ngày --}}
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 @endsection

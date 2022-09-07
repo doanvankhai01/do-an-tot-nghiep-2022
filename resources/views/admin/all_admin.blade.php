@@ -9,7 +9,7 @@
   <?php
   }
 ?>
-    <div class="table-agile-info">
+<div class="table-agile-info" id="">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h2 class="h2-title">Liệt kê danh sách quản trị viên</h2>
@@ -25,7 +25,7 @@
         </form>
       </div>
       <div class="col-sm-5">
-        <form >
+        {{-- <form >
           @csrf
           <select name="sort" id="sort" class="btn-function-infomation">
               <option value="{{Request::url()}}?sort_by=none">--- Lọc theo ---</option>
@@ -33,22 +33,21 @@
               <option value="{{Request::url()}}?sort_by=giam_dan">Lọc theo giá từ lớn nhất đên nhỏ nhất</option>
               <option value="{{Request::url()}}?sort_by=a_den_z">Lọc theo tên từ A đến Z</option>
               <option value="{{Request::url()}}?sort_by=z_den_a">Lọc theo tên từ Z đến A</option>
-              {{-- {{Request::url()}} là yêu cầu lấy đường dẫn hiện tại --}}
           </select>
           <p></p>
-      </form>            
+        </form>             --}}
       </div>
       <div class="col-sm-2">
       </div>
       <div class="col-sm-3">
         <div class="">
-          <form action="{{URL::to('/search-product-on-admin-layout')}}" method="POST">
+          <form>
             @csrf
             <div class="search_box pull-right">
-              <input type="text" class="btn-function-infomation" name="search_product_submit" id="keywords_product" placeholder="Nhập tên sản phẩm">
-              <input class="btn-function-infomation" name="search_items" type="submit" value="Tìm kiếm">
+              <input type="text" class="btn-function-infomation search_admin_name" name="search_admin_submit" id="keywords_admin" placeholder="Nhập tên admin">
+              <input class="btn-function-infomation search_admin" name="search_items" type="button" value="Tìm kiếm">
             </div>
-            <div class="div-auto-complete-search" style="" id="search_product_admin_ajax"></div>
+            <div class="div-auto-complete-search search_admin_ajax" style="" id="search_admin_ajax"></div>
         </form>
         </div>
       </div>
@@ -58,7 +57,7 @@
       <a class="link-href-admin" href="{{URL::to('/dashboard')}}">Trang chủ</a>/
       <a  class="link-href-admin" href="">Tài khoản</a>
     </div>
-    <div class="table-responsive">
+    <div class="table-responsive" id="show_search_admin">
       <div class="card">
         <div class="card-body">
           <table class="tbl-function-infomation">
@@ -104,10 +103,6 @@
                 <td class="td-infomation-title">
                   <a href="{{URL::to('/edit-admin/'.$ad->admin_id)}}" class="edit-delete-function" ui-toggle-class="">
                     <i class="fa fa-pencil-square-o text-success text-active"></i>Chi tiết</a>
-                    {{-- <a onclick="return confirm('Bạn có muốn xóa sản phẩm, sản phẩm sẽ được lưu trữ trong thùng rác?')"  href="{{URL::to('/unactive-waste-basket-admin/'.$ad->admin_id)}}" class="edit-delete-function" ui-toggle-class="">
-                      <i class="material-icons text-danger">delete_forever</i>
-                      Xóa
-                    </a> --}}
                 </td>
               </tr>
               @endforeach
@@ -117,11 +112,16 @@
       </div>
     </div>
     <footer class="panel-footer">
-      <div class="product-paginate"> 
+      <div class="product-paginate">
+
           {{$all_admin->links()}}  
           {{-- links gọi các nút phân trang, chuyển trang và để định dạng cho đẹp thì vào App\Providers\AppServiceProvider để định dạng kiểu nút phân trang cho đẹp--}}
       </div>
+      
     </footer>
   </div>
 </div>
+@endsection
+@section('script')
+<script src="{{asset('public/ajax/dashboard/admin.js')}}"></script>
 @endsection

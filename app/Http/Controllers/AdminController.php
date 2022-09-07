@@ -44,6 +44,7 @@ class AdminController extends Controller
             // echo'</pre>';
             Session::put('admin_name', $result->admin_name);
             Session::put('admin_image', $result->admin_image);
+            Session::put('admin_status', $result->admin_status);
             Session::put('admin_id',$result->admin_id);
             Session::put('message','swal("Đăng nhập thành công!", "Chuyển tới trang quản lý","success")');
             return Redirect::to('dashboard');
@@ -65,6 +66,19 @@ class AdminController extends Controller
         Session::put('message','swal("Đăng xuất thành công!", "Chuyển tới trang đăng nhập","warning")');
         return Redirect::to('admin');
     }
+    //Hiện trang chỉnh sửa thông tin tài khoản cá nhân
+    public function edit_admin_account(){
+
+    }
+    //Cập nhật thông tin tài khoản
+    public function save_admin_account(){
+
+    }
+
+
+
+
+
 
     //Quản lý ==================================================================================
     //Hiển thị trang thêm admin
@@ -76,6 +90,8 @@ class AdminController extends Controller
         $get_image = $request->file('file');
         $admin_name = $request->admin_name;
         $amdin_slug = $request->admin_slug;
+        $amdin_birdthday = $request->admin_birdthday;
+        $amdin_address = $request->admin_address;
         $amdin_phone = $request->admin_phone;
         $admin_email = $request->admin_email;
         $admin_password = $request->admin_password;
@@ -90,13 +106,15 @@ class AdminController extends Controller
                 $admin->admin_image = $new_image;
                 $admin->admin_name = $admin_name;
                 $admin->admin_slug = $amdin_slug;
+                $admin->admin_birdthday = $amdin_birdthday;
+                $admin->admin_address = $amdin_address;
                 $admin->admin_phone = $amdin_phone;
                 $admin->admin_email = $admin_email;
-                $admin->admin_password = $admin_password;
+                $admin->admin_password = md5($admin_password);
                 $admin->admin_status = $admin_status;
                 $admin->waste_basket_admin =0;
                 $admin->save();
-                Session::put('message','swal("Thêm thành công!", "Thêm tài khoản thành công!","error")');
+                Session::put('message','swal("Thêm thành công!", "Thêm tài khoản thành công!","success")');
         }else{
             Session::put('message','swal("Thêm thất bại!", "Thêm không thành công!","error")');
         }
@@ -127,6 +145,8 @@ class AdminController extends Controller
         $admin_id = $request->admin_id;
         $admin_name = $request->admin_name;
         $amdin_slug = $request->admin_slug;
+        $amdin_birdthday = $request->admin_birdthday;
+        $amdin_address = $request->admin_address;
         $amdin_phone = $request->admin_phone;
         $admin_email = $request->admin_email;
         $admin_password = $request->admin_password;
@@ -145,9 +165,13 @@ class AdminController extends Controller
                 $admin->admin_image = $new_image;
                 $admin->admin_name = $admin_name;
                 $admin->admin_slug = $amdin_slug;
+                $admin->admin_birdthday = $amdin_birdthday;
+                $admin->admin_address = $amdin_address;
                 $admin->admin_phone = $amdin_phone;
                 $admin->admin_email = $admin_email;
-                $admin->admin_password = $admin_password;
+                if($admin->admin_password != $admin_password){
+                    $admin->admin_password = md5($admin_password);
+                }
                 $admin->admin_status = $admin_status;
                 $admin->waste_basket_admin =0;
                 $admin->save();
@@ -160,9 +184,13 @@ class AdminController extends Controller
                 $admin->admin_image = $new_image;
                 $admin->admin_name = $admin_name;
                 $admin->admin_slug = $amdin_slug;
+                $admin->admin_birdthday = $amdin_birdthday;
+                $admin->admin_address = $amdin_address;
                 $admin->admin_phone = $amdin_phone;
                 $admin->admin_email = $admin_email;
-                $admin->admin_password = $admin_password;
+                if($admin->admin_password != $admin_password){
+                    $admin->admin_password = md5($admin_password);
+                }
                 $admin->admin_status = $admin_status;
                 $admin->waste_basket_admin =0;
                 $admin->save();
@@ -172,9 +200,13 @@ class AdminController extends Controller
             $admin = AdminModel::find($admin_id);   
             $admin->admin_name = $admin_name;
             $admin->admin_slug = $amdin_slug;
+            $admin->admin_birdthday = $amdin_birdthday;
+            $admin->admin_address = $amdin_address;
             $admin->admin_phone = $amdin_phone;
             $admin->admin_email = $admin_email;
-            $admin->admin_password = md5($admin_password);
+            if($admin->admin_password != $admin_password){
+                $admin->admin_password = md5($admin_password);
+            }
             $admin->admin_status = $admin_status;
             $admin->waste_basket_admin =0;
             $admin->save();
@@ -183,7 +215,43 @@ class AdminController extends Controller
     }
     //Xóa tài khoản admin
     public function delete_admin(){}
-
-    
+    //Tìm kiếm admin
+    public function search_admin(Request $request){
+        $this->AuthLogin();
+        $data = $request->all();
+        $keywords = $data['admin_name'];
+        $i = 0;
+        $all_admin = AdminModel::orderby('admin_status','asc')
+        ->where('admin_name','like','%'.$keywords.'%')
+        ->where('waste_basket_admin','0')
+        // ->paginate(10);
+        ->get();
+        return view('admin.search_admin')
+        ->with('all_admin', $all_admin)
+        ->with('i',$i);
+        
+        // ->with('i',(request()->input('page',1)-1)*10);
+    }
+    public function autocomplete_search_admin_ajax(Request $request){
+        $data = $request->all();
+        if($data['query']){
+            $admin = AdminModel::where('admin_name','LIKE','%'.$data['query'].'%')
+            ->where('waste_basket_admin',0)
+            ->limit(6)
+            ->get();
+            $output = '';
+            // display:block đỗ dữ liệu list về dạng khối
+            // position:relative là cố định dính liền với những đối tượng trên nó
+            foreach($admin as $key => $val){
+                $output.='<a class="a-auto-complete" href="#"><img class="img-auto-complete" src="'.url("public/uploads/admin/$val->admin_image").'" >'
+                    .$val->admin_name.
+                    '</a>';
+            }
+            $output .= '';
+            echo $output;
+        }else{
+            alert('lỗi');
+        }
+    }
 }
 ?>

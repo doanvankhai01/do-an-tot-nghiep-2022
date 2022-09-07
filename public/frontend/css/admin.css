@@ -2,6 +2,7 @@
     width: 70px;
     height: 70px;
     transition: 0.4s;
+    border-radius: 50%;
 }
 .header-admin{
     margin-top: 7%;

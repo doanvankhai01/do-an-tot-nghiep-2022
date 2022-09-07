@@ -98,5 +98,5 @@ if($message){
 {{-- <script src="{{asset('public/ajax/dashboard/morris/morris.min.js')}}"></script> --}}
 {{-- Hiển thị ngày --}}
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 @endsection

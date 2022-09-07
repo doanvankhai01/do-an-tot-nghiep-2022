@@ -185,10 +185,12 @@
                 </div>
             </div>
             <div class="col-sm-10">
-                <section class="section-infomation" id="section-infomation">
+                <section class="section-infomation">
                     @yield('admin_content')
                 </section>
+                
             </div>
+            
             <div class="col-sm-">
             </div>
         </div>
