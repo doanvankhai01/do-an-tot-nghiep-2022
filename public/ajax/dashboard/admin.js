@@ -91,6 +91,50 @@ $('.add_admin').click(function(){
         }
     });
 });
+//Mở form chỉnh sửa 
+$(document).on('click','.edit_admin_account_lonely', function(){
+    // alert('ok edit');
+    var url = $('meta[name="url"]').attr('content');
+    var admin_id = $(this).data('admin_id');
+    var _token = $('meta[name="csrf-token"]').attr('content');
+    // alert(admin_id);
+    // alert(_token);
+    $.ajax({
+        url : url+'/edit-admin',
+        method: 'POST',
+        data:{
+            admin_id:admin_id,
+            _token:_token
+        },
+        success:function(data){
+            $('#show_edit_admin').html(data);
+        }
+    });
+
+
+});
+//Mở form chỉnh sửa 
+$(document).on('click','.edit_admin', function(){
+    // alert('ok edit');
+    var url = $('meta[name="url"]').attr('content');
+    var admin_id = $(this).data('admin_id');
+    var _token = $('meta[name="csrf-token"]').attr('content');
+    // alert(admin_id);
+    // alert(_token);
+    $.ajax({
+        url : url+'/edit-admin',
+        method: 'POST',
+        data:{
+            admin_id:admin_id,
+            _token:_token
+        },
+        success:function(data){
+            $('#show_edit_admin').html(data);
+        }
+    });
+
+
+});
 //Cập nhật hình ảnh
 $('.update_admin').click(function(){
     // alert("được");
@@ -150,7 +194,7 @@ $('.update_admin').click(function(){
         //Nếu bạn muốn gửi DOMDocument hoặc dữ liệu không được xử lý khác, hãy đặt tùy chọn này thành false.
         success:function(data){
             swal("Cập nhật thành công!","Cập nhật tài khoản thành công!", "success");
-            location.replace(url+'/all-admin')//Sau khi cập nhật thành công thì load lại danh sách
+            location.replace(url+'/dashboard')//Sau khi cập nhật thành công thì load lại danh sách
         }
     });
 });
@@ -173,7 +217,7 @@ $('.search_admin').click(function(){
         }
     });
 });
- //Tìm kiếm tự động tên sản phẩm-------------------------------------------------------------
+ //Tìm kiếm tự động tên admin-------------------------------------------------------------
 $('#keywords_admin').keyup(function(){
     // alert("oki gòi pa");
     var auto_url = $('meta[name="url"]').attr('content');;

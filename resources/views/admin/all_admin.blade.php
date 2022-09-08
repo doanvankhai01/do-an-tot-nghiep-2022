@@ -10,7 +10,7 @@
   }
 ?>
 <div class="table-agile-info" id="">
-  <div class="panel panel-default">
+  <div class="panel panel-default" >
     <div class="panel-heading">
       <h2 class="h2-title">Liệt kê danh sách quản trị viên</h2>
     </div>
@@ -101,9 +101,30 @@
                 @endif
                 </td>
                 <td class="td-infomation-title">
-                  <a href="{{URL::to('/edit-admin/'.$ad->admin_id)}}" class="edit-delete-function" ui-toggle-class="">
-                    <i class="fa fa-pencil-square-o text-success text-active"></i>Chi tiết</a>
-                </td>
+                  <?php
+                    $message = Session::get("admin_status");
+                    if($message == 0 || $message ==1){         
+                  ?>
+                    {{-- <a href="{{URL::to('/edit-admin/'.$ad->admin_id)}}" class="edit-delete-function" ui-toggle-class="">
+                    <i class="fa fa-pencil-square-o text-success text-active"></i>Chi tiết</a> --}}
+                    <a>
+                    <button href="" class="edit-delete-function edit_admin" value="edit" ui-toggle-class="" data-admin_id ="{{$ad->admin_id}}">
+                      <a><i class="fa fa-pencil-square-o text-success text-active"></i>Chi tiết</button>
+                  <?php
+                  }
+                  ?>
+                  <?php
+                    $message = Session::get("admin_status");
+                    if($message == 0){         
+                  ?>
+                    <a onclick="return confirm('Bạn có muốn xóa tài khoản, tài khoản sẽ được lưu trữ trong thùng rác?')"  href="{{URL::to('/unactive-waste-basket-admin/'.$ad->admin_id)}}" class="edit-delete-function" ui-toggle-class="">
+                      <i class="material-icons text-danger">delete_forever</i>
+                      Xóa
+                    </a>
+                  <?php
+                  }
+                  ?>
+                 </td>
               </tr>
               @endforeach
             </tbody>
@@ -123,5 +144,5 @@
 </div>
 @endsection
 @section('script')
-<script src="{{asset('public/ajax/dashboard/admin.js')}}"></script>
+{{-- <script src="{{asset('public/ajax/dashboard/admin.js')}}"></script> --}}
 @endsection

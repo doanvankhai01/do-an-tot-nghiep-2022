@@ -71,7 +71,7 @@
                 </div>
                 <div class="col-sm-2 colll2">
                     <header class="header-admin" id="admin-profile">   
-                        <ul class="nav pull-right top-menu">
+                        <ul class="nav top-menu">
                             <div class="dropdown">
                                 <?php
                                     $image = Session::get('admin_image');
@@ -93,9 +93,17 @@
                                     </a>
                                 </span>
                                 <div class="dropdown-content">
-                                    <li><a class="link-href-admin" href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
-                                    <li><a class="link-href-admin" href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                                    <li><a class="link-href-admin" href="{{URL::to('/log-out')}}"><i class="fa fa-key"></i>Đăng xuất</a></li>
+                                    <?php
+                                    $admin_id = Session::get('admin_id');
+                                    ?>
+                                    <li><button class="btn-function-infomation " href="#"><i class=" fa fa-suitcase"></i>Profile</button></li>
+                                    <li><button class="btn-function-infomation edit_admin_account_lonely" data-admin_id ="{{$admin_id}}"><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</button></li>
+                                    <li>
+                                        <form action="{{URL::to('/log-out')}}">
+                                            @csrf
+                                            <button class="btn-function-infomation"><i class="fa fa-key"></i>Đăng xuất</button>
+                                        </form>
+                                    </li>
                                 </div>
                             </div>
                         </ul>
@@ -144,9 +152,17 @@
                             </form>
 
                             <p class="h5-title-menu"><i class="material-icons">account_tree</i> Quản lý tài khoản</p>
-                            <form action="{{URL::to('/all-admin')}}">
-                                <p class="p-function-menu-admin"><i class="material-icons">admin_panel_settings</i><input class="input-submit-function-menu-admin" type="submit" value="Tài khoản quản trị viên"></p>
-                            </form>
+                            <?php
+                                $message = Session::get("admin_status");
+                                if($message == 0 || $message ==1){
+                                    
+                            ?>
+                                <form action="{{URL::to('/all-admin')}}">
+                                    <p class="p-function-menu-admin"><i class="material-icons">admin_panel_settings</i><input class="input-submit-function-menu-admin" type="submit" value="Tài khoản quản trị viên"></p>
+                                </form>
+                            <?php
+                            }
+                            ?>
                             <form action="{{URL::to('/all-customer-account')}}">
                                 <p class="p-function-menu-admin"><i class="material-icons">people</i><input class="input-submit-function-menu-admin" type="submit" value="Tài khoản người dùng"></p>
                             </form>
@@ -159,23 +175,30 @@
                                 <p class="p-function-menu-admin"><i class="material-icons">image</i><input class="input-submit-function-menu-admin" type="submit" value="Quản lý Slider"></p>
                             </form>
 
-                            <p class="h5-title-menu"><i class="material-icons">auto_delete</i>Thùng rác</p>
-                            <form action="{{URL::to('/waste-basket-product')}}">
-                                <p class="p-function-menu-admin"><i class="material-icons">list_alt</i><input class="input-submit-function-menu-admin" type="submit" value="Sản phẩm"></p>
-                            </form>
-                            <form action="{{URL::to('/waste-basket-order')}}">
-                                <p class="p-function-menu-admin"><i class="material-icons">fact_check</i><input class="input-submit-function-menu-admin" type="submit" value="Đơn hàng"></p>
-                            </form>
-                            <form action="{{URL::to('/waste-basket-category')}}">
-                                <p class="p-function-menu-admin"><i class="material-icons">category</i><input class="input-submit-function-menu-admin" type="submit" value="Danh mục"></p>
-                            </form>
-                            <form action="{{URL::to('/all-waste-basket-slider')}}">
-                                <p class="p-function-menu-admin"><i class="material-icons">image</i><input class="input-submit-function-menu-admin" type="submit" value="Slider"></p>
-                            </form>
-                            <form action="{{URL::to('/waste-basket-coupon')}}">
-                                <p class="p-function-menu-admin"><i class="material-icons">image</i><input class="input-submit-function-menu-admin" type="submit" value="Mã giảm giá"></p>
-                            </form>
-
+                            <?php
+                                $message = Session::get("admin_status");
+                                if($message == 0 || $message ==1){
+                                    
+                            ?>
+                                <p class="h5-title-menu"><i class="material-icons">auto_delete</i>Thùng rác</p>
+                                <form action="{{URL::to('/waste-basket-product')}}">
+                                    <p class="p-function-menu-admin"><i class="material-icons">list_alt</i><input class="input-submit-function-menu-admin" type="submit" value="Sản phẩm"></p>
+                                </form>
+                                <form action="{{URL::to('/waste-basket-order')}}">
+                                    <p class="p-function-menu-admin"><i class="material-icons">fact_check</i><input class="input-submit-function-menu-admin" type="submit" value="Đơn hàng"></p>
+                                </form>
+                                <form action="{{URL::to('/waste-basket-category')}}">
+                                    <p class="p-function-menu-admin"><i class="material-icons">category</i><input class="input-submit-function-menu-admin" type="submit" value="Danh mục"></p>
+                                </form>
+                                <form action="{{URL::to('/all-waste-basket-slider')}}">
+                                    <p class="p-function-menu-admin"><i class="material-icons">image</i><input class="input-submit-function-menu-admin" type="submit" value="Slider"></p>
+                                </form>
+                                <form action="{{URL::to('/waste-basket-coupon')}}">
+                                    <p class="p-function-menu-admin"><i class="material-icons">image</i><input class="input-submit-function-menu-admin" type="submit" value="Mã giảm giá"></p>
+                                </form>
+                            <?php
+                            }
+                            ?>
 
                             <form>
                                 <img class="img-scroll" id="img-scroll" src="{{URL::to('public/uploads/slider/bamboopanda.png')}}">
@@ -185,7 +208,7 @@
                 </div>
             </div>
             <div class="col-sm-10">
-                <section class="section-infomation">
+                <section class="section-infomation"id="show_edit_admin">
                     @yield('admin_content')
                 </section>
                 
@@ -230,7 +253,10 @@
     <script src="{{asset('public/ajax/dashboard/giaodien/header.js')}}"></script>
     <script src="{{asset('public/ajax/dashboard/ckeditor/ckeditor.js')}}"></script>
     <script src="{{asset('public/ajax/dashboard/giaodien/notification.js')}}"></script>
-    
+    {{-- Hiển thị ngày --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="{{asset('public/ajax/dashboard/admin.js')}}"></script>
     {{-- Chức năng ajax --}}
     <section class="section-infomation" id="section-infomation">
         @yield('script')

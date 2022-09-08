@@ -1,7 +1,4 @@
-@extends('admin.admin_layout')
-@section('admin_content')
-<script type="text/javascript">
-</script>
+
 <div class="row">
     <div class="col-lg-12">
         
@@ -51,6 +48,7 @@
                                     <input type="text" name="admin_phone" class="form-control admin_phone" id="admin_phone" value="{{$edit_admin->admin_phone}}">
                                 </div>
                                 <div class="form-group  ">
+                                    <label class="lable-title">Hình ảnh</label>
                                     <input type="file" id="admin_file" class="btn-function-infomation" style="width: 100%" name="file" accept="image/*">
                                     {{-- name là một chuỗi file --}}
                                     {{-- accept là chỉ cho phép file là hình ảnh với bất * là kì đuôi ảnh nào --}}
@@ -96,11 +94,7 @@
             </section>
 
     </div>
-@endsection
-@section('script')
+
 <script src="{{asset('public/ajax/dashboard/admin.js')}}"></script>
 <script src="{{asset('public/ajax/dashboard/datepicker/datepicker.js')}}"></script>
-{{-- Hiển thị ngày --}}
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-@endsection
+

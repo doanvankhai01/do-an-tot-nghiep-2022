@@ -62,6 +62,8 @@ class AdminController extends Controller
         // Session::put('admin_name',null);
         // Session::put('admin_id',null);
         Session::forget('admin_name');
+        Session::forget('admin_image');
+        Session::forget('admin_status');
         Session::forget('admin_id');
         Session::put('message','swal("Đăng xuất thành công!", "Chuyển tới trang đăng nhập","warning")');
         return Redirect::to('admin');
@@ -135,7 +137,8 @@ class AdminController extends Controller
         //số trang là 2, thì lấy số khởi đầu là (2-1)*10 -> là 0, vậy khởi đầu là 10 
     }
     //Hiển thị chi tiết thông tin tài khoản
-    public function edit_admin($admin_id){
+    public function edit_admin(Request $request){
+        $admin_id = $request->admin_id;
         $edit_admin = AdminModel::where('admin_id',$admin_id)->first();
         return view('admin.edit_admin')->with('edit_admin',$edit_admin);
     }
