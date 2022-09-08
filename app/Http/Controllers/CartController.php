@@ -224,30 +224,36 @@ class CartController extends Controller
             $count_coupon = $coupon->count();
             //count() là đếm số lượng
             if($count_coupon >0){
-                $coupon_session = Session::get('coupon');
-                if($coupon_session==true){
-                    $is_avaiable = 0;
-                    if($is_avaiable==0){
+                //Kiểm tra số lượng coupon
+                $coupon_quantity = $coupon->coupon_time;
+                if($coupon_quantity > 0){
+                    $coupon_session = Session::get('coupon');
+                    if($coupon_session==true){
+                        $is_avaiable = 0;
+                        if($is_avaiable==0){
+                            $cou[] = array(
+                                'coupon_code'=> $coupon->coupon_code,
+                                'coupon_feature'=> $coupon->coupon_feature,
+                                'coupon_number'=> $coupon->coupon_number
+                            );
+                            Session::put('coupon',$cou);
+                        }
+                        Session::save();
+                        return redirect()->back()->with('message','Thêm mã giảm giá thành công !');
+                    }else{
                         $cou[] = array(
                             'coupon_code'=> $coupon->coupon_code,
                             'coupon_feature'=> $coupon->coupon_feature,
                             'coupon_number'=> $coupon->coupon_number
                         );
                         Session::put('coupon',$cou);
+                        Session::save();
+                        return redirect()->back()->with('message','Thêm mã giảm giá thành công !');
                     }
-                    Session::save();
-                    return redirect()->back()->with('message','Thêm mã giảm giá thành công !');
                 }else{
-                    $cou[] = array(
-                        'coupon_code'=> $coupon->coupon_code,
-                        'coupon_feature'=> $coupon->coupon_feature,
-                        'coupon_number'=> $coupon->coupon_number
-                    );
-                    Session::put('coupon',$cou);
-                    Session::save();
-                    return redirect()->back()->with('message','Thêm mã giảm giá thành công !');
+                    Session::put('coupon',null);;
+                    return redirect()->back()->with('error','Mã coupon đã hết hạn!');
                 }
-                
             }else{
                 Session::save();
                 return redirect()->back()->with('message','Is avaiable null!');
