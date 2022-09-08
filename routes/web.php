@@ -71,6 +71,12 @@ Route::post('/edit-admin', [AdminController::class,'edit_admin']);
 Route::post('/update-admin', [AdminController::class,'update_admin']);
 Route::post('/search-admin', [AdminController::class,'search_admin']);
 Route::post('/autocomplete-search-admin-ajax', [AdminController::class,'autocomplete_search_admin_ajax']);
+
+//thùng rác
+Route::post('/unactive-waste-basket-admin', [AdminController::class,'unactive_waste_basket_admin']);
+Route::post('/active-waste-basket-admin', [AdminController::class,'active_waste_basket_admin']);
+Route::get('/waste-basket-admin', [AdminController::class,'waste_basket_admin']);
+
 //NotificationController ============================================================
 Route::post('/notification-product', [NotificationController::class,'notification_product']);
 Route::post('/notification-new-order', [NotificationController::class,'notification_new_order']);

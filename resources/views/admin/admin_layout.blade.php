@@ -71,7 +71,7 @@
                 </div>
                 <div class="col-sm-2 colll2">
                     <header class="header-admin" id="admin-profile">   
-                        <ul class="nav top-menu">
+                        <ul class="nav justify-content-center top-menu">
                             <div class="dropdown">
                                 <?php
                                     $image = Session::get('admin_image');
@@ -96,7 +96,7 @@
                                     <?php
                                     $admin_id = Session::get('admin_id');
                                     ?>
-                                    <li><button class="btn-function-infomation " href="#"><i class=" fa fa-suitcase"></i>Profile</button></li>
+                                    {{-- <li><button class="btn-function-infomation " href="#"><i class=" fa fa-suitcase"></i>Profile</button></li> --}}
                                     <li><button class="btn-function-infomation edit_admin_account_lonely" data-admin_id ="{{$admin_id}}"><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</button></li>
                                     <li>
                                         <form action="{{URL::to('/log-out')}}">
@@ -195,6 +195,9 @@
                                 </form>
                                 <form action="{{URL::to('/waste-basket-coupon')}}">
                                     <p class="p-function-menu-admin"><i class="material-icons">image</i><input class="input-submit-function-menu-admin" type="submit" value="Mã giảm giá"></p>
+                                </form>
+                                <form action="{{URL::to('/waste-basket-admin')}}">
+                                    <p class="p-function-menu-admin"><i class="material-icons">admin_panel_settings</i><input class="input-submit-function-menu-admin" type="submit" value="Tài khoản quản trị"></p>
                                 </form>
                             <?php
                             }

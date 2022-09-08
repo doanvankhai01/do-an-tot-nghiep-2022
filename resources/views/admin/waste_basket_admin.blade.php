@@ -12,7 +12,7 @@
 <div class="table-agile-info" id="">
   <div class="panel panel-default" >
     <div class="panel-heading">
-      <h2 class="h2-title">Liệt kê danh sách quản trị viên</h2>
+      <h2 class="h2-title">Thùng rác: danh sách quản trị viên</h2>
     </div>
     <div class="row">
       <div class="col-sm-2">
@@ -63,15 +63,15 @@
           <table class="tbl-function-infomation">
             <thead>
               <tr>
-                <th class="th-infomation-title" style="width:4.8%;">
+                <th class="th-infomation-title" style="width: 5.0%;">
                   STT
                 </th>
-                <th class="th-infomation-title" style="width:15%;">Tên quản trị viên</th>
+                <th class="th-infomation-title" style="width:15.5%;">Tên quản trị viên</th>
                 <th class="th-infomation-title" style="width:8.5%;">Hình ảnh</th>
-                <th class="th-infomation-title" style="width:27%;">Email</th>
-                <th class="th-infomation-title" style="width:20%;">Số điện thoại</th>
+                <th class="th-infomation-title" style="width:36%;">Email</th>
+                <th class="th-infomation-title" style="width:10%;">Số điện thoại</th>
                 <th class="th-infomation-title" style="width:10%;">Cấp bậc</th>
-                <th class="th-infomation-title" style="width:13.2%;">Chức năng</th>
+                <th class="th-infomation-title" style="width:14%;">Chức năng</th>
               </tr>
             </thead>
             <tbody>
@@ -108,9 +108,9 @@
                         {{-- <a href="{{URL::to('/edit-admin/'.$ad->admin_id)}}" class="edit-delete-function" ui-toggle-class="">
                         <i class="fa fa-pencil-square-o text-success text-active"></i>Chi tiết</a> --}}
                         <a>
-                        <button class="edit-delete-function edit_admin" value="edit" ui-toggle-class="" data-admin_id ="{{$ad->admin_id}}">
+                        <button class="edit-delete-function active_admin" value="edit" ui-toggle-class="" data-admin_id ="{{$ad->admin_id}}">
                           <i class="fa fa-pencil-square-o text-success text-active"></i>
-                          <b>Chi tiết</b>
+                          <b>Khôi phục</b>
                         </button>
                       <?php
                       }
@@ -119,7 +119,7 @@
                         $message = Session::get("admin_status");
                         if($message == 0){         
                       ?>
-                        <button class="edit-delete-function delete_admin" value="delete" ui-toggle-class="" data-admin_id ="{{$ad->admin_id}}">
+                        <button class="edit-delete-function active_admin" value="delete" ui-toggle-class="" data-admin_id ="{{$ad->admin_id}}">
                           <i class="material-icons text-danger">delete_forever</i>
                           <b>Xóa</b>
                         </button>

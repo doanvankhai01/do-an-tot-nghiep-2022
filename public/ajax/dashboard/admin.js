@@ -257,3 +257,62 @@ $(document).on('blur','.search_admin_name',function(){
     $('#search_admin_ajax').fadeOut();//Tăt hiển thị auto-complete
 });
 
+//Chuyển tài khoản vào thùng rác
+$(document).on('click','.unactive_admin',function(){
+    // alert("xóa chết mọe m luôn");
+    var url = $('meta[name="url"]').attr('content');
+    var admin_id = $(this).data('admin_id');
+    var _token = $('meta[name="csrf-token"]').attr('content');
+    
+    swal({
+        title: "Bạn chắc chứ?",
+        text: "Nếu bạn xóa, tài khoản sẽ được lưu trữ trong thùng rác!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Vâng, xóa tài khoản!",
+        closeOnConfirm: false
+      },
+      function(){
+        $.ajax({
+            url : url+'/unactive-waste-basket-admin',
+            method: 'POST',
+            data:{
+                admin_id:admin_id,
+                _token:_token
+            },
+            success:function(data){
+                swal("Đã xóa!", "Đã chuyển vào thùng rác!", "success")
+                window.setTimeout(function(){
+                    location.reload();
+                },800);
+            }
+        });
+      });
+    // alert(admin_id);
+    
+});
+//Khôi phục tài khoản trong thùng rác
+$(document).on('click','.active_admin',function(){
+    // alert("xóa chết mọe m luôn");
+    var url = $('meta[name="url"]').attr('content');
+    var admin_id = $(this).data('admin_id');
+    var _token = $('meta[name="csrf-token"]').attr('content');
+    $.ajax({
+        url : url+'/active-waste-basket-admin',
+        method: 'POST',
+        data:{
+            admin_id:admin_id,
+            _token:_token
+        },
+        success:function(data){
+            swal("Đã khôi phục!", "Đã khôi phục tài khoản!", "success")
+            window.setTimeout(function(){
+                location.reload();
+            },800);
+        }
+      });
+    // alert(admin_id);
+    
+});
+

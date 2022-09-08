@@ -24,6 +24,16 @@ class AdminController extends Controller
             return Redirect::to('admin')->send();
         }
     }
+    //Kiểm tra quyền hạn
+    public function check_position(){
+        $admin_status = Session::get('admin_status');
+        if($admin_status == 0){
+            
+        }else{
+            $mesage = Session::put('message','swal("Thông báo!", "Bạn không đủ thẩm quyền để thực hiện chức năng này","info")');
+            return redirect()->back()->send();
+        }
+    }
     //Hiển thị trang đăng nhập
     public function index(){
         return view('admin_login.admin_login');
@@ -37,7 +47,10 @@ class AdminController extends Controller
     public function dashboard(Request $request){
         $email = $request->email;//gắn biến email với biến admin_email tại form action <admin_login class="blade php"></admin_login>
         $password = md5($request->password);
-        $result = DB::table('tbl_admin')->where('admin_email',$email)->where('admin_password',$password)->first();
+        $result = DB::table('tbl_admin')
+        ->where('admin_email',$email)
+        ->where('admin_password',$password)
+        ->where('waste_basket_admin',0)->first();
         if($result){
             // echo'<pre>';
             // print_r($result);
@@ -85,10 +98,12 @@ class AdminController extends Controller
     //Quản lý ==================================================================================
     //Hiển thị trang thêm admin
     public function add_admin(){
+        $this->AuthLogin();
         return view('admin.add_admin');
     }
     //Lưu và thêm admin
     public function save_admin(Request $request){
+        $this->AuthLogin();
         $get_image = $request->file('file');
         $admin_name = $request->admin_name;
         $amdin_slug = $request->admin_slug;
@@ -123,6 +138,7 @@ class AdminController extends Controller
     }
     //Hiển thị danh sách admin
     public function all_admin(){
+        $this->AuthLogin();
         $all_admin = AdminModel::orderby('admin_status','asc')
         ->where('waste_basket_admin',0)
         ->paginate(10);
@@ -138,12 +154,14 @@ class AdminController extends Controller
     }
     //Hiển thị chi tiết thông tin tài khoản
     public function edit_admin(Request $request){
+        $this->AuthLogin();
         $admin_id = $request->admin_id;
         $edit_admin = AdminModel::where('admin_id',$admin_id)->first();
         return view('admin.edit_admin')->with('edit_admin',$edit_admin);
     }
     //Cập nhật tài khoản admin
     public function update_admin(Request $request){
+        $this->AuthLogin();
         $get_image = $request->file('file');
         $admin_id = $request->admin_id;
         $admin_name = $request->admin_name;
@@ -217,7 +235,10 @@ class AdminController extends Controller
         }
     }
     //Xóa tài khoản admin
-    public function delete_admin(){}
+    public function delete_admin(){
+        $this->AuthLogin();
+        $this->check_position();
+    }
     //Tìm kiếm admin
     public function search_admin(Request $request){
         $this->AuthLogin();
@@ -236,6 +257,7 @@ class AdminController extends Controller
         // ->with('i',(request()->input('page',1)-1)*10);
     }
     public function autocomplete_search_admin_ajax(Request $request){
+        $this->AuthLogin();
         $data = $request->all();
         if($data['query']){
             $admin = AdminModel::where('admin_name','LIKE','%'.$data['query'].'%')
@@ -255,6 +277,40 @@ class AdminController extends Controller
         }else{
             alert('lỗi');
         }
+    }
+    public function waste_basket_admin(){
+        $this->AuthLogin();
+        $this->check_position();
+        $all_admin = AdminModel::orderby('admin_status','asc')
+        ->where('waste_basket_admin',1)
+        ->paginate(10);
+
+        return view('admin.waste_basket_admin')
+        ->with('all_admin', $all_admin)
+        ->with('i',(request()->input('page',1)-1)*10);
+         //Cho i là số thứ tự khi phân trang
+        //input('page',1): lấy số trang với giá trị khởi đầu là 1, nếu trống thì mặc định là 0
+        //vì trang có 10 sản phẩm thì nhân cho 10, sau khi chuyển
+        //Ví dụ số trang là 1, thì lấy số khởi đầu là (1-1)*10 -> là 0, vậy khởi đầu là 0 
+        //số trang là 2, thì lấy số khởi đầu là (2-1)*10 -> là 0, vậy khởi đầu là 10 
+    }
+    public function unactive_waste_basket_admin(Request $request){
+        $this->check_position();
+        $this->AuthLogin();
+        $admin_id = $request->admin_id;
+        $admin = AdminModel::find($admin_id);   
+        $admin->waste_basket_admin = 1;
+        $admin->save();
+        
+    }
+    public function active_waste_basket_admin(Request $request){
+        $this->AuthLogin();
+        $this->check_position();
+        $admin_id = $request->admin_id;
+        $admin = AdminModel::find($admin_id);   
+        $admin->waste_basket_admin = 0;
+        $admin->save();
+        
     }
 }
 ?>
