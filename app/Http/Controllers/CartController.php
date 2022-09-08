@@ -223,10 +223,10 @@ class CartController extends Controller
         if($coupon){
             $count_coupon = $coupon->count();
             //count() là đếm số lượng
-            if($count_coupon >0){
-                //Kiểm tra số lượng coupon
+            if($count_coupon >0){//Kiểm tra có mã coupon có kí tự hay ko
+                
                 $coupon_quantity = $coupon->coupon_time;
-                if($coupon_quantity > 0){
+                if($coupon_quantity > 0){//Kiểm tra số lượng coupon
                     $coupon_session = Session::get('coupon');
                     if($coupon_session==true){
                         $is_avaiable = 0;
