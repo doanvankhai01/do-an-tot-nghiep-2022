@@ -233,43 +233,43 @@ class CheckoutController extends Controller
 
     //Xử lí đơn hàng trên trang quản lí admin-------------------------------------------------------------------------------------------------------------------------
     //Kiểm tra đăng nhập
-    public function AuthLogin(){
-        $admin_id = Session::get('admin_id');
-        if($admin_id){
-            return Redirect::to('dashboard');
-        }else{
-            Session::put('message','Vui lòng đăng nhập quyền admin!');
-            return Redirect::to('admin')->send();
-        }
-    }
+    // public function AuthLogin(){
+    //     $admin_id = Session::get('admin_id');
+    //     if($admin_id){
+    //         return Redirect::to('dashboard');
+    //     }else{
+    //         Session::put('message','Vui lòng đăng nhập quyền admin!');
+    //         return Redirect::to('admin')->send();
+    //     }
+    // }
     //Quản lí đơn hàng -- tại trang dashboard
-    public function manager_order(){
-        $this->AuthLogin();
-        $all_order = DB::table('tbl_order')
-        ->join('tbl_customer','tbl_order.customer_id','=','tbl_customer.customer_id')
-        ->select('tbl_order.*','tbl_customer.customer_name')//select là chọn,tbl_order.* là chọn tất cả trong table
-        ->orderby('tbl_order.order_id','desc')->get();
-        $manager_order  = view('order.manager_order')->with('all_order',$all_order);
-        return view('admin.admin_layout')->with('order.manager_order', $manager_order);
-    }
-    //Chi tiết đơn hàng--dashboard
-    public function view_order($orderId){
-        $this->AuthLogin();
-        $order_by_id = DB::table('tbl_order')
-        ->join('tbl_customer','tbl_order.customer_id','=','tbl_customer.customer_id')
-        ->join('tbl_shipping','tbl_order.shipping_id','=','tbl_shipping.shipping_id')
-        ->join('tbl_order_details','tbl_order.order_id','=','tbl_order_details.order_id')
-        ->select('tbl_order.*','tbl_customer.*','tbl_shipping.*','tbl_order_details.*')->first();
+    // public function manager_order(){
+    //     $this->AuthLogin();
+    //     $all_order = DB::table('tbl_order')
+    //     ->join('tbl_customer','tbl_order.customer_id','=','tbl_customer.customer_id')
+    //     ->select('tbl_order.*','tbl_customer.customer_name')//select là chọn,tbl_order.* là chọn tất cả trong table
+    //     ->orderby('tbl_order.order_id','desc')->get();
+    //     $manager_order  = view('order.manager_order')->with('all_order',$all_order);
+    //     return view('admin.admin_layout')->with('order.manager_order', $manager_order);
+    // }
+    // //Chi tiết đơn hàng--dashboard
+    // public function view_order($orderId){
+    //     $this->AuthLogin();
+    //     $order_by_id = DB::table('tbl_order')
+    //     ->join('tbl_customer','tbl_order.customer_id','=','tbl_customer.customer_id')
+    //     ->join('tbl_shipping','tbl_order.shipping_id','=','tbl_shipping.shipping_id')
+    //     ->join('tbl_order_details','tbl_order.order_id','=','tbl_order_details.order_id')
+    //     ->select('tbl_order.*','tbl_customer.*','tbl_shipping.*','tbl_order_details.*')->first();
 
-        $d_product  = DB::table('tbl_order_details')
-        ->where('order_id',$orderId)
-        ->get();
+    //     $d_product  = DB::table('tbl_order_details')
+    //     ->where('order_id',$orderId)
+    //     ->get();
 
-        $manager_order_by_id  = view('order.view_order')->with('order_by_id',$order_by_id)->with('d_product', $d_product);
+    //     $manager_order_by_id  = view('order.view_order')->with('order_by_id',$order_by_id)->with('d_product', $d_product);
 
-        return view('admin.admin_layout')->with('order.view_order', $manager_order_by_id);
+    //     return view('admin.admin_layout')->with('order.view_order', $manager_order_by_id);
         
-    }
+    // }
 //AJAX-----------------------------------------------------------------------------------------------------------------------------------------------
     //Hiển thị thông tin các tỉnh thành-Trang chủ
     public function select_delivery_page_home(Request $request){

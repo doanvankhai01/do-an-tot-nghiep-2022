@@ -23,16 +23,41 @@ class ProductController extends Controller
             return Redirect::to('admin')->send();
         }
     }
+    //Kiểm tra quyền hạn
+    public function check_position(){
+        $admin_status = Session::get('admin_status');
+        if($admin_status == 0){
+            return true;
+        }else{
+            // $mesage = Session::put('message','swal("Thông báo!", "Bạn không đủ thẩm quyền để thực hiện chức năng này","info")');
+            return false;
+        }
+    }
+    public function check_position_2(){
+        $admin_status = Session::get('admin_status');
+        if($admin_status == 0 || $admin_status == 1){
+            return true;
+        }else{
+            // $mesage = Session::put('message','swal("Thông báo!", "Bạn không đủ thẩm quyền để thực hiện chức năng này","info")');
+            return false;
+        }
+    }
     //Hiển thị form thêm sản phẩm
     public function add_product(){
         $this->AuthLogin();
-        $cate_product = CategoryModel::orderby('category_id','desc')
-        ->where('waste_basket_category',0)
-        ->where('category_status',0)->get(); 
-        $brand_product = BrandModel::orderby('brand_id','desc')
-        // ->where('waste_basket_brand',0)
-        ->where('brand_status',0)->get(); 
-        return view('product.add_product')->with('cate', $cate_product)->with('brand',$brand_product);
+        $check_position = $this->check_position_2();
+        if($check_position == true){
+            $cate_product = CategoryModel::orderby('category_id','desc')
+            ->where('waste_basket_category',0)
+            ->where('category_status',0)->get(); 
+            $brand_product = BrandModel::orderby('brand_id','desc')
+            // ->where('waste_basket_brand',0)
+            ->where('brand_status',0)->get(); 
+            return view('product.add_product')->with('cate', $cate_product)->with('brand',$brand_product);
+        }else{
+            return redirect()->back()->send();
+        }
+        
     }
     //Hiển thị ra tất cả sản phẩm
     public function all_product(){
@@ -113,55 +138,59 @@ class ProductController extends Controller
     //Thêm sản phẩm
     public function save_product(Request $request){
         $this->AuthLogin();
-        // $data = array();
-        // $data['product_name'] = $request->product_name;
-        // $data['product_slug'] = $request->product_slug;
-        // $data['product_price'] = $request->product_price;
-        // $data['product_desc'] = $request->product_desc;
-        // $data['product_content'] = $request->product_content;
-        // $data['category_id'] = $request->product_cate;
-        // $data['brand_id'] = $request->product_brand;
-        // $data['product_status'] = $request->product_status;
-        // $get_image = $request->file('product_image');
+        $check_position = $this->check_position_2();
+        if($check_position == true){
+            // $data = array();
+            // $data['product_name'] = $request->product_name;
+            // $data['product_slug'] = $request->product_slug;
+            // $data['product_price'] = $request->product_price;
+            // $data['product_desc'] = $request->product_desc;
+            // $data['product_content'] = $request->product_content;
+            // $data['category_id'] = $request->product_cate;
+            // $data['brand_id'] = $request->product_brand;
+            // $data['product_status'] = $request->product_status;
+            // $get_image = $request->file('product_image');
 
-        $data = $request->all();
-        $product = new ProductModel();
-        $product->product_name = $data['product_name'];
-        $product->product_slug = $data['product_slug'];
-        $product->product_price = $data['product_price'];
-        $product->product_desc = $data['product_desc'];
-        $product->product_content = $data['product_content'];
-        $product->category_id = $data['product_cate'];
-        $product->brand_id = $data['product_brand'];
-        $product->product_status = $data['product_status'];
-        $product->product_quantity = $data['product_quantity'];
-        $product->waste_basket_product = 0;
-        $product->product_quantity_sold = 0;
-        $get_image = $request->file('product_image');
-        
-        $path_image_product = 'public/uploads/product';
-        $path_image_gallery = 'public/uploads/gallery';
-
-        if($get_image){
-            $get_name_image = $get_image->getClientOriginalName();//lấy cả tên và đuôi file
-            $name_image = current(explode('.',$get_name_image));//lấy phần tên trước dấu ."chấm"
-            $new_image =$name_image.rand(0,999999).'.'.$get_image->getClientOriginalExtension();
-            $get_image->move($path_image_product,$new_image);
-            // $data['product_image'] = $new_image;
-            $product->product_image = $new_image;
-            // DB::table('tbl_product')->insert($data);
-            $product->save();
-
-            // $product_id = $product->id();
+            $data = $request->all();
+            $product = new ProductModel();
+            $product->product_name = $data['product_name'];
+            $product->product_slug = $data['product_slug'];
+            $product->product_price = $data['product_price'];
+            $product->product_desc = $data['product_desc'];
+            $product->product_content = $data['product_content'];
+            $product->category_id = $data['product_cate'];
+            $product->brand_id = $data['product_brand'];
+            $product->product_status = $data['product_status'];
+            $product->product_quantity = $data['product_quantity'];
+            $product->waste_basket_product = 0;
+            $product->product_quantity_sold = 0;
+            $get_image = $request->file('product_image');
             
-            Session::put('message','swal("Thêm sản phẩm thành công!", "Thêm sản phẩm thành công!","success")');
-            return Redirect::to('all-product');
+            $path_image_product = 'public/uploads/product';
+            $path_image_gallery = 'public/uploads/gallery';
+
+            if($get_image){
+                $get_name_image = $get_image->getClientOriginalName();//lấy cả tên và đuôi file
+                $name_image = current(explode('.',$get_name_image));//lấy phần tên trước dấu ."chấm"
+                $new_image =$name_image.rand(0,999999).'.'.$get_image->getClientOriginalExtension();
+                $get_image->move($path_image_product,$new_image);
+                // $data['product_image'] = $new_image;
+                $product->product_image = $new_image;
+                // DB::table('tbl_product')->insert($data);
+                $product->save();
+
+                // $product_id = $product->id();
+                
+                Session::put('message','swal("Thêm sản phẩm thành công!", "Thêm sản phẩm thành công!","success")');
+                return Redirect::to('all-product');
+            }else{
+                
+                Session::put('message','swal("Không thể thêm sản phẩm!", "Sản phẩm không có hình ảnh!","error")');
+                return redirect()->back();
+            }
         }else{
-            
-            Session::put('message','swal("Không thể thêm sản phẩm!", "Sản phẩm không có hình ảnh!","error")');
-            return redirect()->back();
+            return redirect()->back()->send();
         }
-        
     }
     //Thêm sản phẩm ajax
     // public function save_product(Request $request){
@@ -204,74 +233,94 @@ class ProductController extends Controller
     //Hiện sản phẩm
     public function active_product($product_id){
         $this->AuthLogin();
-        ProductModel::where('product_id',$product_id)->update(['product_status'=>0]);
-        Session::put('message','swal("Hiện sản phẩm!", "","success")');
-        return Redirect::to('all-product');
+        $check_position = $this->check_position_2();
+        if($check_position == true){
+            ProductModel::where('product_id',$product_id)->update(['product_status'=>0]);
+            Session::put('message','swal("Hiện sản phẩm!", "","success")');
+            return Redirect::to('all-product');
+        }else{
+            return redirect()->back()->send();
+        }
     }
     //Ẩn sản phẩm
     public function unactive_product($product_id){
         $this->AuthLogin();
-        ProductModel::where('product_id',$product_id)->update(['product_status'=>1]);
-        Session::put('message','swal("Ẩn sản phẩm!", "","error")');
-        return Redirect::to('all-product');
+        $check_position = $this->check_position_2();
+        if($check_position == true){
+            ProductModel::where('product_id',$product_id)->update(['product_status'=>1]);
+            Session::put('message','swal("Ẩn sản phẩm!", "","error")');
+            return Redirect::to('all-product');
+        }else{
+            return redirect()->back()->send();
+        }
     }
     //Chi tiết sản phẩm
     public function edit_product($product_id){
         $this->AuthLogin();
-        $cate_product = CategoryModel::orderby('category_id','desc')
-        ->where('waste_basket_category',0)
-        ->where('category_status',0)->get(); 
-        $brand_product = BrandModel::orderby('brand_id','desc')
-        // ->where('waste_basket_brand',0) 
-        ->where('brand_status',0)->get(); 
-        $edit_product = ProductModel::where('product_id',$product_id)->get();
-        $manager_product  = view('product.edit_product')
-        ->with('edit_product',$edit_product)->with('cate_product',$cate_product)
-        ->with('brand_product',$brand_product);
-        return view('admin.admin_layout')->with('product.edit_product', $manager_product);
+        $check_position = $this->check_position_2();
+        if($check_position == true){
+            $cate_product = CategoryModel::orderby('category_id','desc')
+            ->where('waste_basket_category',0)
+            ->where('category_status',0)->get(); 
+            $brand_product = BrandModel::orderby('brand_id','desc')
+            // ->where('waste_basket_brand',0) 
+            ->where('brand_status',0)->get(); 
+            $edit_product = ProductModel::where('product_id',$product_id)->get();
+            $manager_product  = view('product.edit_product')
+            ->with('edit_product',$edit_product)->with('cate_product',$cate_product)
+            ->with('brand_product',$brand_product);
+            return view('admin.admin_layout')->with('product.edit_product', $manager_product);
+        }else{
+            return redirect()->back()->send();
+        }
     }
     //Cập nhật sản phẩm
     public function update_product(Request $request,$product_id){
         $this->AuthLogin();
-        // $data = array();
-        // $data['product_name'] = $request->product_name;
-        // $data['product_slug'] = $request->product_slug;
-        // $data['product_price'] = $request->product_price;
-        // $data['product_desc'] = $request->product_desc;
-        // $data['product_content'] = $request->product_content;
-        // $data['category_id'] = $request->product_cate;
-        // $data['brand_id'] = $request->product_brand;
-        // $data['product_status'] = $request->product_status;
-        // $get_image = $request->file('product_image');
-        $data = $request->all();
-        $product = ProductModel::find($product_id);;
-        $product->product_name = $data['product_name'];
-        $product->product_slug = $data['product_slug'];
-        $product->product_price = $data['product_price'];
-        $product->product_desc = $data['product_desc'];
-        $product->product_content = $data['product_content'];
-        $product->category_id = $data['product_cate'];
-        $product->brand_id = $data['product_brand'];
-        $product->product_status = $data['product_status'];
-        $product->product_quantity = $data['product_quantity'];
-        $product->waste_basket_product = 0;
-        $get_image = $request->file('product_image');
+        $check_position = $this->check_position_2();
+        if($check_position == true){
+            // $data = array();
+            // $data['product_name'] = $request->product_name;
+            // $data['product_slug'] = $request->product_slug;
+            // $data['product_price'] = $request->product_price;
+            // $data['product_desc'] = $request->product_desc;
+            // $data['product_content'] = $request->product_content;
+            // $data['category_id'] = $request->product_cate;
+            // $data['brand_id'] = $request->product_brand;
+            // $data['product_status'] = $request->product_status;
+            // $get_image = $request->file('product_image');
+            $data = $request->all();
+            $product = ProductModel::find($product_id);;
+            $product->product_name = $data['product_name'];
+            $product->product_slug = $data['product_slug'];
+            $product->product_price = $data['product_price'];
+            $product->product_desc = $data['product_desc'];
+            $product->product_content = $data['product_content'];
+            $product->category_id = $data['product_cate'];
+            $product->brand_id = $data['product_brand'];
+            $product->product_status = $data['product_status'];
+            $product->product_quantity = $data['product_quantity'];
+            $product->waste_basket_product = 0;
+            $get_image = $request->file('product_image');
 
-        if($get_image){
-            $get_name_image = $get_image->getClientOriginalName();//lấy cả tên và đuôi file
-            $name_image = current(explode('.',$get_name_image));//lấy phần tên trước dấu ."chấm"
-            $new_image =$name_image.rand(0,999).'.'.$get_image->getClientOriginalExtension();
-            $get_image->move('public/uploads/product',$new_image);
-            // $data['product_image'] = $new_image;
-            $product->product_image = $new_image;
-            // DB::table('tbl_product')->insert($data);
-            $product->save();
-            Session::put('message','swal("Cập nhật thành công!", "Đã cập nhật hình ảnh sản phẩm","success")');
-            return Redirect::to('all-product');
+            if($get_image){
+                $get_name_image = $get_image->getClientOriginalName();//lấy cả tên và đuôi file
+                $name_image = current(explode('.',$get_name_image));//lấy phần tên trước dấu ."chấm"
+                $new_image =$name_image.rand(0,999).'.'.$get_image->getClientOriginalExtension();
+                $get_image->move('public/uploads/product',$new_image);
+                // $data['product_image'] = $new_image;
+                $product->product_image = $new_image;
+                // DB::table('tbl_product')->insert($data);
+                $product->save();
+                Session::put('message','swal("Cập nhật thành công!", "Đã cập nhật hình ảnh sản phẩm","success")');
+                return Redirect::to('all-product');
+            }else{
+                $product->save();
+                Session::put('message','swal("Cập nhật thành công!", "Hình ảnh không thay đổi","success")');
+                return Redirect::to('all-product');
+            }
         }else{
-            $product->save();
-            Session::put('message','swal("Cập nhật thành công!", "Hình ảnh không thay đổi","success")');
-            return Redirect::to('all-product');
+            return redirect()->back()->send();
         }
     }
     //Tìm kiếm sản phẩm 
@@ -320,46 +369,66 @@ class ProductController extends Controller
     //Xóa sản phẩm
     public function delete_product($product_id){
         $this->AuthLogin();
-        ProductModel::where('product_id',$product_id)->delete();
-        Session::put('message','swal("Xóa thành công!", "Xóa sản phẩm thành công!","success")');
-        return Redirect::to('all-product');
+        $check_position = $this->check_position();
+        if($check_position == true){
+            ProductModel::where('product_id',$product_id)->delete();
+            Session::put('message','swal("Xóa thành công!", "Xóa sản phẩm thành công!","success")');
+            return Redirect::to('/waste-basket-product');
+        }else{
+            return redirect()->back()->send();
+        }
     }
 
     //Thùng rác---------------------------------------------------------------
     // Hiển thị
     public function waste_basket_product(){
         $this->AuthLogin();
-    	$all_product = ProductModel::orderby('tbl_product.product_id','desc')
-        ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
-        ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
-        ->where('waste_basket_product',1)
-        ->paginate(10);
-    	$manager_product  = view('product.waste_basket_product')
-        ->with('all_product',$all_product)
-        ->with('i',(request()->input('page',1)-1)*10);
-        //Cho i là số thứ tự khi phân trang
-        //input('page',1): lấy số trang với giá trị khởi đầu là 1, nếu trống thì mặc định là 0
-        //vì trang có 10 sản phẩm thì nhân cho 10, sau khi chuyển
-        //Ví dụ số trang là 1, thì lấy số khởi đầu là (1-1)*10 -> là 0, vậy khởi đầu là 0 
-        //số trang là 2, thì lấy số khởi đầu là (2-1)*10 -> là 0, vậy khởi đầu là 10 
-    	return view('admin.admin_layout')
-        ->with('product.waste_basket_product', $manager_product);
+        $check_position = $this->check_position_2();
+        if($check_position == true){
+            $all_product = ProductModel::orderby('tbl_product.product_id','desc')
+            ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
+            ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
+            ->where('waste_basket_product',1)
+            ->paginate(10);
+            $manager_product  = view('product.waste_basket_product')
+            ->with('all_product',$all_product)
+            ->with('i',(request()->input('page',1)-1)*10);
+            //Cho i là số thứ tự khi phân trang
+            //input('page',1): lấy số trang với giá trị khởi đầu là 1, nếu trống thì mặc định là 0
+            //vì trang có 10 sản phẩm thì nhân cho 10, sau khi chuyển
+            //Ví dụ số trang là 1, thì lấy số khởi đầu là (1-1)*10 -> là 0, vậy khởi đầu là 0 
+            //số trang là 2, thì lấy số khởi đầu là (2-1)*10 -> là 0, vậy khởi đầu là 10 
+            return view('admin.admin_layout')
+            ->with('product.waste_basket_product', $manager_product);
+        }else{
+            return redirect()->back()->send();
+        }
     }
 
     // Xóa tạm thời 
     public function unactive_waste_basket_product($product_id){
         $this->AuthLogin();
-        ProductModel::where('product_id',$product_id)
-        ->update(['waste_basket_product'=>1]);
-        Session::put('message','swal("Thông báo!", "Sản phẩm đã được chuyển vào thùng rác","success")');
-        return Redirect::to('all-product');
+        $check_position = $this->check_position_2();
+        if($check_position == true){
+            ProductModel::where('product_id',$product_id)
+            ->update(['waste_basket_product'=>1]);
+            Session::put('message','swal("Thông báo!", "Sản phẩm đã được chuyển vào thùng rác","success")');
+            return Redirect::to('all-product');
+        }else{
+            return redirect()->back()->send();
+        }
 
     }
     //khôi phục
     public function active_waste_basket_product($product_id){
         $this->AuthLogin();
-        ProductModel::where('product_id',$product_id)->update(['waste_basket_product'=>0]);
-        Session::put('message','swal("Thông báo!", "Đã khôi phục sản phẩm","success")');
-        return Redirect::to('waste-basket-product');
+        $check_position = $this->check_position_2();
+        if($check_position == true){
+            ProductModel::where('product_id',$product_id)->update(['waste_basket_product'=>0]);
+            Session::put('message','swal("Thông báo!", "Đã khôi phục sản phẩm","success")');
+            return Redirect::to('waste-basket-product');
+        }else{
+            return redirect()->back()->send();
+        }
     }
 }

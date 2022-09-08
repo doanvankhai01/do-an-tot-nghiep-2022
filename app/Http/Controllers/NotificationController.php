@@ -24,41 +24,43 @@ class NotificationController extends Controller
     // Thống kê tổng sản phẩm
     public function notification_product(Request $request){
         $this->AuthLogin();
-        $all_product = ProductModel::orderby('product_id','desc')
-        ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
-        ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
-        ->where('waste_basket_product',0)
-        ->paginate(10);
-        $i = 0;
-        foreach($all_product as $key => $all_pro){
-            $i++;
-        }
-        echo $i;
+            $all_product = ProductModel::orderby('product_id','desc')
+            ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
+            ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
+            ->where('waste_basket_product',0)
+            ->paginate(10);
+            $i = 0;
+            foreach($all_product as $key => $all_pro){
+                $i++;
+            }
+            echo $i;
+      
     }
     // Thống kê tổng đơn hàng mới
     public function notification_new_order(Request $request){
         $this->AuthLogin();
-        $order = OrderModel::orderby('created_at','DESC')
-		->where('waste_basket_order',0)
-        ->where('order_status',0)
-        ->get(); 
-        $i = 0;
-        foreach($order as $key => $all_pro){
-            $i++;
-        }
-        echo $i;
+            $order = OrderModel::orderby('created_at','DESC')
+            ->where('waste_basket_order',0)
+            ->where('order_status',0)
+            ->get(); 
+            $i = 0;
+            foreach($order as $key => $all_pro){
+                $i++;
+            }
+            echo $i;
     }
     // Thống kê tổng đơn hàng chưa xử lí
     public function notification_view_order(Request $request){
         $this->AuthLogin();
-        $order = OrderModel::orderby('created_at','DESC')
-		->where('waste_basket_order',0)
-        ->whereBetween('order_status',[0,1])
-        ->get(); 
-        $i = 0;
-        foreach($order as $key => $all_pro){
-            $i++;
-        }
-        echo $i;
+            $order = OrderModel::orderby('created_at','DESC')
+            ->where('waste_basket_order',0)
+            ->whereBetween('order_status',[0,1])
+            ->get(); 
+            $i = 0;
+            foreach($order as $key => $all_pro){
+                $i++;
+            }
+            echo $i;
+        
     }
 }
