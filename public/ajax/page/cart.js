@@ -38,7 +38,8 @@ $(document).ready(function(){
                         closeOnConfirm: false
                     },
                     function() {
-                        window.location.href = url+'/show-cart-ajax';
+                        // window.location.href = url+'/show-cart-ajax';
+                        window.location.href = url+'/checkout';
                     });
                 }
 

@@ -125,111 +125,111 @@ class CheckoutController extends Controller
         ->with('receiver',$receiver)
         ->with('all_slider',$all_slider);
     }
-    //Thực hiện lưu thông tin khách hàng = Trang này đã bị hủy, không còn sử dụng trên page
-    public function save_checkout_customer(Request $request){
-        $data = array();
-    	$data['shipping_name'] = $request->shipping_name;
-    	$data['shipping_phone'] = $request->shipping_phone;
-    	$data['shipping_email'] = $request->shipping_email;
-    	$data['shipping_notes'] = $request->shipping_notes;
-    	$data['shipping_address'] = $request->shipping_address;
+    // //Thực hiện lưu thông tin khách hàng = Trang này đã bị hủy, không còn sử dụng trên page
+    // public function save_checkout_customer(Request $request){
+    //     $data = array();
+    // 	$data['shipping_name'] = $request->shipping_name;
+    // 	$data['shipping_phone'] = $request->shipping_phone;
+    // 	$data['shipping_email'] = $request->shipping_email;
+    // 	$data['shipping_notes'] = $request->shipping_notes;
+    // 	$data['shipping_address'] = $request->shipping_address;
 
-    	$shipping_id = DB::table('tbl_shipping')->insertGetId($data);
-    	Session::put('shipping_id',$shipping_id);
+    // 	$shipping_id = DB::table('tbl_shipping')->insertGetId($data);
+    // 	Session::put('shipping_id',$shipping_id);
     	
-    	return Redirect::to('/payment');
-    }
-    //Hiển thị trang thanh toán = Trang này đã bị hủy, không còn sử dụng trên page
-    public function payment(Request $request){
-         //------------------------SEO-------------------------
-         $meta_desc = "Chuyên cung cấp các mặt hàng gấu bông chất lượng cao!"; 
-         $meta_keywords = "Gấu bông nhiều chủng loại, nhiều size, nhiều mẫu mã!";
-         $meta_title = "TeddyShop";
-         $url_canonical = $request->url();
-         //------------------------SEO--------------------------
-         $cate_product = DB::table('tbl_category')
-         ->where('category_status','0')
-         ->where('waste_basket_category','0')
-         ->orderby('category_id','desc')
-         ->get(); 
-        $brand_product = DB::table('tbl_brand')
-        ->where('brand_status','0')
-        ->orderby('brand_id','desc')
-        ->get();
-        $all_slider = SliderBannerModel::orderBy('slider_id','DESC')
-        ->where('slider_status',0)
-        ->where('waste_basket_slider',0)
-        ->get();//Hiển thị Slider
-        //Hiển thị tỉnh thành phố-ajax
-        return view('pages.checkout.payment')
-        ->with('category',$cate_product)
-        ->with('brand',$brand_product)
-        ->with('meta_desc',$meta_desc)
-        ->with('meta_keywords',$meta_keywords)
-        ->with('meta_title',$meta_title)
-        ->with('all_slider',$all_slider)
-        ->with('url_canonical',$url_canonical);
-    }
+    // 	return Redirect::to('/payment');
+    // }
+    // //Hiển thị trang thanh toán = Trang này đã bị hủy, không còn sử dụng trên page
+    // public function payment(Request $request){
+    //      //------------------------SEO-------------------------
+    //      $meta_desc = "Chuyên cung cấp các mặt hàng gấu bông chất lượng cao!"; 
+    //      $meta_keywords = "Gấu bông nhiều chủng loại, nhiều size, nhiều mẫu mã!";
+    //      $meta_title = "TeddyShop";
+    //      $url_canonical = $request->url();
+    //      //------------------------SEO--------------------------
+    //      $cate_product = DB::table('tbl_category')
+    //      ->where('category_status','0')
+    //      ->where('waste_basket_category','0')
+    //      ->orderby('category_id','desc')
+    //      ->get(); 
+    //     $brand_product = DB::table('tbl_brand')
+    //     ->where('brand_status','0')
+    //     ->orderby('brand_id','desc')
+    //     ->get();
+    //     $all_slider = SliderBannerModel::orderBy('slider_id','DESC')
+    //     ->where('slider_status',0)
+    //     ->where('waste_basket_slider',0)
+    //     ->get();//Hiển thị Slider
+    //     //Hiển thị tỉnh thành phố-ajax
+    //     return view('pages.checkout.payment')
+    //     ->with('category',$cate_product)
+    //     ->with('brand',$brand_product)
+    //     ->with('meta_desc',$meta_desc)
+    //     ->with('meta_keywords',$meta_keywords)
+    //     ->with('meta_title',$meta_title)
+    //     ->with('all_slider',$all_slider)
+    //     ->with('url_canonical',$url_canonical);
+    // }
 
     //Thanh toán đơn hàng
-    public function order_place(Request $request){
-        //insert payment_method
-         //------------------------SEO-------------------------
-         $meta_desc = "Chuyên cung cấp các mặt hàng gấu bông chất lượng cao!"; 
-         $meta_keywords = "Gấu bông nhiều chủng loại, nhiều size, nhiều mẫu mã!";
-         $meta_title = "TeddyShop";
-         $url_canonical = $request->url();
-         //------------------------SEO--------------------------
-        $data = array();
-        $data['payment_method'] = $request->payment_option;
-        $data['payment_status'] = 0;
-        $payment_id = DB::table('tbl_payment')->insertGetId($data);
+    // public function order_place(Request $request){
+    //     //insert payment_method
+    //      //------------------------SEO-------------------------
+    //      $meta_desc = "Chuyên cung cấp các mặt hàng gấu bông chất lượng cao!"; 
+    //      $meta_keywords = "Gấu bông nhiều chủng loại, nhiều size, nhiều mẫu mã!";
+    //      $meta_title = "TeddyShop";
+    //      $url_canonical = $request->url();
+    //      //------------------------SEO--------------------------
+    //     $data = array();
+    //     $data['payment_method'] = $request->payment_option;
+    //     $data['payment_status'] = 0;
+    //     $payment_id = DB::table('tbl_payment')->insertGetId($data);
 
-        //insert order
-        $order_data = array();
-        $order_data['customer_id'] = Session::get('customer_id');
-        $order_data['shipping_id'] = Session::get('shipping_id');
-        //Khi đăng nhập và nhập thông tin khách hàng thì mặc định đã có customer_id và shipping_id lưu trữ tạm thời trên session
-        $order_data['payment_id'] = $payment_id;
-        $order_data['order_total'] = Cart::total();
-        $order_data['order_status'] = 0;
-        $order_id = DB::table('tbl_order')->insertGetId($order_data);
+    //     //insert order
+    //     $order_data = array();
+    //     $order_data['customer_id'] = Session::get('customer_id');
+    //     $order_data['shipping_id'] = Session::get('shipping_id');
+    //     //Khi đăng nhập và nhập thông tin khách hàng thì mặc định đã có customer_id và shipping_id lưu trữ tạm thời trên session
+    //     $order_data['payment_id'] = $payment_id;
+    //     $order_data['order_total'] = Cart::total();
+    //     $order_data['order_status'] = 0;
+    //     $order_id = DB::table('tbl_order')->insertGetId($order_data);
 
-        //insert order_details
-        $content = Cart::content();
-        foreach($content as $v_content){
-            $order_d_data['order_id'] = $order_id;
-            $order_d_data['product_id'] = $v_content->id;
-            $order_d_data['product_name'] = $v_content->name;
-            $order_d_data['product_price'] = $v_content->price;
-            $order_d_data['product_sales_quantity'] = $v_content->qty;
-            //Các đối tượng id, name, price, qty là các đối tượng được tạo mặc định có sẵn trong Cart
-            DB::table('tbl_order_details')->insert($order_d_data);
-        }
-        if($data['payment_method']==1){
+    //     //insert order_details
+    //     $content = Cart::content();
+    //     foreach($content as $v_content){
+    //         $order_d_data['order_id'] = $order_id;
+    //         $order_d_data['product_id'] = $v_content->id;
+    //         $order_d_data['product_name'] = $v_content->name;
+    //         $order_d_data['product_price'] = $v_content->price;
+    //         $order_d_data['product_sales_quantity'] = $v_content->qty;
+    //         //Các đối tượng id, name, price, qty là các đối tượng được tạo mặc định có sẵn trong Cart
+    //         DB::table('tbl_order_details')->insert($order_d_data);
+    //     }
+    //     if($data['payment_method']==1){
 
-            echo 'Thanh toán thẻ ATM';
+    //         echo 'Thanh toán thẻ ATM';
 
-        }elseif($data['payment_method']==2){
-            Cart::destroy();//sau thi mua xong thì hủy  giỏ hàng
+    //     }elseif($data['payment_method']==2){
+    //         Cart::destroy();//sau thi mua xong thì hủy  giỏ hàng
 
-            $cate_product = DB::table('tbl_category')->where('category_status','0')->orderby('category_id','desc')->get();
-            $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
-            return view('pages.checkout.handcash')
-            ->with('category',$cate_product)
-            ->with('brand',$brand_product)
-            ->with('meta_desc',$meta_desc)
-            ->with('meta_keywords',$meta_keywords)
-            ->with('meta_title',$meta_title)
-            ->with('url_canonical',$url_canonical);
+    //         $cate_product = DB::table('tbl_category')->where('category_status','0')->orderby('category_id','desc')->get();
+    //         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
+    //         return view('pages.checkout.handcash')
+    //         ->with('category',$cate_product)
+    //         ->with('brand',$brand_product)
+    //         ->with('meta_desc',$meta_desc)
+    //         ->with('meta_keywords',$meta_keywords)
+    //         ->with('meta_title',$meta_title)
+    //         ->with('url_canonical',$url_canonical);
 
-        }else{
-            echo 'Thẻ ghi nợ';
+    //     }else{
+    //         echo 'Thẻ ghi nợ';
 
-        }
+    //     }
         
-        //return Redirect::to('/payment');
-    }
+    //     //return Redirect::to('/payment');
+    // }
 
     //Xử lí đơn hàng trên trang quản lí admin-------------------------------------------------------------------------------------------------------------------------
     //Kiểm tra đăng nhập

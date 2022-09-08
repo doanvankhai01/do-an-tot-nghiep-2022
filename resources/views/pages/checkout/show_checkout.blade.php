@@ -12,7 +12,7 @@
 				// //print_r(Session::get('cart'));
 				// echo'</pre>';
 			?>
-				@if(session()->has('message'))
+				{{-- @if(session()->has('message'))
 					<div class="alert alert-success">
 						{{session()->get('message')}}
 					</div>
@@ -20,59 +20,74 @@
 					<div class="alert alert-danger">
 						{{session()->get('error')}}
 					</div>
-				@endif
+				@endif --}}
+				<?php
+				$message = Session::get("message");
+				if($message){
+					echo '<script type="text/javascript">window.setTimeout(function test(){'.$message.'},100);</script>';
+					Session::put('message',null);
+				
+				?>
+				<?php
+				}
+				?>
 				<form action="{{url('/update-cart-ajax')}}" method="POST">
 					@csrf
 					
 						@if(Session::get('cart')==true)
-							<table class="table table-condensed">
-								<thead>
-									<tr class="th-show-cart">
-										<th class="">Hình ảnh</th>
-										<th class="">Tên sản phẩm</th>
-										<th class="">Giá</th>
-										<th class="">Số lượng</th>
-										<th class="">Tổng</th>
-										<th>Xóa</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php
-										$total = 0;
-									?>
-									@foreach(Session::get('cart') as $key => $cart)
-									<?php
-										$subtotal = $cart['product_price']*$cart['product_qty'];
-										$total+=$subtotal;
-									?>
-									<tr class="td-show-cart">
-										<td class="cart_product ">
-											<a href=""><img src="{{asset('public/uploads/product/'.$cart['product_image'])}}" width="90" alt="{{$cart['product_name']}}" /></a>
-										</td>
-										<td class="cart_description down-the-line-name">
-											<h4><a href=""></a></h4>
-											<p class="">{{$cart['product_name']}}</p>
-										</td>
-										<td class="cart_price">
-											<p>{{number_format($cart['product_price'],0,',','.')}} VNĐ</p>
-										</td>
-										<td class="cart_quantity">
-											<div class="cart_quantity_button">
-												{{ csrf_field() }}
-												<input class="cart_quantity_input input-information-checkout" type="text" min="1" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}"  >
-												<!-- <input type="hidden" value="" name="rowId_cart" class="form-control"> -->
-											</div>
-										</td>
-										<td class="cart_total">
-											<p class="cart_total_price">{{number_format($subtotal,0,',','.')}} VNĐ</p>
-										</td>
-										<td class="cart_delete">
-											<a class="cart_quantity_delete delete-show-cart " href="{{url('/delete-to-cart-ajax/'.$cart['session_id'])}}">Loại bỏ</a>
-										</td>
-									</tr>
-									@endforeach
-								</tbody>
-							</table>
+						<table class="table table-condensed border-danger">
+							<thead>
+								<tr class="th-show-cart">
+									<th class="" style="width:10%">Hình ảnh</th>
+									<th class="" style="width:33%">Tên sản phẩm</th>
+									<th class="" style="width:14%">Số lượng trong kho</th>
+									<th class="" style="width:15%">Giá</th>
+									<th class="" style="width:10%">Số lượng mua</th>
+									<th class="" style="width:11%">Tổng</th>
+									<th  style="width:7%">Xóa</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+									$total = 0;
+								?>
+								@foreach(Session::get('cart') as $key => $cart)
+								<?php
+									$subtotal = $cart['product_price']*$cart['product_qty'];
+									$total+=$subtotal;
+								?>
+								<tr class="td-show-cart">
+									<td class="cart_product ">
+										<a href=""><img src="{{asset('public/uploads/product/'.$cart['product_image'])}}" width="90" alt="{{$cart['product_name']}}" /></a>
+									</td>
+									<td class="cart_description down-the-line-name">
+										<h4><a href=""></a></h4>
+										<p class="">{{$cart['product_name']}}</p>
+									</td>
+									<td class="cart_description down-the-line-name">
+										<h4><a href=""></a></h4>
+										<p class="">{{$cart['product_quantity']}}</p>
+									</td>
+									<td class="cart_price">
+										<p>{{number_format($cart['product_price'],0,',','.')}} VNĐ</p>
+									</td>
+									<td class="cart_quantity">
+										<div class="cart_quantity_button">
+											{{ csrf_field() }}
+											<input class="cart_quantity_input input-information-checkout" type="text" min="1" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}"  >
+											<!-- <input type="hidden" value="" name="rowId_cart" class="form-control"> -->
+										</div>
+									</td>
+									<td class="cart_total">
+										<p class="cart_total_price">{{number_format($subtotal,0,',','.')}} VNĐ</p>
+									</td>
+									<td class="cart_delete">
+										<a class="cart_quantity_delete delete-show-cart" href="{{url('/delete-to-cart-ajax/'.$cart['session_id'])}}">Loại bỏ</a>
+									</td>
+								</tr>
+								@endforeach
+							</tbody>
+						</table>
 							<div class="row">
 								<div class="col-sm-2"></div>
 								<div class="col-sm-7">
@@ -228,7 +243,13 @@
 							</select>
 						</div>
 					</div>
+					@if(Session::get('customer_id'))
 					<input type="button" value="Xác nhận đơn hàng" name="send_order" class="btn-cart-update-checkout send_order"> 
+					@else
+						<p></p>
+						<a class="check_out m-	t-3 a-cart-checkout-pagehome" href="{{url('/login-checkout')}}">Xác nhận đơn hàng</a>
+					@endif
+					
 				</form>
 			</div>
 			<div class="col-sm-6">

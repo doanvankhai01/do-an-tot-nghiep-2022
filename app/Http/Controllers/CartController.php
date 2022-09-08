@@ -13,78 +13,78 @@ use Cart;
 session_start();
 class CartController extends Controller
 {
-    //Hiển thị sản phẩm ra giỏ hàng và tính tiền
-    public function save_cart(Request $request){
-        $cate_product = DB::table('tbl_category')
-        ->where('category_status','0')
-        ->orderby('category_id','desc')
-        ->get(); 
-        $brand_product = DB::table('tbl_brand')
-        ->where('brand_status','0')
-        ->orderby('brand_id','desc')
-        ->get(); 
+    // //Hiển thị sản phẩm ra giỏ hàng và tính tiền
+    // public function save_cart(Request $request){
+    //     $cate_product = DB::table('tbl_category')
+    //     ->where('category_status','0')
+    //     ->orderby('category_id','desc')
+    //     ->get(); 
+    //     $brand_product = DB::table('tbl_brand')
+    //     ->where('brand_status','0')
+    //     ->orderby('brand_id','desc')
+    //     ->get(); 
 
-        $productId = $request->productid_hidden;
-        $quantity = $request->qty;
-        $product_info = DB::table('tbl_product')->where('product_id',$productId)->first();
-        //Cart::add('293ad', 'Product 1', 1, 9.99, 550);//thêm 
-        //Cart::destroy();//hủy giỏ hàng
-        // trong Cart có các trường quy định sẵn
-        // chúng ta cần dùng các trường này gán với các mục cần hiển thị sao cho hợp lí nhất
-        $data['id'] = $product_info->product_id;
-        $data['qty'] = $quantity;
-        $data['name'] = $product_info->product_name;
-        $data['price'] = $product_info->product_price;
-        $data['weight'] = $product_info->product_price;
-        $data['options']['image'] = $product_info->product_image;
-        Cart::add($data);
-        Cart::setglobalTax(10);
-        return Redirect::to('/show-cart');
-        // return view('pages.cart.show_cart')
-        // ->with('category',$cate_product)
-        // ->with('brand',$brand_product)
-        // ->with('meta_desc',$meta_desc)
-        // ->with('meta_keywords',$meta_keywords)
-        // ->with('meta_title',$meta_title)
-        // ->with('url_canonical',$url_canonical);
-    }
-    //giỏ hàng
-    public function show_cart(Request $request){
-         //------------------------SEO-------------------------
-         $meta_desc = "Chuyên cung cấp các mặt hàng gấu bông chất lượng cao!"; 
-         $meta_keywords = "Gấu bông nhiều chủng loại, nhiều size, nhiều mẫu mã!";
-         $meta_title = "TeddyShop";
-         $url_canonical = $request->url();
-         //------------------------SEO--------------------------
-        $cate_product = DB::table('tbl_category')
-        ->where('category_status','0')
-        ->orderby('category_id','desc')
-        ->get(); 
-        $brand_product = DB::table('tbl_brand')
-        ->where('brand_status','0')
-        ->orderby('brand_id','desc')
-        ->get();
+    //     $productId = $request->productid_hidden;
+    //     $quantity = $request->qty;
+    //     $product_info = DB::table('tbl_product')->where('product_id',$productId)->first();
+    //     //Cart::add('293ad', 'Product 1', 1, 9.99, 550);//thêm 
+    //     //Cart::destroy();//hủy giỏ hàng
+    //     // trong Cart có các trường quy định sẵn
+    //     // chúng ta cần dùng các trường này gán với các mục cần hiển thị sao cho hợp lí nhất
+    //     $data['id'] = $product_info->product_id;
+    //     $data['qty'] = $quantity;
+    //     $data['name'] = $product_info->product_name;
+    //     $data['price'] = $product_info->product_price;
+    //     $data['weight'] = $product_info->product_price;
+    //     $data['options']['image'] = $product_info->product_image;
+    //     Cart::add($data);
+    //     Cart::setglobalTax(10);
+    //     return Redirect::to('/show-cart');
+    //     // return view('pages.cart.show_cart')
+    //     // ->with('category',$cate_product)
+    //     // ->with('brand',$brand_product)
+    //     // ->with('meta_desc',$meta_desc)
+    //     // ->with('meta_keywords',$meta_keywords)
+    //     // ->with('meta_title',$meta_title)
+    //     // ->with('url_canonical',$url_canonical);
+    // }
+    // //giỏ hàng
+    // public function show_cart(Request $request){
+    //      //------------------------SEO-------------------------
+    //      $meta_desc = "Chuyên cung cấp các mặt hàng gấu bông chất lượng cao!"; 
+    //      $meta_keywords = "Gấu bông nhiều chủng loại, nhiều size, nhiều mẫu mã!";
+    //      $meta_title = "TeddyShop";
+    //      $url_canonical = $request->url();
+    //      //------------------------SEO--------------------------
+    //     $cate_product = DB::table('tbl_category')
+    //     ->where('category_status','0')
+    //     ->orderby('category_id','desc')
+    //     ->get(); 
+    //     $brand_product = DB::table('tbl_brand')
+    //     ->where('brand_status','0')
+    //     ->orderby('brand_id','desc')
+    //     ->get();
 
-        return view('pages.cart.show_cart')
-        ->with('category',$cate_product)
-        ->with('brand',$brand_product)
-        ->with('meta_desc',$meta_desc)
-        ->with('meta_keywords',$meta_keywords)
-        ->with('meta_title',$meta_title)
-        ->with('url_canonical',$url_canonical);
-    }
-    //xóa sản phẩm trong giỏ hàng
-    public function delete_to_cart($rowId){
-        Cart::update($rowId,0);//Xóa sp dựa vào id, khi đưa rowId giá trị về = 0, thì mặc định sản phẩm không tồn tại, và sẽ xóa sản phẩm khỏi giỏ hàng
-        return Redirect::to('/show-cart');
-    }
-    //cập nhật giỏ hàng
-    public function update_cart_quantity(Request $request){
-        $rowId = $request->rowId_cart;
-        $qty = $request->cart_quantity;
-        Cart::update($rowId,$qty);// Dựa vào rowid update số lượng sản phẩm 
-        return Redirect::to('/show-cart');
-    }
+    //     return view('pages.cart.show_cart')
+    //     ->with('category',$cate_product)
+    //     ->with('brand',$brand_product)
+    //     ->with('meta_desc',$meta_desc)
+    //     ->with('meta_keywords',$meta_keywords)
+    //     ->with('meta_title',$meta_title)
+    //     ->with('url_canonical',$url_canonical);
+    // }
+    // //xóa sản phẩm trong giỏ hàng
+    // public function delete_to_cart($rowId){
+    //     Cart::update($rowId,0);//Xóa sp dựa vào id, khi đưa rowId giá trị về = 0, thì mặc định sản phẩm không tồn tại, và sẽ xóa sản phẩm khỏi giỏ hàng
+    //     return Redirect::to('/show-cart');
+    // }
+    // //cập nhật giỏ hàng
+    // public function update_cart_quantity(Request $request){
+    //     $rowId = $request->rowId_cart;
+    //     $qty = $request->cart_quantity;
+    //     Cart::update($rowId,$qty);// Dựa vào rowid update số lượng sản phẩm 
+    //     return Redirect::to('/show-cart');
+    // }
 //AJAX CART----------------------------------------------------------------------------------------------------------------------
     //Cart Ajax
     public function add_cart_ajax(Request $request){
