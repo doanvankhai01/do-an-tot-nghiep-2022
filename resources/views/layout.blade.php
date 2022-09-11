@@ -242,8 +242,70 @@
             </div>
         </div>
     </section>
-    <footer id="footer"><!--Footer-->
-        
+    <br>
+    <footer class="footer_page"><!--Footer-->
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-sm-3 coll-footer">
+                    <h2 class="title-footer">Liên hệ</h2>
+                    <p class="p-footer"><b class="logo-b1">TEDDY</b><b class="logo-b2">SHOP</b> </p>
+                    <p class="p-footer">Số điện thoại: (+81) 378726127</p>
+                    <p class="p-footer">Email: khaidoan0110@gmail.com</p>
+                    <p class="p-footer">Địa chỉ: 176 Trần Phú, phường Phước Vĩnh, thành phố Huế</p>
+                    <p class="p-footer"></p>
+
+                </div>
+                <div class="col-sm-3 coll-footer">
+                    <h2 class="title-footer">Danh mục</h2>
+                    @foreach($category as $key => $cate)
+                        <p class="p-footer"><a class="a-footer" href="{{URL::to('/danh-muc-san-pham/'.$cate->category_id)}}">{{$cate->category_name}}</a></p>
+                    @endforeach
+                </div>
+                <div class="col-sm-3 coll-footer">
+                    <h2 class="title-footer">Giỏ hàng</h2>
+                    @if(Session::get('cart')==true)
+							<table class="table table-condensed border-danger">
+								<tbody>
+									<?php
+										$total = 0;
+									?>
+									@foreach(Session::get('cart') as $key => $cart)
+									<tr class="td-show-cart">
+										<td class="cart_product ">
+											<a href=""><img src="{{asset('public/uploads/product/'.$cart['product_image'])}}" width="40px" alt="{{$cart['product_name']}}" /></a>
+										</td>
+										<td class="cart_description down-the-line-name">
+											<h4><a href=""></a></h4>
+											<p class="">{{$cart['product_name']}}</p>
+										</td>
+										<td class="cart_price">
+											<p>{{number_format($cart['product_price'],0,',','.')}} VNĐ</p>
+										</td>
+									</tr>
+									@endforeach
+								</tbody>
+							</table>
+						@else
+							<span class="center">
+								<?php
+									echo'<h5>Giỏ hàng trống !<i class="fa fa-shopping-cart"></i></h5>';
+								?>
+							</span>
+						@endif
+                </div>
+                <div class="col-sm-3">
+                    <h2 class="title-footer">Sản phẩm mới nhất</h2>
+                    @foreach($all_product as $key => $foot_pro)
+                        <p class="p-footer">
+                            <img class="img-footer" src="{{URL::to('public/uploads/product/'.$foot_pro->product_image)}}" alt="" />
+                            <a class="a-footer" href="{{URL::to('/chi-tiet-san-pham/'.$foot_pro->product_id)}}">{{$foot_pro->product_name}}</a>
+                        </p>
+                    @endforeach
+
+                </div>
+            </div>
+        </div>
     </footer><!--/Footer-->
     {{-- js --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

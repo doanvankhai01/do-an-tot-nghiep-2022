@@ -165,7 +165,12 @@ class HomeController extends Controller
         ->where('brand_status','0')
         ->orderby('brand_id','desc')
         ->get(); 
-
+        $all_product = DB::table('tbl_product')
+        ->where('product_status','0')
+        ->where('waste_basket_product','0')
+        ->orderby('product_id','desc')
+        ->limit(8)
+        ->get(); 
         // Lọc sản phẩm
         if(isset($_GET['sort_by'])){
             $sort_by = $_GET['sort_by'];//Lấy giá trị của ?sort_by trong đường dẫn
@@ -291,6 +296,7 @@ class HomeController extends Controller
         ->with('meta_keywords',$meta_keywords)
         ->with('meta_title',$meta_title)
         ->with('url_canonical',$url_canonical)
+        ->with('all_product',$all_product)
         ->with('all_slider',$all_slider);
         // ->with('i',(request()->input('page',1)-1)*8);
     }
@@ -357,7 +363,12 @@ class HomeController extends Controller
         ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')
         ->where('tbl_product.product_id',$product_id)
         ->get();
-
+        $all_product = DB::table('tbl_product')
+        ->where('product_status','0')
+        ->where('waste_basket_product','0')
+        ->orderby('product_id','desc')
+        ->limit(8)
+        ->get(); 
         
         foreach($product_details as $key => $value){
             $category_id = $value->category_id;//lấy category id để hiển thị sản phẩm liên quan????
@@ -391,6 +402,8 @@ class HomeController extends Controller
         ->with('meta_title',$meta_title)
         ->with('url_canonical',$url_canonical)
         ->with('gallery',$gallery)
+        ->with('all_product',$all_product)
+        ->with('category',$cate_product)
         ->with('all_slider',$all_slider);
 
     }
@@ -424,6 +437,12 @@ class HomeController extends Controller
         ->where('product_status','0')
         // ->get();
         ->get(); 
+        $all_product = DB::table('tbl_product')
+        ->where('product_status','0')
+        ->where('waste_basket_product','0')
+        ->orderby('product_id','desc')
+        ->limit(8)
+        ->get(); 
         return view('pages.products.search')
         ->with('category',$cate_product)
         ->with('brand',$brand_product)
@@ -432,6 +451,7 @@ class HomeController extends Controller
         ->with('meta_keywords',$meta_keywords)
         ->with('meta_title',$meta_title)
         ->with('url_canonical',$url_canonical)
+        ->with('all_product',$all_product)
         ->with('all_slider',$all_slider);
 
     }

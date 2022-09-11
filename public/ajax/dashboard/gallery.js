@@ -34,9 +34,9 @@ $(document).ready(function(){
         }
 
         if(error ==''){
-            alert("Đúng");
+            
         }else{
-            alert("Không");
+            alert("Lỗi");
             $('#file').val('');
             $('#error_gallery').html('<span class="text-danger">'+error+'</span>')
             return false;

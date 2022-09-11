@@ -151,6 +151,12 @@ class CartController extends Controller
         ->where('slider_status',0)
         ->get();//Hiển thị Slider
         //Session::put('cart',null);
+        $all_product = DB::table('tbl_product')
+        ->where('product_status','0')
+        ->where('waste_basket_product','0')
+        ->orderby('product_id','desc')
+        ->limit(8)
+        ->get(); 
         return view('pages.cart.show_cart_ajax')
         ->with('category',$cate_product)
         ->with('brand',$brand_product)
@@ -158,6 +164,7 @@ class CartController extends Controller
         ->with('meta_keywords',$meta_keywords)
         ->with('meta_title',$meta_title)
         ->with('url_canonical',$url_canonical)
+        ->with('all_product',$all_product)
         ->with('all_slider',$all_slider);
     }
     //Cập nhật giỏ hàng

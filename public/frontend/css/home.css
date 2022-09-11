@@ -1,4 +1,36 @@
+/* footer */
+.footer_page{
+    background-color: #A0522D;
+    color: antiquewhite;
+}
+.title-footer{
+    color: antiquewhite;
+}
+.a-footer{
+    text-decoration: none;
+    color: antiquewhite;
+    font-weight: bold;
+    width: 100%;
 
+}
+.a-footer:hover{
+    text-decoration: none;
+    color: #A0522D;
+    font-weight: bold;
+    width: 100%;
+    background-color: antiquewhite;
+}
+.p-footer{
+    font-weight: bold;
+}
+.img-footer{
+    width: 40px;
+    height: 40px;
+}
+/* .coll-footer{
+    border-right:1px solid antiquewhite ;
+} */
+/* end footer */
 /* Điện thoại-Slider Banner */
 @media screen and (max-width: 550px) {
     .banner-slider-img{

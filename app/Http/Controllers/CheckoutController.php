@@ -45,6 +45,12 @@ class CheckoutController extends Controller
         ->where('slider_status',0)
         ->where('waste_basket_slider',0)
         ->get();//Hiển thị Slider
+        $all_product = DB::table('tbl_product')
+        ->where('product_status','0')
+        ->where('waste_basket_product','0')
+        ->orderby('product_id','desc')
+        ->limit(8)
+        ->get(); 
         return view('pages.checkout.login_checkout')
         ->with('category',$cate_product)
         ->with('brand',$brand_product)
@@ -52,6 +58,7 @@ class CheckoutController extends Controller
         ->with('meta_keywords',$meta_keywords)
         ->with('meta_title',$meta_title)
         ->with('url_canonical',$url_canonical)
+        ->with('all_product',$all_product)
         ->with('all_slider',$all_slider);
     }
     //đăng xuất
@@ -114,6 +121,12 @@ class CheckoutController extends Controller
         // Lấy thông tin khách hàng
         $id_customer = Session::get('customer_id');
         $receiver = CustomerModel::where('customer_id',$id_customer)->get();
+        $all_product = DB::table('tbl_product')
+        ->where('product_status','0')
+        ->where('waste_basket_product','0')
+        ->orderby('product_id','desc')
+        ->limit(8)
+        ->get(); 
         return view('pages.checkout.show_checkout')
         ->with('category',$cate_product)
         ->with('brand',$brand_product)
@@ -123,6 +136,7 @@ class CheckoutController extends Controller
         ->with('url_canonical',$url_canonical)
         ->with('province',$province)
         ->with('receiver',$receiver)
+        ->with('all_product',$all_product)
         ->with('all_slider',$all_slider);
     }
     // //Thực hiện lưu thông tin khách hàng = Trang này đã bị hủy, không còn sử dụng trên page
