@@ -74,7 +74,8 @@
                         <ul class="nav justify-content-center top-menu">
                             <div class="dropdown">
                                 <?php
-                                    $image = Session::get('admin_image');
+                                    // $image = Session::get('admin_image');
+                                    $image = Auth::user()->admin_image;
                                     if($image){
                                 ?>
                                         {{-- <img alt="" src="{{('public/backend/images/2.png')}}"> --}}
@@ -85,7 +86,8 @@
                                 <span >
                                     <a href="" class="link-href-admin">
                                         <?php
-                                            $name = Session::get('admin_name');
+                                            // $name = Session::get('admin_name');
+                                            $name = Auth::user()->admin_name;
                                             if($name){
                                                 echo $name;
                                             }
@@ -94,7 +96,8 @@
                                 </span>
                                 <div class="dropdown-content">
                                     <?php
-                                    $admin_id = Session::get('admin_id');
+                                    // $admin_id = Session::get('admin_id');
+                                    $admin_id = Auth::id();
                                     ?>
                                     {{-- <li><button class="btn-function-infomation " href="#"><i class=" fa fa-suitcase"></i>Profile</button></li> --}}
                                     <li><button class="btn-function-infomation edit_admin_account_lonely" data-admin_id ="{{$admin_id}}"><i class="fa fa-cog"></i> Chỉnh sửa tài khoản</button></li>
@@ -102,6 +105,10 @@
                                         <form action="{{URL::to('/log-out')}}">
                                             @csrf
                                             <button class="btn-function-infomation"><i class="fa fa-key"></i>Đăng xuất</button>
+                                        </form>
+                                        <form action="{{URL::to('/log-out-auth')}}">
+                                            @csrf
+                                            <button class="btn-function-infomation"><i class="fa fa-key"></i>Đăng xuất Auth</button>
                                         </form>
                                     </li>
                                 </div>

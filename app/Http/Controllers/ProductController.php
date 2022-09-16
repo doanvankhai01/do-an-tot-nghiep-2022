@@ -10,6 +10,7 @@ use App\Models\ProductModel;
 use App\Models\CategoryModel;
 use App\Models\BrandModel;
 use Session ;
+use Auth;
 session_start();
 class ProductController extends Controller
 {
@@ -20,6 +21,16 @@ class ProductController extends Controller
             return Redirect::to('dashboard');
         }else{
             Session::put('message','Vui lòng đăng nhập quyền Admin!');
+            return Redirect::to('admin')->send();
+        }
+    }
+    //Kiểm tra đăng nhập Auth
+    public function AuthLogin_Auth(){
+        $admin_id = Auth::id();
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }else{
+            Session::put('message','Vui lòng đăng nhập quyền admin!');
             return Redirect::to('admin')->send();
         }
     }
@@ -44,7 +55,8 @@ class ProductController extends Controller
     }
     //Hiển thị form thêm sản phẩm
     public function add_product(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $cate_product = CategoryModel::orderby('category_id','desc')
@@ -61,7 +73,8 @@ class ProductController extends Controller
     }
     //Hiển thị ra tất cả sản phẩm
     public function all_product(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         // cách 1---------------------------------
     	// $all_product = ProductModel::orderby('tbl_product.product_id','desc')
         // ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
@@ -137,7 +150,8 @@ class ProductController extends Controller
 
     //Thêm sản phẩm
     public function save_product(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             // $data = array();
@@ -232,7 +246,8 @@ class ProductController extends Controller
     // }
     //Hiện sản phẩm
     public function active_product($product_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             ProductModel::where('product_id',$product_id)->update(['product_status'=>0]);
@@ -244,7 +259,8 @@ class ProductController extends Controller
     }
     //Ẩn sản phẩm
     public function unactive_product($product_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             ProductModel::where('product_id',$product_id)->update(['product_status'=>1]);
@@ -256,7 +272,8 @@ class ProductController extends Controller
     }
     //Chi tiết sản phẩm
     public function edit_product($product_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $cate_product = CategoryModel::orderby('category_id','desc')
@@ -276,7 +293,8 @@ class ProductController extends Controller
     }
     //Cập nhật sản phẩm
     public function update_product(Request $request,$product_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             // $data = array();
@@ -325,7 +343,8 @@ class ProductController extends Controller
     }
     //Tìm kiếm sản phẩm 
     public function search_product_on_admin_layout(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $data = $request->all();
         $keywords = $data['search_product_submit'];
         // echo '<pre>';
@@ -345,7 +364,8 @@ class ProductController extends Controller
     }
     //Tìm kiếm sản phẩm tự động
     public function autocomplete_search_product_admin_ajax(Request $request){
-        $data = $request->all();
+        // $data = $request->all();
+        $this->AuthLogin_Auth();
         if($data['query']){
             $product = ProductModel::where('product_status',0)
             ->where('product_name','LIKE','%'.$data['query'].'%')
@@ -368,7 +388,8 @@ class ProductController extends Controller
     }
     //Xóa sản phẩm
     public function delete_product($product_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             ProductModel::where('product_id',$product_id)->delete();
@@ -382,7 +403,8 @@ class ProductController extends Controller
     //Thùng rác---------------------------------------------------------------
     // Hiển thị
     public function waste_basket_product(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $all_product = ProductModel::orderby('tbl_product.product_id','desc')
@@ -407,7 +429,8 @@ class ProductController extends Controller
 
     // Xóa tạm thời 
     public function unactive_waste_basket_product($product_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             ProductModel::where('product_id',$product_id)
@@ -421,7 +444,8 @@ class ProductController extends Controller
     }
     //khôi phục
     public function active_waste_basket_product($product_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             ProductModel::where('product_id',$product_id)->update(['waste_basket_product'=>0]);

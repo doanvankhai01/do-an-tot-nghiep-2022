@@ -7,11 +7,12 @@ use Illuminate\Support\Facades\Redirect;
 use App\Htpp\Requests;
 use App\Models\ProductModel;
 use App\Models\OrderModel;
+use Auth;
 use Session ;
 session_start();
 class NotificationController extends Controller
 {
-    //Kiểm tra đăng nhập
+    //Kiểm tra đăng nhập session
     public function AuthLogin(){
         $admin_id = Session::get('admin_id');
         if($admin_id){
@@ -21,9 +22,20 @@ class NotificationController extends Controller
             return Redirect::to('admin')->send();
         }
     }
+    //Kiểm tra đăng nhập Auth
+    public function AuthLogin_Auth(){
+        $admin_id = Auth::id();
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }else{
+            Session::put('message','Vui lòng đăng nhập quyền admin!');
+            return Redirect::to('admin')->send();
+        }
+    }
     // Thống kê tổng sản phẩm
     public function notification_product(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
             $all_product = ProductModel::orderby('product_id','desc')
             ->join('tbl_category','tbl_category.category_id','=','tbl_product.category_id')//Hiển thị tên danh mục
             ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')//Hiển thị tên thương hiệu
@@ -38,7 +50,8 @@ class NotificationController extends Controller
     }
     // Thống kê tổng đơn hàng mới
     public function notification_new_order(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
             $order = OrderModel::orderby('created_at','DESC')
             ->where('waste_basket_order',0)
             ->where('order_status',0)
@@ -51,7 +64,8 @@ class NotificationController extends Controller
     }
     // Thống kê tổng đơn hàng chưa xử lí
     public function notification_view_order(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
             $order = OrderModel::orderby('created_at','DESC')
             ->where('waste_basket_order',0)
             ->whereBetween('order_status',[0,1])

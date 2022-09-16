@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use App\Htpp\Requests;
 use Session ;
+use Auth;
 use App\Models\SliderBannerModel;
 session_start();
 class SliderBannerController extends Controller
@@ -21,8 +22,20 @@ class SliderBannerController extends Controller
             return Redirect::to('admin')->send();
         }
     }
+    //Kiểm tra đăng nhập Auth
+    public function AuthLogin_Auth(){
+        $admin_id = Auth::id();
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }else{
+            Session::put('message','Vui lòng đăng nhập quyền admin!');
+            return Redirect::to('admin')->send();
+        }
+    }
     //Hiển thị danh sách
     public function manager_slider(){
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
     	$all_slider = SliderBannerModel::orderBy('slider_id','DESC')
         ->where('waste_basket_slider',0)->paginate(10);
     	return view('slider.all_slider')
@@ -36,11 +49,14 @@ class SliderBannerController extends Controller
     }
     // Hiện trang thêm
     public function add_slider(){
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
     	return view('slider.add_slider');
     }
     //Ẩn
     public function unactive_slider($slider_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         SliderBannerModel::where('slider_id',$slider_id)->update(['slider_status'=>1]);
         Session::put('message','swal("Thông báo!", "Ẩn Slider!","success")');
         return Redirect::to('manager-slider');
@@ -48,7 +64,8 @@ class SliderBannerController extends Controller
     }
     //Kích hoạt
     public function active_slider($slider_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         SliderBannerModel::where('slider_id',$slider_id)->update(['slider_status'=>0]);
         Session::put('message','swal("Thông báo!", "Kích hoạt Slider!","success")');
         return Redirect::to('manager-slider');
@@ -57,8 +74,8 @@ class SliderBannerController extends Controller
     //Lưu
     public function save_slider(Request $request){
     	
-    	$this->AuthLogin();
-
+    	// $this->AuthLogin();
+        $this->AuthLogin_Auth();
    		$data = $request->all();
        	$get_image = request('slider_image');
       
@@ -85,7 +102,8 @@ class SliderBannerController extends Controller
        	
     }
     public function delete_slider($slider_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         // DB::table('tbl_category_product')->where('category_id',$category_product_id)->delete();
         SliderBannerModel::where('slider_id',$slider_id)->delete();
         Session::put('message','swal("Thông báo!", "Xóa thành công!","success")');

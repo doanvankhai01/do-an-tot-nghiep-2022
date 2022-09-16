@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;//User là cố định, ko sửa
 use Illuminate\Database\Eloquent\Model;
-
-class AdminModel extends Model
+use App\Models\RolesModel;
+class AdminModel extends Authenticatable
 {
     public $timestamps = false;//set time to false
     protected $fillable =[
@@ -24,4 +26,12 @@ class AdminModel extends Model
     ];
     protected $primaryKey = 'admin_id';
     protected $table = 'tbl_admin';
+    
+    public function roles(){
+        return $this->belongsToMany('RolesModel');
+    }
+
+    public function getAuthPassword(){//Tên hàm cố định không đc sửa
+        return $this->admin_password;
+    }
 }

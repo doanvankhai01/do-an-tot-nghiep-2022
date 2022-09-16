@@ -10,13 +10,24 @@ use App\Htpp\Requests;
 use App\Models\ProductModel;
 use App\Models\OrderModel;
 use App\Models\AdminModel;
+use Auth;
 use Session ;
 session_start();
 class AdminController extends Controller
 {
-    //Kiểm tra đăng nhập
+    //Kiểm tra đăng nhập Session
     public function AuthLogin(){
         $admin_id = Session::get('admin_id');
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }else{
+            Session::put('message','Vui lòng đăng nhập quyền admin!');
+            return Redirect::to('admin')->send();
+        }
+    }
+    //Kiểm tra đăng nhập Auth
+    public function AuthLogin_Auth(){
+        $admin_id = Auth::id();
         if($admin_id){
             return Redirect::to('dashboard');
         }else{
@@ -49,7 +60,8 @@ class AdminController extends Controller
     }
     //Hiển thị trang quản lí
     public function show_dashboard(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             return view('admin.dashboard');// Muốn hiển thị dashboard thì cần gọi dashboard, gọi admin_layout thì sẽ không thể hiển thị được dashboard ra 
@@ -59,6 +71,8 @@ class AdminController extends Controller
     }
     //Xử lí đăng nhập
     public function dashboard(Request $request){
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $email = $request->email;//gắn biến email với biến admin_email tại form action <admin_login class="blade php"></admin_login>
         $password = md5($request->password);
         $result = DB::table('tbl_admin')
@@ -86,6 +100,7 @@ class AdminController extends Controller
     }
     //Đăng xuất
     public function log_out(){
+        $this->AuthLogin_Auth();
         // Session::put('admin_name',null);
         // Session::put('admin_id',null);
         Session::forget('admin_name');
@@ -102,9 +117,43 @@ class AdminController extends Controller
 
 
     //Quản lý ==================================================================================
+    // Validation
+    public function validation($request){
+        return $this->validation($request,[
+            'admin_email'
+                =>'required|email|max:255'
+            ,
+            'admin_password'
+                =>'required|string|max:255|min:6'
+            ,
+            'admin_name' 
+                =>'required|string|max:255|min:3'
+            ,
+            'admin_birdthday' 
+                =>'required|string|max:255'
+            ,
+            'admin_address' 
+                =>'required|string|max:255|min:3'
+            ,
+            'admin_image' 
+                =>'required|string|max:255|min:3'
+            ,
+            'admin_phone' 
+                =>'required|string|max:255|min:10'
+            ,
+            'admin_status' 
+                =>'required|string|max:255'
+            ,
+            'waste_basket_admin' 
+                =>'required|string|max:255|min:3'
+            ,
+            
+        ]);
+    }
     //Hiển thị trang thêm admin
     public function add_admin(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             return view('admin.add_admin');
@@ -114,7 +163,10 @@ class AdminController extends Controller
     }
     //Lưu và thêm admin
     public function save_admin(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
+        $this->validation($request);
+        $data = $request->all();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $get_image = $request->file('file');
@@ -154,7 +206,8 @@ class AdminController extends Controller
     }
     //Hiển thị danh sách admin
     public function all_admin(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $all_admin = AdminModel::orderby('admin_status','asc')
@@ -175,14 +228,16 @@ class AdminController extends Controller
     }
     //Hiển thị chi tiết thông tin tài khoản
     public function edit_admin(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $admin_id = $request->admin_id;
         $edit_admin = AdminModel::where('admin_id',$admin_id)->first();
         return view('admin.edit_admin')->with('edit_admin',$edit_admin);
     }
     //Cập nhật tài khoản admin
     public function update_admin(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $get_image = $request->file('file');
@@ -262,7 +317,8 @@ class AdminController extends Controller
     }
     //Xóa tài khoản admin
     public function delete_admin(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
 
@@ -272,7 +328,8 @@ class AdminController extends Controller
     }
     //Tìm kiếm admin
     public function search_admin(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $data = $request->all();
@@ -294,7 +351,8 @@ class AdminController extends Controller
     }
     //Tự động tìm kiếm
     public function autocomplete_search_admin_ajax(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $data = $request->all();
@@ -322,7 +380,8 @@ class AdminController extends Controller
     }
     //Thùng rác
     public function waste_basket_admin(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             $all_admin = AdminModel::orderby('admin_status','asc')
@@ -343,7 +402,8 @@ class AdminController extends Controller
     }
     //Chuyển vào thùng rác
     public function unactive_waste_basket_admin(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             $admin_id = $request->admin_id;
@@ -356,7 +416,8 @@ class AdminController extends Controller
     }
     //Khôi phục thùng rác
     public function active_waste_basket_admin(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             $admin_id = $request->admin_id;

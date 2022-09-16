@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Htpp\Requests;
 use Session ;
 use Cart;
+use Auth;
 
 use App\Models\ProvinceModel;
 use App\Models\DistrictModel;
@@ -23,7 +24,7 @@ use PDF;
 session_start();
 class OrderController extends Controller
 {
-	 //Kiểm tra đăng nhập
+	 //Kiểm tra đăng nhập session
 	 public function AuthLogin(){
         $admin_id = Session::get('admin_id');
         if($admin_id){
@@ -31,6 +32,16 @@ class OrderController extends Controller
         }else{
             Session::put('message','Vui lòng đăng nhập quyền Admin!');
             return Redirect::to('admin')->send();
+        }
+    }
+	//Kiểm tra đăng nhập Auth
+    public function AuthLogin_Auth(){
+        $admin_id = Auth::id();
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }else{
+            Session::put('message','Vui lòng đăng nhập quyền admin!');
+            return Redirect::to('login-auth')->send();
         }
     }
 	//Kiểm tra quyền hạn
@@ -54,7 +65,8 @@ class OrderController extends Controller
     }
     //Danh sách đơn hàng
     public function manager_order(){
-		$this->AuthLogin();
+		// $this->AuthLogin();
+		$this->AuthLogin_Auth();
 		$check_position = $this->check_position_2();
         if($check_position == true){
 			$order = OrderModel::orderby('created_at','DESC')
@@ -72,7 +84,8 @@ class OrderController extends Controller
     }
 	//Tìm kiếm mã đơn hàng
 	public function search_order_on_admin_layout(Request $request){
-		$this->AuthLogin();
+		// $this->AuthLogin();
+		$this->AuthLogin_Auth();
 		$check_position = $this->check_position_2();
         if($check_position == true){
 			$data = $request->all();
@@ -95,7 +108,8 @@ class OrderController extends Controller
 	}
 	//Tìm kiếm mã đơn hàng tự động
     public function autocomplete_search_order_admin_ajax(Request $request){
-		$this->AuthLogin();
+		// $this->AuthLogin();
+		$this->AuthLogin_Auth();
 		$check_position = $this->check_position_2();
         if($check_position == true){
 			$data = $request->all();
@@ -128,6 +142,7 @@ class OrderController extends Controller
     //Chi tiết đơn hàng
     public function view_order($order_code){
 		$this->AuthLogin();
+		// $this->AuthLogin_Auth();
 		$check_position = $this->check_position_2();
         if($check_position == true){
 			$order_detail = OrderDetailModel::with('product')->where('order_code',$order_code)->get();//có vẻ là code thừa ???
@@ -173,10 +188,12 @@ class OrderController extends Controller
 	}
     //Xuất đơn hàng
     public function export_order($checkout_code){
-		$this->AuthLogin();
+		// $this->AuthLogin();
+		$this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
-			$this->AuthLogin();
+			// $this->AuthLogin();
+			$this->AuthLogin_Auth();
 			$pdf = \App::make('dompdf.wrapper');
 			$pdf->loadHTML($this->print_order_convert($checkout_code));
 			return $pdf->stream();
@@ -186,7 +203,8 @@ class OrderController extends Controller
     }
     //Hàm lấy thông tin và hiển thị thông tin ra đơn hàng PDF
     public function print_order_convert($checkout_code){
-		$this->AuthLogin();
+		// $this->AuthLogin();
+		$this->AuthLogin_Auth();
 		$check_position = $this->check_position_2();
         if($check_position == true){
 			$order_details = OrderDetailModel::where('order_code',$checkout_code)->get();
@@ -340,7 +358,8 @@ class OrderController extends Controller
     }
 	//Cập nhật tình trạng đơn hàng
 	public function update_order_status(Request $request){
-		$this->AuthLogin();
+		// $this->AuthLogin();
+		$this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
 			$data = $request->all();
@@ -392,7 +411,8 @@ class OrderController extends Controller
 	}
 	//Cập nhật số lương đơn hàng
 	public function update_order_quantity(Request $request){
-		$this->AuthLogin();
+		// $this->AuthLogin();
+		$this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
 			$data = $request->all();
@@ -407,7 +427,8 @@ class OrderController extends Controller
 	// thùng rác --------------------------------------------------------------------
 	// Hiển thị
     public function waste_basket_order(){
-		$this->AuthLogin();
+		// $this->AuthLogin();
+		$this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
 			$order = OrderModel::orderby('created_at','DESC')
@@ -426,7 +447,8 @@ class OrderController extends Controller
 	}
     // Xóa tạm thời 
     public function unactive_waste_basket_order($order_code){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+		$this->AuthLogin_Auth();
 		$check_position = $this->check_position_2();
         if($check_position == true){
 			OrderModel::where('order_code',$order_code)->update(['waste_basket_order'=>1]);
@@ -439,7 +461,8 @@ class OrderController extends Controller
     }
     //khôi phục
     public function active_waste_basket_order($order_code){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+		$this->AuthLogin_Auth();
 		$check_position = $this->check_position_2();
         if($check_position == true){
 			OrderModel::where('order_code',$order_code)->update(['waste_basket_order'=>0]);

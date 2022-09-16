@@ -10,16 +10,27 @@ use App\Models\StatisticalModel;
 use App\Models\VisitorModel;
 use Carbon\Carbon;
 use Session ;
+use Auth;   
 session_start();
 class StatisticalController extends Controller
 {
-    //Kiểm tra đăng nhập
+    //Kiểm tra đăng nhập sesion
     public function AuthLogin(){
         $admin_id = Session::get('admin_id');
         if($admin_id){
             return Redirect::to('dashboard');
         }else{
             Session::put('message','Vui lòng đăng nhập quyền Admin!');
+            return Redirect::to('admin')->send();
+        }
+    }
+     //Kiểm tra đăng nhập Auth
+     public function AuthLogin_Auth(){
+        $admin_id = Auth::id();
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }else{
+            Session::put('message','Vui lòng đăng nhập quyền admin!');
             return Redirect::to('admin')->send();
         }
     }
@@ -43,7 +54,8 @@ class StatisticalController extends Controller
         }
     }
     public function filter_statistical_by_day(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $data = $request->all();
@@ -81,7 +93,8 @@ class StatisticalController extends Controller
     }
     //Load dữ liệu
     public function load_sixty_day_statistical(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $sub_sixty_day = Carbon::now('Asia/Ho_Chi_Minh')->subDays(60)->toDateString();//Lấy 30 ngày trước
@@ -109,7 +122,8 @@ class StatisticalController extends Controller
     }
     //lọc doanh số
     public function filter_statistical(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $data = $request->all();
@@ -201,7 +215,8 @@ class StatisticalController extends Controller
 
     //Thống kê lượt truy cập
     public function show_visitor(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             echo $user_ip_address = $request->ip();//lấy địa chỉ ip đã đăng nhập

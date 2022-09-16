@@ -14,8 +14,13 @@ return [
     */
 
     'defaults' => [
+        //Hàm gốc
+        // 'guard' => 'web',
+        // 'passwords' => 'users',
+
+        // Thêm
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'custom_users',//Gọi hàm đã tạo ở providers
     ],
 
     /*
@@ -36,9 +41,16 @@ return [
     */
 
     'guards' => [
+        //hàm gốc
+        // 'web' => [
+        //     'driver' => 'session',
+        //     'provider' => 'users',
+        // ],
+
+        //Thêm
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'custom_users',//gọi hàm đã tạo ở providers
         ],
     ],
 
@@ -60,15 +72,16 @@ return [
     */
 
     'providers' => [
+        //Hàm gốc 
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        //Thêm hàm kiểm tra đăng nhập mới
+        'custom_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\AdminModel::class,//Thay đổi đường dẫn truy cập database
+        ],
     ],
 
     /*
@@ -87,10 +100,18 @@ return [
     */
 
     'passwords' => [
+        //Gốc
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
+            'throttle' => 60,
+        ],
+        //Gia hạn thời gian cho hàm vừa tạo ở providers
+        'custom_users' => [
+            'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 15,//Giới hạn thời gian 15p
             'throttle' => 60,
         ],
     ],

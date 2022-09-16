@@ -17,6 +17,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SliderBannerController;
 use App\Http\Controllers\StatisticalController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\AuthController;
 // use App\Http\Controllers\VisitorController;
 /*
 |--------------------------------------------------------------------------
@@ -243,3 +244,12 @@ Route::get('/delete-slider/{slider_id}', [SliderBannerController::class,'delete_
 Route::get('/all-waste-basket-slider', [SliderBannerController::class,'all_waste_basket_slider']);
 Route::get('/active-waste-basket-slider/{slider_id}', [SliderBannerController::class,'active_waste_basket_slider']);
 Route::get('/unactive-waste-basket-slider/{slider_id}', [SliderBannerController::class,'unactive_waste_basket_slider']);
+
+
+
+// Authentication roles -phân quyền
+Route::get('/register-auth',[AuthController::class,'register_auth']);
+Route::post('/register',[AuthController::class,'register']);
+Route::get('/log-out-auth',[AuthController::class,'log_out_auth']);
+Route::get('/login-auth',[AuthController::class,'login_auth']);
+Route::post('/login-at-auth',[AuthController::class,'login_at_auth']);

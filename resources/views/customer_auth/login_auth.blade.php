@@ -36,35 +36,49 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 ondbclick:	Xảy ra khi double click vào phần tử HTML -->
 <!-- onmouseout:	Xảy ra khi con trỏ chuột bắt đầu rời khỏi phần tử HTML -->
 <body class="body">
-        <div class="login-admin">
-            <span class="span">
-                <form class="form-login-admin" id="form_login_admin"name="login" action="{{URL::to('/admin-dashboard')}}" method="post">
-                    <h2 class="h2-login">Đăng nhập!</h2>
-                    <?php
-                    $message = Session::get("message");
-                    if($message){
-                        echo '<script type="text/javascript">window.setTimeout(function test(){'.$message.'},100);</script>';
-		                Session::put('message',null);
-                    ?>
-                    <?php
-                    }
-                    ?>
-                    <br>
-                    {{ csrf_field() }} <!--Mã hóa thông tin để tăng khả năng bảo mật-->
-                    <b text-align ="center"id="error_login_logout"></b>
-                    <input id="email_login_admin" type="text"  class="input-login-email-password" name="email" placeholder="Điền email" onkeyup="validation_login();">
-                    <b class="error-function" id="email_error_admin"></b>
-                    <input id="password_login_admin" type="password" class="input-login-email-password" name="password" placeholder="Điền password" onkeyup="validation_login();">
-                    <b class="error-function" id="password_error_admin"></b>
-                    <div class="clearfix"></div>
-                    <input class="btn-login-function" type="submit" id="" value="Đăng nhập" name="login" >
-                </form>
-            </span>
-            <span>
-                <a href="{{url('/register-auth')}}">Đăng kí Auth</a>
-                <a href="{{url('/login-auth')}}">Đăng nhập Auth</a>
-            </span>
+    <div class="row">
+        <div class="col-lg-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        <h2 class="h2-title">Đăng nhập tài khoản quản trị</h2>
+                    </header>
+                     <?php
+                        $message = Session::get('message');
+                        if($message){
+                            echo '<span class="text-alert">'.$message.'</span>';
+                            Session::put('message',null);
+                        }
+                        ?>
+                       
+                    
+                                <form action="{{url('/login-at-auth')}}" method="POST" enctype="multipart/form-data">
+                                    {{ csrf_field() }}
+                                    @foreach($errors->all() as $val)
+                                        <ul>
+                                            <li>{{$val}}</li>
+                                        </ul>
+                                    @endforeach
+                                    {{-- old('admin_name'): là khi có lỗi thì hiển thị thông báo nhưng vẫn giữ lại nội dung đã nhập
+                                    
+                                    --}}
+                                    
+                                    
+                                    <label class="lable-title">EmailL</label>
+                                    <input type="text" name="admin_email" class="form-control admin_email" value="{{old('admin_email')}}" id="admin_email" placeholder="Example@gmail.com">
+                                
+                                    <label class="lable-title">Mật khẩu</label>
+                                    <input type="text" name="admin_password" class="form-control admin_password" value="{{old('admin_password')}}" id="admin_password" placeholder="......">
+                                
+                                    
+                                 
+                                    
+                                    <input type="submit" name="login" class="btn-submit-function" onmousemove="" value="Đăng nhập">
+                                </form>
+                     
+                </section>
+
         </div>
+</div>
 </body>
 {{-- <script src="{{asset('public/backend/js/bootstrap.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.dcjqaccordion.2.7.js')}}"></script>
