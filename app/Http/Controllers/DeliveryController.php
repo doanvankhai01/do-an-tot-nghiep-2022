@@ -15,7 +15,7 @@ use App\Models\FeeShipModel;
 session_start();
 class DeliveryController extends Controller
 {
-    //Kiểm tra đăng nhập
+    //Kiểm tra đăng nhập session
     public function AuthLogin(){
         $admin_id = Session::get('admin_id');
         if($admin_id){
@@ -23,6 +23,16 @@ class DeliveryController extends Controller
         }else{
             Session::put('message','Vui lòng đăng nhập quyền Admin!');
             return Redirect::to('admin')->send();
+        }
+    }
+    //Kiểm tra đăng nhập Auth
+    public function AuthLogin_Auth(){
+        $admin_id = Auth::id();
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }else{
+            Session::put('message','Vui lòng đăng nhập quyền admin!');
+            return Redirect::to('login-auth')->send();
         }
     }
     //Kiểm tra quyền hạn
@@ -47,7 +57,8 @@ class DeliveryController extends Controller
     //AJAX hoàn toàn
     //Hiển thị trang quản lí vận chuyển(not ajaxRequesr $request)
     public function manager_delivery(Request $request){ 
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             $province = ProvinceModel::orderby('province_id','ASC')->get();
@@ -62,7 +73,8 @@ class DeliveryController extends Controller
     }
     //Hiển thị tên và các khu vực tỉnh thành,quận,huyện phường ,xã, thị trấn
     public function select_delivery(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             $data = $request->all();
@@ -92,7 +104,8 @@ class DeliveryController extends Controller
     }
     //Hiển thị thông tin đã có trong bảng ship hàng
     public function select_information_delivery(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             $data = $request->all();
@@ -520,7 +533,8 @@ class DeliveryController extends Controller
     }
     //Thêm tiền ship theo khu vực
     public function insert_delivery(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             $data = $request->all();
@@ -566,7 +580,8 @@ class DeliveryController extends Controller
     }
     //Hiển thị thông tin feeship
     public function load_delivery(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             $feeship = FeeshipModel::orderby('feeship_id','DESC')

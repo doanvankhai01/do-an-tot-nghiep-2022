@@ -13,7 +13,7 @@ use Session ;
 session_start();
 class BrandController extends Controller
 {
-    //Kiểm tra đăng nhập admin
+    //Kiểm tra đăng nhập admin sesion
     public function AuthLogin(){
         $admin_id = Session::get('admin_id');
         if($admin_id){
@@ -21,6 +21,16 @@ class BrandController extends Controller
         }else{
             Session::put('message','swal("Cảnh báo!", "Vui lòng đăng nhập!","warning")');
             return Redirect::to('admin')->send();
+        }
+    }
+    //Kiểm tra đăng nhập Auth
+    public function AuthLogin_Auth(){
+        $admin_id = Auth::id();
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }else{
+            Session::put('message','Vui lòng đăng nhập quyền admin!');
+            return Redirect::to('login-auth')->send();
         }
     }
     //Kiểm tra quyền hạn
@@ -44,7 +54,8 @@ class BrandController extends Controller
     }
     //Hiển thị form thêm thương hiệu
     public function add_brand_product(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             return view('brand.add_brand_product');
@@ -54,7 +65,8 @@ class BrandController extends Controller
     }
     //Hiển thị danh sách thương hiệu
     public function all_brand_product(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $all_brand_product = BrandModel::orderBy('brand_id','DESC')
@@ -102,7 +114,8 @@ class BrandController extends Controller
 
     //Thêm thương hiẹu-ajax
     public function save_brand_product(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $data = $request->all();
@@ -118,7 +131,8 @@ class BrandController extends Controller
     }
     //Hiện thương hiệu 
     public function active_brand_product($brand_product_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
             if($check_position == true){
             BrandModel::where('brand_id',$brand_product_id)->update(['brand_status'=>0]);
@@ -130,7 +144,8 @@ class BrandController extends Controller
     }
     //Ẩn thương hiệu
     public function unactive_brand_product($brand_product_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             BrandModel::where('brand_id',$brand_product_id)->update(['brand_status'=>1]);
@@ -143,7 +158,8 @@ class BrandController extends Controller
 
     //Hiển thị ra thông tin chi tiết
     public function edit_brand_product($brand_product_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $edit_brand_product = BrandModel::where('brand_id',$brand_product_id)->get();
@@ -167,7 +183,8 @@ class BrandController extends Controller
     // }
     // Cập nhật Thương hiệu-ajax
     public function update_brand_product(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $data = $request->all();
@@ -182,7 +199,8 @@ class BrandController extends Controller
     }
     // Xóa Thương hiệu 
     public function delete_brand_product($brand_product_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             BrandModel::where('brand_id',$brand_product_id)->delete();

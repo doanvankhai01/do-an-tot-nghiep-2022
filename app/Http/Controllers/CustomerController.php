@@ -10,6 +10,7 @@ use Session ;
 
 class CustomerController extends Controller
 {
+    //Kiểm tra đăng nhập Session
     public function AuthLogin(){
         $admin_id = Session::get('admin_id');
         if($admin_id){
@@ -17,6 +18,16 @@ class CustomerController extends Controller
         }else{
             Session::put('message','Vui lòng đăng nhập quyền Admin!');
             return Redirect::to('admin')->send();
+        }
+    }
+    //Kiểm tra đăng nhập Auth
+    public function AuthLogin_Auth(){
+        $admin_id = Auth::id();
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }else{
+            Session::put('message','Vui lòng đăng nhập quyền admin!');
+            return Redirect::to('login-auth')->send();
         }
     }
     //Quản lý ==================================================================================
@@ -41,7 +52,8 @@ class CustomerController extends Controller
     }
     //Hiển thị chi tiết thông tin tài khoản
     public function edit_customer_account($customer_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
 
         $edit_customer = CustomerModel::where('customer_id',$customer_id)->get();
         return view('customer.edit_customer')->with('edit_customer', $edit_customer);

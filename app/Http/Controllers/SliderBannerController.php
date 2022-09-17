@@ -29,7 +29,7 @@ class SliderBannerController extends Controller
             return Redirect::to('dashboard');
         }else{
             Session::put('message','Vui lòng đăng nhập quyền admin!');
-            return Redirect::to('admin')->send();
+            return Redirect::to('login-auth')->send();
         }
     }
     //Hiển thị danh sách

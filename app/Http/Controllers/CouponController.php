@@ -22,6 +22,16 @@ class CouponController extends Controller
             return Redirect::to('admin')->send();
         }
     }
+    //Kiểm tra đăng nhập Auth
+    public function AuthLogin_Auth(){
+        $admin_id = Auth::id();
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }else{
+            Session::put('message','Vui lòng đăng nhập quyền admin!');
+            return Redirect::to('login-auth')->send();
+        }
+    }
     //Kiểm tra quyền hạn
     public function check_position(){
         $admin_status = Session::get('admin_status');
@@ -43,7 +53,8 @@ class CouponController extends Controller
     }
     //Hiển thị trang thêm coupon
     public function add_coupon(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             return view('coupon.add_coupon');
@@ -53,7 +64,8 @@ class CouponController extends Controller
     }
     //Lưu sau khi thêm coupon
     public function save_coupon(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             $data = $request->all();
@@ -75,7 +87,8 @@ class CouponController extends Controller
     }
     //Danh sách mã coupon
     public function all_coupon(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             $coupon_model = CouponModel::orderby('coupon_id','desc')
@@ -94,7 +107,8 @@ class CouponController extends Controller
     }
     //Xóa mã coupon 
     public function delete_coupon($coupon_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             $coupon = CouponModel::find($coupon_id);
@@ -112,7 +126,8 @@ class CouponController extends Controller
 
     //thùng rác
     public function waste_basket_coupon(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             $coupon_model = CouponModel::orderby('coupon_id','desc')
@@ -131,7 +146,8 @@ class CouponController extends Controller
 
     // Xóa tạm thời 
     public function unactive_waste_basket_coupon($coupon_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             CouponModel::where('coupon_id',$coupon_id)->update(['waste_basket_coupon'=>1]);
@@ -144,7 +160,8 @@ class CouponController extends Controller
     }
     //khôi phục
     public function active_waste_basket_coupon($coupon_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position();
         if($check_position == true){
             CouponModel::where('coupon_id',$coupon_id)->update(['waste_basket_coupon'=>0]);

@@ -141,8 +141,8 @@ class OrderController extends Controller
     }
     //Chi tiết đơn hàng
     public function view_order($order_code){
-		$this->AuthLogin();
-		// $this->AuthLogin_Auth();
+		// $this->AuthLogin();
+		$this->AuthLogin_Auth();
 		$check_position = $this->check_position_2();
         if($check_position == true){
 			$order_detail = OrderDetailModel::with('product')->where('order_code',$order_code)->get();//có vẻ là code thừa ???

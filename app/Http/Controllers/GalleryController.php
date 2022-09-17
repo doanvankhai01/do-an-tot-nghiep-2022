@@ -14,7 +14,7 @@ use Session ;
 session_start();
 class GalleryController extends Controller
 {
-    //Kiểm tra đăng nhập
+    //Kiểm tra đăng nhập session
     public function AuthLogin(){
         $admin_id = Session::get('admin_id');
         if($admin_id){
@@ -22,6 +22,16 @@ class GalleryController extends Controller
         }else{
             Session::put('message','Vui lòng đăng nhập quyền Admin!');
             return Redirect::to('admin')->send();
+        }
+    }
+    //Kiểm tra đăng nhập Auth
+    public function AuthLogin_Auth(){
+        $admin_id = Auth::id();
+        if($admin_id){
+            return Redirect::to('dashboard');
+        }else{
+            Session::put('message','Vui lòng đăng nhập quyền admin!');
+            return Redirect::to('login-auth')->send();
         }
     }
     //Kiểm tra quyền hạn
@@ -45,7 +55,8 @@ class GalleryController extends Controller
     }
     //Hiển thị tất cả hình ảnh thuộc sản phẩm và form thêm hình ảnh
     public function manager_gallery($product_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $pro_id = $product_id;
@@ -56,7 +67,8 @@ class GalleryController extends Controller
     }
     //Lấy tất cả hình ảnh
     public function all_gallery(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $product_id = $request->pro_id;//lấy id sản phẩm
@@ -113,7 +125,8 @@ class GalleryController extends Controller
     }
     //Thêm hình ảnh 
     public function add_gallery(Request $request, $product_id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $get_image = $request->file('file');
@@ -145,7 +158,8 @@ class GalleryController extends Controller
     }
     // Cập nhật tên hình ảnh
     public function update_name_gallery(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $data = $request->all();
@@ -160,7 +174,8 @@ class GalleryController extends Controller
     }
     //Cập nhật hình ảnh
     public function update_image_gallery(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $get_image = $request->file('file');
@@ -196,7 +211,8 @@ class GalleryController extends Controller
     }
     //Xóa sản phẩm
     public function delete_gallery(Request $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
+        $this->AuthLogin_Auth();
         $check_position = $this->check_position_2();
         if($check_position == true){
             $data = $request->all();
