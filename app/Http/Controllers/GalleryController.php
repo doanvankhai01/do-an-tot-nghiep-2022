@@ -11,6 +11,7 @@ use App\Models\CategoryModel;
 use App\Models\BrandModel;
 use App\Models\GalleryModel;
 use Session ;
+use Auth;
 session_start();
 class GalleryController extends Controller
 {

@@ -9,10 +9,10 @@ class RolesModel extends Model
 {
     public $timestamps = false;//set time to false
     protected $fillable =[
-        'role_name'
+        'roles_name'
     ];
-    protected $primaryKey = 'role_id';
-    protected $table = 'tbl_role';
+    protected $primaryKey = 'roles_id';
+    protected $table = 'tbl_roles';
 
     public function admin(){
         return $this->belongsToMaNy('AdminModel');

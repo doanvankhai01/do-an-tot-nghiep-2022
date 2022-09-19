@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Htpp\Requests;
 use App\Models\CategoryModel;
 use Session ;
+use Auth;
 session_start();
 class CategoryController extends Controller
 {

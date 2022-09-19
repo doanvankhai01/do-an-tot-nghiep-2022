@@ -10,6 +10,7 @@ use App\Models\BrandModel;
 use App\Models\ProductModel;
 use App\Models\OrderModel;
 use Session ;
+use Auth;
 session_start();
 class BrandController extends Controller
 {

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use App\Htpp\Requests;
 use Session ;
+use Auth;
 
 class CustomerController extends Controller
 {
