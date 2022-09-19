@@ -18,6 +18,7 @@ use App\Http\Controllers\SliderBannerController;
 use App\Http\Controllers\StatisticalController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 // use App\Http\Controllers\VisitorController;
 /*
 |--------------------------------------------------------------------------
@@ -253,3 +254,6 @@ Route::post('/register',[AuthController::class,'register']);
 Route::get('/log-out-auth',[AuthController::class,'log_out_auth']);
 Route::get('/login-auth',[AuthController::class,'login_auth']);
 Route::post('/login-at-auth',[AuthController::class,'login_at_auth']);
+
+//UserController- Phân quyền auth
+Route::get('users',[UserController::class,'index']);

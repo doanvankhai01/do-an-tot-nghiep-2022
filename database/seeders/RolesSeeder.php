@@ -17,9 +17,9 @@ class RolesSeeder extends Seeder
     {
         RolesModel::truncate();//Khi phát hiện dữ liệu thì sẽ xóa hết dữ liệu trong bảng đó
 
-        RolesModel::create(['roles_name' => 'insert']);
-        RolesModel::create(['roles_name' => 'select']);
-        RolesModel::create(['roles_name' => 'update']);
-        RolesModel::create(['roles_name' => 'delete']);
+        RolesModel::create(['roles_name' => 'insert']);//Thêm dữ liệu mới vào bảng
+        RolesModel::create(['roles_name' => 'select']);//Thêm dữ liệu mới vào bảng
+        RolesModel::create(['roles_name' => 'update']);//Thêm dữ liệu mới vào bảng
+        RolesModel::create(['roles_name' => 'delete']);//Thêm dữ liệu mới vào bảng
     }
 }
