@@ -170,6 +170,17 @@
                             <?php
                             }
                             ?>
+                            <?php
+                            $message = Session::get("admin_status");
+                            if($message == 0 || $message ==1){
+                                
+                        ?>
+                            <form action="{{URL::to('/users')}}">
+                                <p class="p-function-menu-admin"><i class="material-icons">admin_panel_settings</i><input class="input-submit-function-menu-admin" type="submit" value="Tài khoản Auth"></p>
+                            </form>
+                        <?php
+                        }
+                        ?>
                             <form action="{{URL::to('/all-customer-account')}}">
                                 <p class="p-function-menu-admin"><i class="material-icons">people</i><input class="input-submit-function-menu-admin" type="submit" value="Tài khoản người dùng"></p>
                             </form>

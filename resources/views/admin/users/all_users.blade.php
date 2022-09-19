@@ -75,13 +75,15 @@
                 <th class="th-infomation-title" >Thêm</th>
                 <th class="th-infomation-title" >Sửa</th>
                 <th class="th-infomation-title" >Xóa</th>
+                <th class="th-infomation-title" >Phân quyền</th>
                 <th class="th-infomation-title" >Chức năng</th>
               </tr>
             </thead>
             <tbody>
-              <form>
-                @csrf
+              
                 @foreach($admin as $key => $ad)
+                <form action="{{url('/assign-roles')}}" method="POST">
+                  @csrf
                   <tr>
                     <td class="td-infomation-title">{{$i++ + 1;}}
                     {{-- 
@@ -132,6 +134,10 @@
                       ?(Nếu hasRole là delete) thì checked :(Nếu ko) thì trống 
                       --}}
                     </td>
+                    <td>
+                      <input type ="submit" value="Phân quyền">
+                    </td>
+                  </form>
                     <td class="td-infomation-title">
                         <?php
                           $message = Session::get("admin_status");
@@ -160,8 +166,9 @@
                         ?>
                     </td>
                   </tr>
+                
                 @endforeach
-              </form>
+              
             </tbody>
           </table>
         </div>

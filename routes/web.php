@@ -257,3 +257,6 @@ Route::post('/login-at-auth',[AuthController::class,'login_at_auth']);
 
 //UserController- Phân quyền auth
 Route::get('users',[UserController::class,'index']);
+Route::get('/add-auth-users',[UserController::class,'add_auth_users']);
+Route::post('/store-users',[UserController::class,'store_users']);
+Route::post('/assign-roles',[UserController::class,'assign_roles']);
