@@ -159,28 +159,15 @@
                             </form>
 
                             <p class="h5-title-menu"><i class="material-icons">account_tree</i> Quản lý tài khoản</p>
-                            <?php
-                                $message = Session::get("admin_status");
-                                if($message == 0 || $message ==1){
-                                    
-                            ?>
+                           
                                 <form action="{{URL::to('/all-admin')}}">
                                     <p class="p-function-menu-admin"><i class="material-icons">admin_panel_settings</i><input class="input-submit-function-menu-admin" type="submit" value="Tài khoản quản trị viên"></p>
                                 </form>
-                            <?php
-                            }
-                            ?>
-                            <?php
-                            $message = Session::get("admin_status");
-                            if($message == 0 || $message ==1){
-                                
-                        ?>
+                       
                             <form action="{{URL::to('/users')}}">
                                 <p class="p-function-menu-admin"><i class="material-icons">admin_panel_settings</i><input class="input-submit-function-menu-admin" type="submit" value="Tài khoản Auth"></p>
                             </form>
-                        <?php
-                        }
-                        ?>
+                       
                             <form action="{{URL::to('/all-customer-account')}}">
                                 <p class="p-function-menu-admin"><i class="material-icons">people</i><input class="input-submit-function-menu-admin" type="submit" value="Tài khoản người dùng"></p>
                             </form>
@@ -192,12 +179,7 @@
                             <form action="{{URL::to('/manager-slider')}}">
                                 <p class="p-function-menu-admin"><i class="material-icons">image</i><input class="input-submit-function-menu-admin" type="submit" value="Quản lý Slider"></p>
                             </form>
-
-                            <?php
-                                $message = Session::get("admin_status");
-                                if($message == 0 || $message ==1){
-                                    
-                            ?>
+                            @hasrole('admin')
                                 <p class="h5-title-menu"><i class="material-icons">auto_delete</i>Thùng rác</p>
                                 <form action="{{URL::to('/waste-basket-product')}}">
                                     <p class="p-function-menu-admin"><i class="material-icons">list_alt</i><input class="input-submit-function-menu-admin" type="submit" value="Sản phẩm"></p>
@@ -217,10 +199,7 @@
                                 <form action="{{URL::to('/waste-basket-admin')}}">
                                     <p class="p-function-menu-admin"><i class="material-icons">admin_panel_settings</i><input class="input-submit-function-menu-admin" type="submit" value="Tài khoản quản trị"></p>
                                 </form>
-                            <?php
-                            }
-                            ?>
-
+                            @endhasrole
                             <form>
                                 <img class="img-scroll" id="img-scroll" src="{{URL::to('public/uploads/slider/bamboopanda.png')}}">
                             </form>
