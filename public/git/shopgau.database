@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 12, 2022 lúc 03:25 AM
+-- Thời gian đã tạo: Th9 20, 2022 lúc 03:16 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -20,6 +20,54 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `shopgau`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `admin_model_roles_model`
+--
+
+CREATE TABLE `admin_model_roles_model` (
+  `admin_model_roles_id` int(11) NOT NULL,
+  `admin_model_admin_id` int(11) NOT NULL,
+  `roles_model_roles_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `admin_model_roles_model`
+--
+
+INSERT INTO `admin_model_roles_model` (`admin_model_roles_id`, `admin_model_admin_id`, `roles_model_roles_id`) VALUES
+(14, 29, 2),
+(15, 29, 1),
+(16, 29, 3),
+(17, 29, 4),
+(18, 1, 2),
+(19, 1, 1),
+(20, 1, 3),
+(21, 1, 4),
+(22, 26, 2),
+(23, 26, 1),
+(24, 26, 3),
+(25, 26, 4),
+(26, 27, 2),
+(27, 27, 1),
+(28, 27, 3),
+(29, 27, 4),
+(30, 28, 2),
+(31, 28, 1),
+(32, 28, 3),
+(33, 28, 4),
+(34, 5, 2),
+(35, 5, 1),
+(36, 5, 3),
+(37, 2, 2),
+(38, 3, 2),
+(39, 4, 2),
+(40, 6, 2),
+(41, 7, 2),
+(42, 8, 2),
+(43, 9, 2);
 
 -- --------------------------------------------------------
 
@@ -134,7 +182,11 @@ INSERT INTO `tbl_admin` (`admin_id`, `admin_email`, `admin_password`, `admin_nam
 (6, 'damchetsucvat@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Nguyễn Văn Nhơn', 'nguyen-van-nhon', '07/08/1999', '100 Trần Phú , Huế', 'ngam-nhung-buc-anh-the-lam-can-cuoc-cong-dan-cua-cac-co-cau-hoc-tro-than-thai-dinh-cua-chop-78e-5665478141425.jpg', '0987644388', 2, 0, NULL, NULL),
 (7, 'anhtuan@phuxuan.edu.vn', 'e10adc3949ba59abbe56e057f20f883e', 'Lan Anh', 'lan-anh', '30-09-1994', 'An Ninh', 'saostar-ad0lx1k2h7n0blgh688752.jpg', '0667787668', 2, 0, NULL, NULL),
 (8, 'thayongnoi@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Lê Tùng Vân', 'le-tung-van', '10-9-1932', 'Thiền Am bên bờ vũ trụ', '21641373283140112036667-1641527909556155068.webp', '09876543223', 2, 0, NULL, NULL),
-(9, 'ducdung@phuxuan.edu.vn', 'e10adc3949ba59abbe56e057f20f883e', 'Mai Đức Dung', 'mai-duc-dung', '20-07-1998', 'Vĩnh Ninh, Huế', 'images408789.jfif', '08997733221', 2, 0, NULL, NULL);
+(9, 'ducdung@phuxuan.edu.vn', 'e10adc3949ba59abbe56e057f20f883e', 'Mai Đức Dung', 'mai-duc-dung', '20-07-1998', 'Vĩnh Ninh, Huế', 'images408789.jfif', '08997733221', 2, 0, NULL, NULL),
+(26, 'adminselect@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Đoàn Văn Khai Select', 'doan-van-khai-select', '12-12-1221', 'Huế', 'tải xuống359295.jfif', '0873689764', 0, 0, NULL, NULL),
+(27, 'admininsert@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Đoàn Văn Khai Insert', 'doan-van-khai-insert', '12-12-1221', 'Huế', 'tải xuống359295.jfif', '0873689764', 0, 0, NULL, NULL),
+(28, 'adminupdate@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Đoàn Văn Khai Update', 'doan-van-khai-update', '12-12-1221', 'Huế', 'tải xuống359295.jfif', '0873689764', 0, 0, NULL, NULL),
+(29, 'admindelete@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Đoàn Văn Khai Delete', 'doan-van-khai-delete', '12-12-1221', 'Huế', 'tải xuống359295.jfif', '0873689764', 0, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1278,7 +1330,7 @@ INSERT INTO `tbl_product` (`product_id`, `product_name`, `product_slug`, `produc
 (10, 'Hello kitty ôm máy ảnh', 'hello-kitty-om-may-anh', 100, 0, 6, 1, '<p>Số điện thoại: (+81) 378726127</p>\r\n\r\n<p>Email: khaidoan0110@gmail.com</p>\r\n\r\n<p>Địa chỉ: 176 Trần Ph&uacute;, phường Phước Vĩnh, th&agrave;nh phố Huế</p>', '<p style=\"text-align:center\"><strong>&ndash; M&atilde; SP: Kitty &Ocirc;m Kitty.</strong></p>\r\n\r\n<h1 style=\"text-align:center\">M&egrave;o B&ocirc;ng Hello Kitty &Ocirc;m Hello Kitty</h1>\r\n\r\n<p style=\"text-align:center\"><strong>K&iacute;ch thước:</strong></p>\r\n\r\n<p style=\"text-align:center\"><strong>Size 1: 45cm &ndash; 360.000đ.</strong></p>\r\n\r\n<p style=\"text-align:center\"><strong>Size 2: 35cm &ndash; 250.000đ.</strong></p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gấu Bông Kitty Ôm Kitty\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty.jpg 600w, https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o B&ocirc;ng Hello Kitty &Ocirc;m Hello Kitty hiện đang được b&aacute;n tại Teddy.vn với gi&aacute; chỉ 250.000đ.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gấu Bông Kitty Ôm Kitty\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-1.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-1.jpg 600w, https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-1-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-1-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o B&ocirc;ng Hello Kitty &Ocirc;m Hello Kitty</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gấu Bông Kitty Ôm Kitty\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-2.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-2.jpg 600w, https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-2-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-2-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o B&ocirc;ng Hello Kitty &Ocirc;m Hello Kitty</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gấu Bông Kitty Ôm Kitty\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-3.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-3.jpg 600w, https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-3-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-3-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o B&ocirc;ng Hello Kitty &Ocirc;m Hello Kitty</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gấu Bông Kitty Ôm Kitty\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-5.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-5.jpg 600w, https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-5-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-5-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o B&ocirc;ng Hello Kitty &Ocirc;m Hello Kitty</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gấu Bông Kitty Ôm Kitty\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-kich-thuoc.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-kich-thuoc.jpg 600w, https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-kich-thuoc-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/06/kitty-om-kitty-kich-thuoc-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o B&ocirc;ng Hello Kitty &Ocirc;m Hello Kitty</p>', 250000, 'kitty-may-anh361973.jpg', 0, 0, NULL, NULL),
 (11, 'Mèo ôm gối hoàng thượng nằm', 'meo-om-goi-hoang-thuong-nam', 100, 0, 6, 1, '<p>Số điện thoại: (+81) 378726127</p>\r\n\r\n<p>Email: khaidoan0110@gmail.com</p>\r\n\r\n<p>Địa chỉ: 176 Trần Ph&uacute;, phường Phước Vĩnh, th&agrave;nh phố Huế</p>', '<p style=\"text-align:center\"><strong>&ndash; M&atilde; SP: Gối &Ocirc;m M&egrave;o HT Nằm</strong></p>\r\n\r\n<h1 style=\"text-align:center\">Gối &Ocirc;m M&egrave;o Ho&agrave;ng Thượng Nằm</h1>\r\n\r\n<p style=\"text-align:center\"><strong>&ndash; K&iacute;ch Thước:</strong></p>\r\n\r\n<p style=\"text-align:center\"><strong>+ Size 1: 1m1 &ndash; 620.000đ.</strong></p>\r\n\r\n<p style=\"text-align:center\"><strong>+ Size 2: 90cm &ndash; 460.000đ.</strong></p>\r\n\r\n<p style=\"text-align:center\"><strong>+ Size 3: 70cm &ndash; 250.000đ.</strong></p>\r\n\r\n<p style=\"text-align:center\"><strong>+ Size 4: 50cm &ndash; 170.000đ.</strong></p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gối Ôm Mèo Hoàng Thượng Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-9.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-9.jpg 600w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-9-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-9-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">Gối &Ocirc;m M&egrave;o Ho&agrave;ng Thượng Nằm hiện đang được b&aacute;n tại cửa h&agrave;ng Teddy.vn với gi&aacute; chỉ từ 170.000đ.</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gối Ôm Mèo Hoàng Thượng Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-8.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-8.jpg 600w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-8-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-8-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">Gối &Ocirc;m M&egrave;o Ho&agrave;ng Thượng Nằm</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gối Ôm Mèo Hoàng Thượng Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-10.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-10.jpg 600w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-10-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-10-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">Gối &Ocirc;m M&egrave;o Ho&agrave;ng Thượng Nằm</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gối Ôm Mèo Hoàng Thượng Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-12.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-12.jpg 600w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-12-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-12-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">Gối &Ocirc;m M&egrave;o Ho&agrave;ng Thượng Nằm</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gối Ôm Mèo Hoàng Thượng Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-7.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-7.jpg 600w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-7-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-7-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">Gối &Ocirc;m M&egrave;o Ho&agrave;ng Thượng Nằm &ndash; Mặt cute đ&aacute;ng y&ecirc;u</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gối Ôm Mèo Hoàng Thượng Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-5.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-5.jpg 600w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-5-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-5-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">Gối &Ocirc;m M&egrave;o Ho&agrave;ng Thượng Nằm &ndash; phần đầu</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gối Ôm Mèo Hoàng Thượng Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-4.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-4.jpg 600w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-4-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-4-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">Gối &Ocirc;m M&egrave;o Ho&agrave;ng Thượng Nằm &ndash; phần đu&ocirc;i</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gối Ôm Mèo Hoàng Thượng Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-6.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-6.jpg 600w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-6-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-6-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">Gối &Ocirc;m M&egrave;o Ho&agrave;ng Thượng Nằm</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gối Ôm Mèo Hoàng Thượng Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-3.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-3.jpg 600w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-3-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-3-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">Gối &Ocirc;m M&egrave;o Ho&agrave;ng Thượng Nằm &ndash; c&oacute; kh&oacute;a k&eacute;o th&aacute;o b&ocirc;ng khi giặt</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gối Ôm Mèo Hoàng Thượng Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-2.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-2.jpg 600w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-2-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-2-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">Gối &Ocirc;m M&egrave;o Ho&agrave;ng Thượng Nằm &ndash; 100% B&ocirc;ng trắng cao cấp chống xẹp</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gối Ôm Mèo Hoàng Thượng Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-11.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-11.jpg 600w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-11-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-11-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">Gối &Ocirc;m M&egrave;o Ho&agrave;ng Thượng Nằm &ndash; độ co d&atilde;n đ&agrave;n hồi cực tốt</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gối Ôm Mèo Hoàng Thượng Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-13.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-13.jpg 600w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-13-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-13-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">Gối &Ocirc;m M&egrave;o Ho&agrave;ng Thượng Nằm</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Gối Ôm Mèo Hoàng Thượng Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-1.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-1.jpg 600w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-1-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/03/Goi-om-meo-hoang-thuong-nam-1-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">Gối &Ocirc;m M&egrave;o Ho&agrave;ng Thượng Nằm</p>', 430000, 'Goi-om-meo-hoang-thuong-nam-8-500x500821.jpg', 0, 0, NULL, NULL),
 (12, 'Mèo hoàng thượng mặc áo nằm', 'meo-hoang-thuong-mac-ao-nam', 100, 0, 6, 1, '<p>Số điện thoại: (+81) 378726127</p>\r\n\r\n<p>Email: khaidoan0110@gmail.com</p>\r\n\r\n<p>Địa chỉ: 176 Trần Ph&uacute;, phường Phước Vĩnh, th&agrave;nh phố Huế</p>', '<p style=\"text-align:center\"><strong>&ndash; M&atilde; SP: M&egrave;o HT&nbsp;</strong><strong>Nằm&nbsp;</strong><strong>&Aacute;o&nbsp;</strong></p>\r\n\r\n<h1 style=\"text-align:center\">M&egrave;o Ho&agrave;ng Thượng Mặc &Aacute;o Nằm</h1>\r\n\r\n<p style=\"text-align:center\"><strong>&ndash; K&iacute;ch Thước:</strong></p>\r\n\r\n<p style=\"text-align:center\"><strong>+ Size 1: 1m2 &ndash; 750.000đ.</strong></p>\r\n\r\n<p style=\"text-align:center\"><strong>+ Size 2: 1m &ndash; 530.000đ.</strong></p>\r\n\r\n<p style=\"text-align:center\"><strong>+ Size 3: 80cm &ndash; 410.000đ</strong></p>\r\n\r\n<p style=\"text-align:center\"><strong>+ Size 4: 60cm &ndash; 310.000đ</strong></p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Mèo Hoàng Thượng Mặc Áo Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/01/meo-ht-ao-2.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/01/meo-ht-ao-2.jpg 600w, https://teddy.vn/wp-content/uploads/2022/01/meo-ht-ao-2-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/01/meo-ht-ao-2-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o Ho&agrave;ng Thượng Mặc &Aacute;o Nằm</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Mèo Hoàng Thượng Mặc Áo Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/01/meo-ht-ao-3.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/01/meo-ht-ao-3.jpg 600w, https://teddy.vn/wp-content/uploads/2022/01/meo-ht-ao-3-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/01/meo-ht-ao-3-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o Ho&agrave;ng Thượng Mặc &Aacute;o Nằm</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Mèo Hoàng Thượng Mặc Áo Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-5.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-5.jpg 600w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-5-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-5-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o Ho&agrave;ng Thượng Mặc &Aacute;o Nằm hiện đang được b&aacute;n tại cửa h&agrave;ng với gi&aacute; chỉ từ 290.000đ</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Mèo Hoàng Thượng Mặc Áo Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-11.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-11.jpg 600w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-11-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-11-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o Ho&agrave;ng Thượng Mặc &Aacute;o Nằm &ndash; Phần mặt</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Mèo Hoàng Thượng Mặc Áo Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-7.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-7.jpg 600w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-7-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-7-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o Ho&agrave;ng Thượng Mặc &Aacute;o Nằm &ndash; Độ co d&atilde;n đ&agrave;n hồi cực tốt</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Mèo Hoàng Thượng Mặc Áo Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-10.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-10.jpg 600w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-10-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-10-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o Ho&agrave;ng Thượng Mặc &Aacute;o Nằm &ndash; Phần đu&ocirc;i</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Mèo Hoàng Thượng Mặc Áo Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-4.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-4.jpg 600w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-4-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-4-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o Ho&agrave;ng Thượng Mặc &Aacute;o Nằm &ndash; Mặt h&agrave;i hước</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Mèo Hoàng Thượng Mặc Áo Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-2.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-2.jpg 600w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-2-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-2-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o Ho&agrave;ng Thượng Mặc &Aacute;o Nằm</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Mèo Hoàng Thượng Mặc Áo Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-6.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-6.jpg 600w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-6-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-6-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o Ho&agrave;ng Thượng Mặc &Aacute;o Nằm</p>\r\n\r\n<p style=\"text-align:center\"><img alt=\"Mèo Hoàng Thượng Mặc Áo Nằm\" height=\"600\" sizes=\"(max-width: 600px) 100vw, 600px\" src=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-3.jpg\" srcset=\"https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-3.jpg 600w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-3-100x100.jpg 100w, https://teddy.vn/wp-content/uploads/2022/01/Meo-bong-hoang-thuong-mac-ao-nam-3-500x500.jpg 500w\" width=\"600\" /></p>\r\n\r\n<p style=\"text-align:center\">M&egrave;o Ho&agrave;ng Thượng Mặc &Aacute;o Nằm &ndash; Cởi được &aacute;o</p>', 180000, 'meo-ht-ao-2-500x500717063.jpg', 0, 0, NULL, NULL),
-(13, 'Mèo mặt lớn', 'meo-mat-lon', 100, 0, 4, 1, '<p>a</p>', '<p>a</p>', 100000, 'meo-mat-lon-2-500x500493369.jpg', 0, 1, NULL, NULL);
+(13, 'Mèo mặt lớn', 'meo-mat-lon', 100, 0, 4, 1, '<p>a</p>', '<p>a</p>', 100000, 'meo-mat-lon-2-500x500493369.jpg', 0, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1360,6 +1412,27 @@ INSERT INTO `tbl_province` (`province_id`, `province_name`, `province_type`) VAL
 (94, 'Tỉnh Sóc Trăng', 'Tỉnh'),
 (95, 'Tỉnh Bạc Liêu', 'Tỉnh'),
 (96, 'Tỉnh Cà Mau', 'Tỉnh');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tbl_roles`
+--
+
+CREATE TABLE `tbl_roles` (
+  `roles_id` int(11) NOT NULL,
+  `roles_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_roles`
+--
+
+INSERT INTO `tbl_roles` (`roles_id`, `roles_name`) VALUES
+(1, 'insert'),
+(2, 'select'),
+(3, 'update'),
+(4, 'delete');
 
 -- --------------------------------------------------------
 
@@ -12742,6 +12815,12 @@ CREATE TABLE `users` (
 --
 
 --
+-- Chỉ mục cho bảng `admin_model_roles_model`
+--
+ALTER TABLE `admin_model_roles_model`
+  ADD PRIMARY KEY (`admin_model_roles_id`);
+
+--
 -- Chỉ mục cho bảng `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -12868,6 +12947,12 @@ ALTER TABLE `tbl_province`
   ADD PRIMARY KEY (`province_id`);
 
 --
+-- Chỉ mục cho bảng `tbl_roles`
+--
+ALTER TABLE `tbl_roles`
+  ADD PRIMARY KEY (`roles_id`);
+
+--
 -- Chỉ mục cho bảng `tbl_shipping`
 --
 ALTER TABLE `tbl_shipping`
@@ -12910,6 +12995,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT cho bảng `admin_model_roles_model`
+--
+ALTER TABLE `admin_model_roles_model`
+  MODIFY `admin_model_roles_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
 -- AUTO_INCREMENT cho bảng `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -12931,7 +13022,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT cho bảng `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `admin_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_brand`
@@ -13016,6 +13107,12 @@ ALTER TABLE `tbl_product`
 --
 ALTER TABLE `tbl_province`
   MODIFY `province_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+
+--
+-- AUTO_INCREMENT cho bảng `tbl_roles`
+--
+ALTER TABLE `tbl_roles`
+  MODIFY `roles_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_shipping`
