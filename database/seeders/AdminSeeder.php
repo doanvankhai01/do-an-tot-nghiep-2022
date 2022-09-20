@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use App\Models\AdminModel;
 use App\Models\RolesModel;
 class AdminSeeder extends Seeder
@@ -16,6 +17,7 @@ class AdminSeeder extends Seeder
     public function run()
     {
         // AdminModel::truncate();//Xóa toàn bộ dữ liệu trong admin
+        // DB::table('admin_roles')->truncate();
         // $roles_select = RolesModel::where('name','select')->take(1)->get();
         //take(1) là lấy 1 thằng đầu tiên trong dữ liệu lấy được
         $roles_select = RolesModel::where('roles_name','select')->first();
@@ -80,5 +82,7 @@ class AdminSeeder extends Seeder
 
         //roles() : quyềns  
         //attach() : đính kèm dữ liệu,Đính kèm được sử dụng chủ yếu Mối quan hệ hùng hồn trong nhiều mối quan hệ . Nó chủ yếu sử dụng chèn hoặc cập nhật dữ liệu bảng trung gian. Ví dụ, hãy tưởng tượng một người dùng có thể có nhiều vai trò và một vai trò có thể có nhiều người dùng. Bạn có thể sử dụng phương thức đính kèm để đính kèm vai trò cho người dùng bằng cách chèn bản ghi vào bảng trung gian của mối quan hệ:
+    
+        // factory(App\Models\AdminModel::class,20)->create();
     }
 }
