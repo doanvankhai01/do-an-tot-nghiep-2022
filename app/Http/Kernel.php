@@ -65,6 +65,10 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         // Thêm
-        'auth.roles' => \App\Http\Middleware\AuthRouteMiddleware::class,
+        //Auth
+        'auth.roles_insert' => \App\Http\Middleware\AuthInsertMiddleware::class,
+        'auth.roles_select' => \App\Http\Middleware\AuthSelectMiddleware::class,
+        'auth.roles_update' => \App\Http\Middleware\AuthUpdateMiddleware::class,
+        'auth.roles_delete' => \App\Http\Middleware\AuthDeleteMiddleware::class,
     ];
 }

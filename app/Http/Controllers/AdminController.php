@@ -164,8 +164,8 @@ class AdminController extends Controller
     //Lưu và thêm admin
     public function save_admin(Request $request){
         // $this->AuthLogin();
-        $this->AuthLogin_Auth();
-        $this->validation($request);
+        // $this->AuthLogin_Auth();
+        // $this->validation($request);
         $data = $request->all();
         $check_position = $this->check_position_2();
         if($check_position == true){

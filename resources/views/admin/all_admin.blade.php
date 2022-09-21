@@ -146,5 +146,5 @@
 </div>
 @endsection
 @section('script')
-{{-- <script src="{{asset('public/ajax/dashboard/admin.js')}}"></script> --}}
+<script src="{{asset('public/ajax/dashboard/admin.js')}}"></script>
 @endsection

@@ -43,6 +43,21 @@ use App\Http\Controllers\UserController;
 //     return view('layout');
 // });
 
+
+// Route::group(['middleware' => ['auth.roles_insert','auth.roles_update']],function(){//Có đồng thời 2 quyền mới chạy function
+Route::group(['middleware' => ['auth.roles_select']] ,function(){//Có đồng thời 2 quyền mới chạy function
+ 
+});
+Route::group(['middleware' => ['auth.roles_insert']] ,function(){//Có đồng thời 2 quyền mới chạy function
+        
+});
+Route::group(['middleware' => ['auth.roles_update']] ,function(){//Có đồng thời 2 quyền mới chạy function
+        
+});
+Route::group(['middleware' => ['auth.roles_delete']] ,function(){//Có đồng thời 2 quyền mới chạy function
+
+});
+
 //HomeController---------------------------------------------------------------------------------------------------
 Route::get('/', [HomeController::class,'index']);
 Route::get('/trang-chu', [HomeController::class,'index']);
@@ -59,9 +74,6 @@ Route::get('/send-mail', [HomeController::class,'send_mail']);
 Route::post('/autocomplete-search-ajax', [HomeController::class,'autocomplete_search_ajax']);
 
 //StatisticalController----------------------------------------------------------------------------
-Route::group(['middleware' => 'auth.roles', 'auth.roles' => ['delete','select']],function(){
-
-});
 Route::post('/filter-statistical-by-day', [StatisticalController::class,'filter_statistical_by_day']);
 Route::post('/load-sixty-day-statistical', [StatisticalController::class,'load_sixty_day_statistical']);
 Route::post('/filter-statistical', [StatisticalController::class,'filter_statistical']);
@@ -73,20 +85,29 @@ Route::get('/dashboard', [AdminController::class,'show_dashboard']);
 Route::post('/admin-dashboard', [AdminController::class,'dashboard']);
 Route::get('/log-out', [AdminController::class,'log_out']);
 
+// Route::group(['middleware' => ['auth.roles_insert','auth.roles_update']],function(){//Có đồng thời 2 quyền mới chạy function
+Route::group(['middleware' => ['auth.roles_select']] ,function(){//Có đồng thời 2 quyền mới chạy function
+    Route::get('/all-admin', [AdminController::class,'all_admin']);
+    Route::post('/search-admin', [AdminController::class,'search_admin']);
+    Route::post('/autocomplete-search-admin-ajax', [AdminController::class,'autocomplete_search_admin_ajax']);
+    //thùng rác
+    Route::post('/unactive-waste-basket-admin', [AdminController::class,'unactive_waste_basket_admin']);
+});
+Route::group(['middleware' => ['auth.roles_insert']] ,function(){//Có đồng thời 2 quyền mới chạy function
+    Route::get('/add-admin', [AdminController::class,'add_admin']);
+    Route::post('/save-admin', [AdminController::class,'save_admin']);    
+});
+Route::group(['middleware' => ['auth.roles_update']] ,function(){//Có đồng thời 2 quyền mới chạy function
+    // Route::get('/edit-admin/{admin_id}', [AdminController::class,'edit_admin']);
+    Route::post('/edit-admin', [AdminController::class,'edit_admin']);
+    Route::post('/update-admin', [AdminController::class,'update_admin']);
+    //Thùng rác
+    Route::post('/active-waste-basket-admin', [AdminController::class,'active_waste_basket_admin']);
+    Route::get('/waste-basket-admin', [AdminController::class,'waste_basket_admin']);
+});
+Route::group(['middleware' => ['auth.roles_delete']] ,function(){//Có đồng thời 2 quyền mới chạy function
 
-Route::get('/all-admin', [AdminController::class,'all_admin']);
-Route::get('/add-admin', [AdminController::class,'add_admin']);
-Route::post('/save-admin', [AdminController::class,'save_admin']);
-// Route::get('/edit-admin/{admin_id}', [AdminController::class,'edit_admin']);
-Route::post('/edit-admin', [AdminController::class,'edit_admin']);
-Route::post('/update-admin', [AdminController::class,'update_admin']);
-Route::post('/search-admin', [AdminController::class,'search_admin']);
-Route::post('/autocomplete-search-admin-ajax', [AdminController::class,'autocomplete_search_admin_ajax']);
-
-//thùng rác
-Route::post('/unactive-waste-basket-admin', [AdminController::class,'unactive_waste_basket_admin']);
-Route::post('/active-waste-basket-admin', [AdminController::class,'active_waste_basket_admin']);
-Route::get('/waste-basket-admin', [AdminController::class,'waste_basket_admin']);
+});
 
 //NotificationController ============================================================
 Route::post('/notification-product', [NotificationController::class,'notification_product']);
@@ -116,58 +137,78 @@ Route::get('/delete-customer-account/{customer_id}', [CustomerController::class,
 
 
 //CategoryController--------------------------------------------------------------------------------------------------
-Route::group(['middleware' => 'auth.roles'],function(){
-    Route::get('/add-category-product', [CategoryController::class,'add_category_product']);
+Route::group(['middleware' => ['auth.roles_select']] ,function(){//Có đồng thời 2 quyền mới chạy function
+    //Danh sách dnah mục
     Route::get('/all-category-product', [CategoryController::class,'all_category_product']);
+    // Xem thùng rác
+    Route::get('/waste-basket-category', [CategoryController::class,'all_waste_basket_category']);
+});
+// Route::group(['middleware' => ['auth.roles_insert','auth.roles_update']],function(){//Có đồng thời 2 quyền mới chạy function
+Route::group(['middleware' => ['auth.roles_insert']] ,function(){//Có đồng thời 2 quyền mới chạy function
+    Route::get('/add-category-product', [CategoryController::class,'add_category_product']);
     Route::post('/save-category-product', [CategoryController::class,'save_category_product']);
+});
+Route::group(['middleware' => ['auth.roles_update']] ,function(){//Có đồng thời 2 quyền mới chạy function
+     //Hiển thị trang chỉnh sửa
+     Route::get('/edit-category-product/{category_product_id}', [CategoryController::class,'edit_category_product']);
+    //Cập nhật danh mục sản phẩm
+    // Route::post('/update-category-product/{category_product_id}', [CategoryController::class,'update_category_product']);
+    Route::post('/update-category-product', [CategoryController::class,'update_category_product']);
     //Bật tắt danh mục sản phẩm
     Route::get('/active-category-product/{category_product_id}', [CategoryController::class,'active_category_product']);
     Route::get('/unactive-category-product/{category_product_id}', [CategoryController::class,'unactive_category_product']);
-    //Hiển thị chi tiết và sửa xóa danh mục sản phẩm
-    Route::get('/edit-category-product/{category_product_id}', [CategoryController::class,'edit_category_product']);
-    // Route::post('/update-category-product/{category_product_id}', [CategoryController::class,'update_category_product']);
-    Route::post('/update-category-product', [CategoryController::class,'update_category_product']);
-    Route::get('/delete-category-product/{category_product_id}', [CategoryController::class,'delete_category_product']);
-    // Thùng rác
-    Route::get('/waste-basket-category', [CategoryController::class,'all_waste_basket_category']);
+    //Thùng rác
     Route::get('/active-waste-basket-category/{category_id}', [CategoryController::class,'active_waste_basket_category']);
     Route::get('/unactive-waste-basket-category/{category_id}', [CategoryController::class,'unactive_waste_basket_category']);
 });
+Route::group(['middleware' => ['auth.roles_delete']] ,function(){//Có đồng thời 2 quyền mới chạy function
+    Route::get('/delete-category-product/{category_product_id}', [CategoryController::class,'delete_category_product']);
+});
+
 
 
 //BrandController----------------------------------------------------------------------------------------------
-Route::get('/add-brand-product', [BrandController::class,'add_brand_product'])->middleware('auth.roles');
-Route::get('/all-brand-product', [BrandController::class,'all_brand_product']);
-Route::post('/save-brand-product', [BrandController::class,'save_brand_product']);
+Route::get('/add-brand-product', [BrandController::class,'add_brand_product'])->middleware('auth.roles_insert');
+Route::get('/all-brand-product', [BrandController::class,'all_brand_product'])->middleware('auth.roles_select');
+Route::post('/save-brand-product', [BrandController::class,'save_brand_product'])->middleware('auth.roles_insert');
 //Bật tắt thương hiệu sản phẩm
-Route::get('/active-brand-product/{brand_product_id}', [BrandController::class,'active_brand_product']);
-Route::get('/unactive-brand-product/{brand_product_id}', [BrandController::class,'unactive_brand_product']);
+Route::get('/active-brand-product/{brand_product_id}', [BrandController::class,'active_brand_product'])->middleware('auth.roles_update');
+Route::get('/unactive-brand-product/{brand_product_id}', [BrandController::class,'unactive_brand_product'])->middleware('auth.roles_update');
 //Hiển thị chi tiết và sửa xóa thương hiệu sản phẩm
-Route::get('/edit-brand-product/{brand_product_id}', [BrandController::class,'edit_brand_product']);
+Route::get('/edit-brand-product/{brand_product_id}', [BrandController::class,'edit_brand_product'])->middleware('auth.roles_update');
 // Route::post('/update-brand-product/{brand_product_id}', [BrandController::class,'update_brand_product']);
-Route::post('/update-brand-product', [BrandController::class,'update_brand_product']);
-Route::get('/delete-brand-product/{brand_product_id}', [BrandController::class,'delete_brand_product']);
+Route::post('/update-brand-product', [BrandController::class,'update_brand_product'])->middleware('auth.roles_update');
+Route::get('/delete-brand-product/{brand_product_id}', [BrandController::class,'delete_brand_product'])->middleware('auth.roles_delete');
 
 //ProductController----------------------------------------------------------------------------------------------------------
-Route::get('/add-product', [ProductController::class,'add_product']);
-Route::get('/all-product', [ProductController::class,'all_product']);
-Route::post('/save-product', [ProductController::class,'save_product']);
-//Bật tắt sản phẩm
-Route::get('/active-product/{product_id}', [ProductController::class,'active_product']);
-Route::get('/unactive-product/{product_id}', [ProductController::class,'unactive_product']);
-//Hiển thị chi tiết và sửa xóa sản phẩm
-Route::get('/edit-product/{product_id}', [ProductController::class,'edit_product']);
-Route::post('/update-product/{product_id}', [ProductController::class,'update_product']);
-Route::get('/delete-product/{product_id}', [ProductController::class,'delete_product']);
-//Tìm kiếm 
-Route::post('/search-product-on-admin-layout', [ProductController::class,'search_product_on_admin_layout']);
-//Tìm kiếm tự động
-Route::post('/autocomplete-search-product-admin-ajax', [ProductController::class,'autocomplete_search_product_admin_ajax']);
-//Thùng rác
-Route::get('/waste-basket-product', [ProductController::class,'waste_basket_product']);
-Route::get('/active-waste-basket-product/{slider_id}', [ProductController::class,'active_waste_basket_product']);
-Route::get('/unactive-waste-basket-product/{slider_id}', [ProductController::class,'unactive_waste_basket_product']);
-
+Route::group(['middleware' => ['auth.roles_select']] ,function(){//Có đồng thời 2 quyền mới chạy function
+    Route::get('/all-product', [ProductController::class,'all_product']);
+    //Tìm kiếm 
+    Route::post('/search-product-on-admin-layout', [ProductController::class,'search_product_on_admin_layout']);
+    //Tìm kiếm tự động
+    Route::post('/autocomplete-search-product-admin-ajax', [ProductController::class,'autocomplete_search_product_admin_ajax']);
+    //Xem thùng rác
+    Route::get('/waste-basket-product', [ProductController::class,'waste_basket_product']);
+});
+// Route::group(['middleware' => ['auth.roles_insert','auth.roles_update']],function(){//Có đồng thời 2 quyền mới chạy function
+Route::group(['middleware' => ['auth.roles_insert']] ,function(){//Có đồng thời 2 quyền mới chạy function
+    Route::get('/add-product', [ProductController::class,'add_product']);
+    Route::post('/save-product', [ProductController::class,'save_product']);
+});
+Route::group(['middleware' => ['auth.roles_update']] ,function(){//Có đồng thời 2 quyền mới chạy function
+    //Bật tắt sản phẩm
+    Route::get('/active-product/{product_id}', [ProductController::class,'active_product']);
+    Route::get('/unactive-product/{product_id}', [ProductController::class,'unactive_product']);
+    //Hiển thị chi tiết và sửa
+    Route::get('/edit-product/{product_id}', [ProductController::class,'edit_product']);
+    Route::post('/update-product/{product_id}', [ProductController::class,'update_product']);
+    //Thùng rác
+    Route::get('/active-waste-basket-product/{slider_id}', [ProductController::class,'active_waste_basket_product']);
+    Route::get('/unactive-waste-basket-product/{slider_id}', [ProductController::class,'unactive_waste_basket_product']);
+});
+Route::group(['middleware' => ['auth.roles_delete']] ,function(){//Có đồng thời 2 quyền mới chạy function
+    Route::get('/delete-product/{product_id}', [ProductController::class,'delete_product']);
+});
 
 // GalleryController----------------------------------------------------------------------------------------
 Route::get('/manager-gallery/{product_id}', [GalleryController::class,'manager_gallery']);

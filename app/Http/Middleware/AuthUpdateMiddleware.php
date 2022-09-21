@@ -5,7 +5,8 @@ use Auth;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-class AuthRouteMiddleware
+
+class AuthUpdateMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,7 +19,7 @@ class AuthRouteMiddleware
     {
         // Middleware không thể sử dụng được model
         //nhiều quyền
-        if(Auth::user()->hasAnyRoles(['insert'])){
+        if(Auth::user()->hasAnyRoles(['update'])){
             return $next($request);
         }
         // 1 quyền
@@ -28,16 +29,4 @@ class AuthRouteMiddleware
         return redirect('/dashboard');
         
     }
-    // public function insert_select(){
-    //     // Middleware không thể sử dụng được model
-    //     //nhiều quyền
-    //     if(Auth::user()->hasAnyRoles(['insert','select'])){
-    //         return $next($request);
-    //     }
-    //     // 1 quyền
-    //     // if(Auth::user()->hasRoles('select')){
-    //     //     return $next($request);
-    //     // }
-    //     return redirect('/dashboard');
-    // }
 }

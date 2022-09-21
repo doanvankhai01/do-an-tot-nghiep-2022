@@ -48,6 +48,7 @@ $('.add_admin').click(function(){
     // alert(admin_slug);
     // alert(admin_birdthday);
     // alert(admin_address);
+    // alert(admin_phone);
     // alert(admin_image);
     // alert(admin_email);
     // alert(admin_password);
