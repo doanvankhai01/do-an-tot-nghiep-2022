@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// use Illuminate\Auth\Middleware\AuthRouteMiddleware;
+// use App\Http\Middleware\AuthRouteMiddelware;
+
+
+
+
 use App\Http\Controllers\HomeController;    
 use App\Http\Controllers\AdminController;   
 use App\Http\Controllers\AccountController; 
@@ -53,6 +59,9 @@ Route::get('/send-mail', [HomeController::class,'send_mail']);
 Route::post('/autocomplete-search-ajax', [HomeController::class,'autocomplete_search_ajax']);
 
 //StatisticalController----------------------------------------------------------------------------
+Route::group(['middleware' => 'auth.roles', 'auth.roles' => ['delete','select']],function(){
+
+});
 Route::post('/filter-statistical-by-day', [StatisticalController::class,'filter_statistical_by_day']);
 Route::post('/load-sixty-day-statistical', [StatisticalController::class,'load_sixty_day_statistical']);
 Route::post('/filter-statistical', [StatisticalController::class,'filter_statistical']);
@@ -107,24 +116,27 @@ Route::get('/delete-customer-account/{customer_id}', [CustomerController::class,
 
 
 //CategoryController--------------------------------------------------------------------------------------------------
-Route::get('/add-category-product', [CategoryController::class,'add_category_product']);
-Route::get('/all-category-product', [CategoryController::class,'all_category_product']);
-Route::post('/save-category-product', [CategoryController::class,'save_category_product']);
-//Bật tắt danh mục sản phẩm
-Route::get('/active-category-product/{category_product_id}', [CategoryController::class,'active_category_product']);
-Route::get('/unactive-category-product/{category_product_id}', [CategoryController::class,'unactive_category_product']);
-//Hiển thị chi tiết và sửa xóa danh mục sản phẩm
-Route::get('/edit-category-product/{category_product_id}', [CategoryController::class,'edit_category_product']);
-// Route::post('/update-category-product/{category_product_id}', [CategoryController::class,'update_category_product']);
-Route::post('/update-category-product', [CategoryController::class,'update_category_product']);
-Route::get('/delete-category-product/{category_product_id}', [CategoryController::class,'delete_category_product']);
-// Thùng rác
-Route::get('/waste-basket-category', [CategoryController::class,'all_waste_basket_category']);
-Route::get('/active-waste-basket-category/{category_id}', [CategoryController::class,'active_waste_basket_category']);
-Route::get('/unactive-waste-basket-category/{category_id}', [CategoryController::class,'unactive_waste_basket_category']);
+Route::group(['middleware' => 'auth.roles'],function(){
+    Route::get('/add-category-product', [CategoryController::class,'add_category_product']);
+    Route::get('/all-category-product', [CategoryController::class,'all_category_product']);
+    Route::post('/save-category-product', [CategoryController::class,'save_category_product']);
+    //Bật tắt danh mục sản phẩm
+    Route::get('/active-category-product/{category_product_id}', [CategoryController::class,'active_category_product']);
+    Route::get('/unactive-category-product/{category_product_id}', [CategoryController::class,'unactive_category_product']);
+    //Hiển thị chi tiết và sửa xóa danh mục sản phẩm
+    Route::get('/edit-category-product/{category_product_id}', [CategoryController::class,'edit_category_product']);
+    // Route::post('/update-category-product/{category_product_id}', [CategoryController::class,'update_category_product']);
+    Route::post('/update-category-product', [CategoryController::class,'update_category_product']);
+    Route::get('/delete-category-product/{category_product_id}', [CategoryController::class,'delete_category_product']);
+    // Thùng rác
+    Route::get('/waste-basket-category', [CategoryController::class,'all_waste_basket_category']);
+    Route::get('/active-waste-basket-category/{category_id}', [CategoryController::class,'active_waste_basket_category']);
+    Route::get('/unactive-waste-basket-category/{category_id}', [CategoryController::class,'unactive_waste_basket_category']);
+});
+
 
 //BrandController----------------------------------------------------------------------------------------------
-Route::get('/add-brand-product', [BrandController::class,'add_brand_product']);
+Route::get('/add-brand-product', [BrandController::class,'add_brand_product'])->middleware('auth.roles');
 Route::get('/all-brand-product', [BrandController::class,'all_brand_product']);
 Route::post('/save-brand-product', [BrandController::class,'save_brand_product']);
 //Bật tắt thương hiệu sản phẩm

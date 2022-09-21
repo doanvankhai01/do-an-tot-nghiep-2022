@@ -179,7 +179,7 @@
                             <form action="{{URL::to('/manager-slider')}}">
                                 <p class="p-function-menu-admin"><i class="material-icons">image</i><input class="input-submit-function-menu-admin" type="submit" value="Quản lý Slider"></p>
                             </form>
-                            @hasrole('admin')
+                            @hasrole(['insert','delete'])
                                 <p class="h5-title-menu"><i class="material-icons">auto_delete</i>Thùng rác</p>
                                 <form action="{{URL::to('/waste-basket-product')}}">
                                     <p class="p-function-menu-admin"><i class="material-icons">list_alt</i><input class="input-submit-function-menu-admin" type="submit" value="Sản phẩm"></p>
