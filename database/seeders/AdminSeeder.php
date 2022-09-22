@@ -20,10 +20,10 @@ class AdminSeeder extends Seeder
         // DB::table('admin_roles')->truncate();
         // $roles_select = RolesModel::where('name','select')->take(1)->get();
         //take(1) là lấy 1 thằng đầu tiên trong dữ liệu lấy được
-        $roles_select = RolesModel::where('roles_name','select')->first();
-        $roles_insert = RolesModel::where('roles_name','insert')->first();
-        $roles_update = RolesModel::where('roles_name','update')->first();
-        $roles_delete = RolesModel::where('roles_name','delete')->first();
+        $roles_select = RolesModel::where('roles_name','select')->first();//Lấy dữ liệu trong Roles
+        $roles_insert = RolesModel::where('roles_name','insert')->first();//lấy dữ liệu trong Roles
+        $roles_update = RolesModel::where('roles_name','update')->first();//lấy dữ liệu trong Roles
+        $roles_delete = RolesModel::where('roles_name','delete')->first();//lấy dữ liệu trong Roles
 
         $select = AdminModel::create([
             'admin_email' => 'adminselect@gmail.com',
@@ -80,9 +80,12 @@ class AdminSeeder extends Seeder
         $update->roles()->attach($roles_update);
         $delete->roles()->attach($roles_delete);
 
-        //roles() : quyềns  
+        //roles() : hàm được khởi tạo trong admin model
         //attach() : đính kèm dữ liệu,Đính kèm được sử dụng chủ yếu Mối quan hệ hùng hồn trong nhiều mối quan hệ . Nó chủ yếu sử dụng chèn hoặc cập nhật dữ liệu bảng trung gian. Ví dụ, hãy tưởng tượng một người dùng có thể có nhiều vai trò và một vai trò có thể có nhiều người dùng. Bạn có thể sử dụng phương thức đính kèm để đính kèm vai trò cho người dùng bằng cách chèn bản ghi vào bảng trung gian của mối quan hệ:
     
         // factory(App\Models\AdminModel::class,20)->create();
+        // Ý nghĩa câu lệnh: tạo dữ liệu, xong kết nối tới model gọi function roles() liên kết với RolesModel . 
+        // Sau đó hàm attach() khởi tạo vào bảng mới(dựa trên tên 2 model liên kết với nhau để đặt tên cho bẳng mới) kèm kết nối id phân quyền.
+        // 
     }
 }
