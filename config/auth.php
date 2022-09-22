@@ -12,7 +12,7 @@ return [
     | as required, but they're a perfect start for most applications.
     |
     */
-
+    
     'defaults' => [
         //Hàm gốc
         // 'guard' => 'web',
@@ -39,7 +39,7 @@ return [
     | Supported: "session"
     |
     */
-
+    //bảo vệ- lưu session
     'guards' => [
         //hàm gốc
         // 'web' => [
@@ -70,7 +70,7 @@ return [
     | Supported: "database", "eloquent"
     |
     */
-
+    //Truy vấn lấy cơ sở dữ liệu ra để so sánh với AdminModel
     'providers' => [
         //Hàm gốc 
         'users' => [
@@ -80,7 +80,7 @@ return [
         //Thêm hàm kiểm tra đăng nhập mới
         'custom_users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\AdminModel::class,//Thay đổi đường dẫn truy cập database
+            'model' => App\Models\AdminModel::class,//Thay đổi đường dẫn truy cập database để truy vấn tới Admin
         ],
     ],
 
@@ -98,9 +98,9 @@ return [
     | they have less time to be guessed. You may change this as needed.
     |
     */
-
+    // Thiết lập kết nối password, reset password sau mốc thời gian đã định
     'passwords' => [
-        //Gốc
+        //Hàm gốc
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
@@ -109,7 +109,7 @@ return [
         ],
         //Gia hạn thời gian cho hàm vừa tạo ở providers
         'custom_users' => [
-            'provider' => 'users',
+            'provider' => 'custom_users',
             'table' => 'password_resets',
             'expire' => 15,//Giới hạn thời gian 15p
             'throttle' => 60,

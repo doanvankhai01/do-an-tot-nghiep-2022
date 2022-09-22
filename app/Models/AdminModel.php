@@ -32,7 +32,7 @@ class AdminModel extends Authenticatable
     }
 
     public function getAuthPassword(){//Tên hàm cố định không đc sửa
-        return $this->admin_password;
+        return $this->admin_password;//Nếu tên hàm đúng thì hệ thống sẽ tự hiểu mình muốn lấy password
     }
     public function hasAnyRoles($roles){
         return null !== $this->roles()->whereIn('roles_name', $roles)->first();

@@ -15,6 +15,6 @@ class RolesModel extends Model
     protected $table = 'tbl_roles';
 
     public function admin(){
-        return $this->belongsToMaNy('AdminModel');
+        return $this->belongsToMaNy('App\Models\AdminModel');
     }
 }

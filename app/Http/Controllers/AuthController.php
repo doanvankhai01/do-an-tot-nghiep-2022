@@ -33,7 +33,7 @@ class AuthController extends Controller
         ]);
     }
     //end validtion
-
+    //Hiển thị giao diện login auth
     public function register_auth(){
         return view('customer_auth.register');
     }
@@ -96,7 +96,8 @@ class AuthController extends Controller
             Session::put('message','swal("Đăng nhập thành công!", "Chuyển tới trang quản lý","success")');
             return redirect('/dashboard');
         }else{
-            return redirect('/login-auth')->with('message','Lỗi đăng nhập authentication');
+            Session::put('message','swal("Đăng nhập thất bại!", "Vui lòng kiểm tra lại!","error")');
+            return redirect('/login-auth');
         }
     }
     public function log_out_auth(){

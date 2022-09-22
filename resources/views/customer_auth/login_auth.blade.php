@@ -42,15 +42,16 @@ ondbclick:	Xảy ra khi double click vào phần tử HTML -->
                     <header class="panel-heading">
                         <h2 class="h2-title">Đăng nhập tài khoản quản trị</h2>
                     </header>
-                     <?php
-                        $message = Session::get('message');
-                        if($message){
-                            echo '<span class="text-alert">'.$message.'</span>';
-                            Session::put('message',null);
-                        }
-                        ?>
+                    <?php
+                    $message = Session::get("message");
+                    if($message){
+                        echo '<script type="text/javascript">window.setTimeout(function test(){'.$message.'},100);</script>';
+                        Session::put('message',null);
                        
-                    
+                    ?>
+                    <?php
+                    }
+                    ?>
                                 <form action="{{url('/login-at-auth')}}" method="POST" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     @foreach($errors->all() as $val)
